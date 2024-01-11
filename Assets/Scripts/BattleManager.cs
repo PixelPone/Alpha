@@ -4,6 +4,9 @@ using UnityEngine;
 
 public class BattleManager : MonoBehaviour
 {
+    /// <summary>
+    /// Keeps track of the current State being processed by the Battle Manager.
+    /// </summary>
     private int currentStateIndex;
     [SerializeField] public PlayerInput playerInput;
     [SerializeField] private List<GameObject> turnOrder;
