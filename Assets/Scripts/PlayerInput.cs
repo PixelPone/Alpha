@@ -21,7 +21,7 @@ public class PlayerInput : MonoBehaviour
 
     /// <summary>
     /// Generic EventArgs class used to obtain callbackContext of PlayerInputActions'
-    /// Actions- basically it's just an EventHandler version of those Actions.
+    /// Actions.
     /// </summary>
     public class InputActionArgs : EventArgs
     {

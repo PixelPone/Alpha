@@ -8,6 +8,8 @@ public class PlayerMainState : MonoBehaviour
 
     private int menuIndex;
 
+    [SerializeField] private GameObject moveSelectionState;
+
 
     private void Awake()
     {
@@ -15,7 +17,7 @@ public class PlayerMainState : MonoBehaviour
     }
     private void OnEnable()
     {
-        Debug.Log(gameObject.name + "'s MainPlayerState's OnEnable Ran!");
+        Debug.Log("MainPlayerState's OnEnable Ran!");
 
         BattleManager.Instance.playerInput.OnMoveAction += PlayerInput_OnMoveAction;
         BattleManager.Instance.playerInput.OnSelectAction += PlayerInput_OnSelectAction;
@@ -112,11 +114,18 @@ public class PlayerMainState : MonoBehaviour
         }
 
         Debug.Log(test);
+        if(menuIndex == 0)
+        {
+            BattleManager.Instance.AddState(moveSelectionState);
+            BattleManager.Instance.NextState();
+        }
     }
 
     private void OnDisable()
     {
+        Debug.Log("MainPlayerState's OnDisable Ran!");
         BattleManager.Instance.playerInput.OnMoveAction -= PlayerInput_OnMoveAction;
+        BattleManager.Instance.playerInput.OnSelectAction -= PlayerInput_OnSelectAction;
     }
 
 }

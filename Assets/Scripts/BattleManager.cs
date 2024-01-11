@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class BattleManager : MonoBehaviour
 {
+    private int currentStateIndex;
     [SerializeField] public PlayerInput playerInput;
     [SerializeField] private List<GameObject> turnOrder;
 
@@ -20,6 +21,7 @@ public class BattleManager : MonoBehaviour
         }
         
         Instance = this;
+        currentStateIndex = 0;
 
         if (turnOrder.Count == 0)
         {
@@ -72,6 +74,21 @@ public class BattleManager : MonoBehaviour
     {
         Transform stateClone = Instantiate(state.transform);
         stateClone.SetParent(transform, false);
+    }
+
+    public void NextState()
+    {
+        if(currentStateIndex < transform.childCount-1)
+        {
+            transform.GetChild(currentStateIndex).gameObject.SetActive(false);
+            currentStateIndex++;
+            transform.GetChild(currentStateIndex).gameObject.SetActive(true);
+        }
+        else
+        {
+            transform.GetChild(currentStateIndex).gameObject.SetActive(false);
+            currentStateIndex = 0;
+        }
     }
 
 }
