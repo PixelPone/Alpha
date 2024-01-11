@@ -37,7 +37,7 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
                     ""initialStateCheck"": true
                 },
                 {
-                    ""name"": ""Accept"",
+                    ""name"": ""Select"",
                     ""type"": ""Button"",
                     ""id"": ""3a30aef5-f8b6-49cb-a225-ac70d58456ac"",
                     ""expectedControlType"": ""Button"",
@@ -109,7 +109,7 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
-                    ""action"": ""Accept"",
+                    ""action"": ""Select"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -121,7 +121,7 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
         // Battle
         m_Battle = asset.FindActionMap("Battle", throwIfNotFound: true);
         m_Battle_Move = m_Battle.FindAction("Move", throwIfNotFound: true);
-        m_Battle_Accept = m_Battle.FindAction("Accept", throwIfNotFound: true);
+        m_Battle_Select = m_Battle.FindAction("Select", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -184,13 +184,13 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
     private readonly InputActionMap m_Battle;
     private List<IBattleActions> m_BattleActionsCallbackInterfaces = new List<IBattleActions>();
     private readonly InputAction m_Battle_Move;
-    private readonly InputAction m_Battle_Accept;
+    private readonly InputAction m_Battle_Select;
     public struct BattleActions
     {
         private @PlayerInputActions m_Wrapper;
         public BattleActions(@PlayerInputActions wrapper) { m_Wrapper = wrapper; }
         public InputAction @Move => m_Wrapper.m_Battle_Move;
-        public InputAction @Accept => m_Wrapper.m_Battle_Accept;
+        public InputAction @Select => m_Wrapper.m_Battle_Select;
         public InputActionMap Get() { return m_Wrapper.m_Battle; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -203,9 +203,9 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
             @Move.started += instance.OnMove;
             @Move.performed += instance.OnMove;
             @Move.canceled += instance.OnMove;
-            @Accept.started += instance.OnAccept;
-            @Accept.performed += instance.OnAccept;
-            @Accept.canceled += instance.OnAccept;
+            @Select.started += instance.OnSelect;
+            @Select.performed += instance.OnSelect;
+            @Select.canceled += instance.OnSelect;
         }
 
         private void UnregisterCallbacks(IBattleActions instance)
@@ -213,9 +213,9 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
             @Move.started -= instance.OnMove;
             @Move.performed -= instance.OnMove;
             @Move.canceled -= instance.OnMove;
-            @Accept.started -= instance.OnAccept;
-            @Accept.performed -= instance.OnAccept;
-            @Accept.canceled -= instance.OnAccept;
+            @Select.started -= instance.OnSelect;
+            @Select.performed -= instance.OnSelect;
+            @Select.canceled -= instance.OnSelect;
         }
 
         public void RemoveCallbacks(IBattleActions instance)
@@ -236,6 +236,6 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
     public interface IBattleActions
     {
         void OnMove(InputAction.CallbackContext context);
-        void OnAccept(InputAction.CallbackContext context);
+        void OnSelect(InputAction.CallbackContext context);
     }
 }

@@ -15,7 +15,7 @@
                     "initialStateCheck": true
                 },
                 {
-                    "name": "Accept",
+                    "name": "Select",
                     "type": "Button",
                     "id": "3a30aef5-f8b6-49cb-a225-ac70d58456ac",
                     "expectedControlType": "Button",
@@ -87,7 +87,7 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "Accept",
+                    "action": "Select",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

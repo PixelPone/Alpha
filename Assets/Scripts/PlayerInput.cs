@@ -17,7 +17,7 @@ using UnityEngine.InputSystem;
 public class PlayerInput : MonoBehaviour
 {
     public event EventHandler<InputActionArgs> OnMoveAction;
-    public event EventHandler<InputActionArgs> OnAcceptAction;
+    public event EventHandler<InputActionArgs> OnSelectAction;
 
     /// <summary>
     /// Generic EventArgs class used to obtain callbackContext of PlayerInputActions'
@@ -35,12 +35,12 @@ public class PlayerInput : MonoBehaviour
         inputActions = new PlayerInputActions();
         inputActions.Battle.Enable();
         inputActions.Battle.Move.performed += Move_performed;
-        inputActions.Battle.Accept.performed += Accept_performed;
+        inputActions.Battle.Select.performed += Select_performed;
     }
 
-    private void Accept_performed(InputAction.CallbackContext obj)
+    private void Select_performed(InputAction.CallbackContext obj)
     {
-        OnAcceptAction?.Invoke(this, new InputActionArgs() { callbackContext = obj });
+        OnSelectAction?.Invoke(this, new InputActionArgs() { callbackContext = obj });
     }
 
     private void Move_performed(InputAction.CallbackContext obj)

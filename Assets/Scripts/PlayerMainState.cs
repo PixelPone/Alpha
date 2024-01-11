@@ -18,7 +18,7 @@ public class PlayerMainState : MonoBehaviour
         Debug.Log(gameObject.name + "'s MainPlayerState's OnEnable Ran!");
 
         BattleManager.Instance.playerInput.OnMoveAction += PlayerInput_OnMoveAction;
-        BattleManager.Instance.playerInput.OnAcceptAction += PlayerInput_OnAcceptAction;
+        BattleManager.Instance.playerInput.OnSelectAction += PlayerInput_OnSelectAction;
     }
 
     // Start is called before the first frame update
@@ -92,7 +92,7 @@ public class PlayerMainState : MonoBehaviour
         }
     }
 
-    private void PlayerInput_OnAcceptAction(object sender, PlayerInput.InputActionArgs args)
+    private void PlayerInput_OnSelectAction(object sender, PlayerInput.InputActionArgs args)
     {
         string test = string.Empty;
         switch(menuIndex)
