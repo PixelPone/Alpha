@@ -9,7 +9,7 @@ public class BattleManager : MonoBehaviour
     /// </summary>
     private int currentStateIndex;
     [SerializeField] public PlayerInput playerInput;
-    [SerializeField] private List<GameObject> turnOrder;
+    [SerializeField] private List<BattleEntity> turnOrder;
 
     //Singleton pattern- useful when there is only one instance of an item
     public static BattleManager Instance { get; private set; }
@@ -29,7 +29,7 @@ public class BattleManager : MonoBehaviour
         if (turnOrder.Count == 0)
         {
             Debug.LogWarning("Battle Manager does not have any Battle Entities assigned to it!", transform.gameObject);
-            turnOrder = new List<GameObject>();
+            turnOrder = new List<BattleEntity>();
         }
 
     }
@@ -42,7 +42,7 @@ public class BattleManager : MonoBehaviour
     // Start is called before the first frame update
     private void Start()
     {
-        turnOrder[0].SetActive(true);
+        turnOrder[0].DefaultBehavior.SetActive(true);
     }
 
     // Update is called once per frame
@@ -79,18 +79,23 @@ public class BattleManager : MonoBehaviour
         stateClone.SetParent(transform, false);
     }
 
+    /// <summary>
+    /// Moves to the previous state in the Battle Manager's list of states.
+    /// </summary>
     public void PreviousState()
     {
         //Clean up current state, and then transition to previous state
         GameObject currentGameObject = transform.GetChild(currentStateIndex).gameObject;
         currentGameObject.SetActive(false);
+        //Destroys current state (so it clears logic flow for any new states the previous state
+        //might introduce)
         Destroy(currentGameObject);
         currentStateIndex--;
         transform.GetChild(currentStateIndex).gameObject.SetActive(true);
     }
 
     /// <summary>
-    /// Moves to the next State in the Battle Manager's list of States (if anymore are found).
+    /// Moves to the next state in the Battle Manager's list of states (if anymore are found).
     /// </summary>
     public void NextState()
     {

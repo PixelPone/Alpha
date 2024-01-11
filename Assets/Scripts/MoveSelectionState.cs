@@ -13,12 +13,12 @@ public class MoveSelectionState : MonoBehaviour
 
     private void PlayerInput_OnSelectAction(object sender, PlayerInput.InputActionArgs args)
     {
-        Debug.Log("This is running in MoveSelection!");
+        Debug.Log("SelectionAction Ran in MoveSelection!");
     }
 
     private void PlayerInput_OnAltSelectAction(object sender, PlayerInput.InputActionArgs args)
     {
-        Debug.Log("This is running in MoveSelection!");
+        Debug.Log("AltSelectionAction Ran in MoveSelection!");
         BattleManager.Instance.PreviousState();
     }
 
