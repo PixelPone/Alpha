@@ -44,6 +44,15 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""AltSelect"",
+                    ""type"": ""Button"",
+                    ""id"": ""e95cac95-22d0-4b96-8ae9-39039fea6dcf"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -112,6 +121,17 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
                     ""action"": ""Select"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""f9c94674-2195-4a7c-bddf-9cd048d94bfc"",
+                    ""path"": ""<Keyboard>/x"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""AltSelect"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -122,6 +142,7 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
         m_Battle = asset.FindActionMap("Battle", throwIfNotFound: true);
         m_Battle_Move = m_Battle.FindAction("Move", throwIfNotFound: true);
         m_Battle_Select = m_Battle.FindAction("Select", throwIfNotFound: true);
+        m_Battle_AltSelect = m_Battle.FindAction("AltSelect", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -185,12 +206,14 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
     private List<IBattleActions> m_BattleActionsCallbackInterfaces = new List<IBattleActions>();
     private readonly InputAction m_Battle_Move;
     private readonly InputAction m_Battle_Select;
+    private readonly InputAction m_Battle_AltSelect;
     public struct BattleActions
     {
         private @PlayerInputActions m_Wrapper;
         public BattleActions(@PlayerInputActions wrapper) { m_Wrapper = wrapper; }
         public InputAction @Move => m_Wrapper.m_Battle_Move;
         public InputAction @Select => m_Wrapper.m_Battle_Select;
+        public InputAction @AltSelect => m_Wrapper.m_Battle_AltSelect;
         public InputActionMap Get() { return m_Wrapper.m_Battle; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -206,6 +229,9 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
             @Select.started += instance.OnSelect;
             @Select.performed += instance.OnSelect;
             @Select.canceled += instance.OnSelect;
+            @AltSelect.started += instance.OnAltSelect;
+            @AltSelect.performed += instance.OnAltSelect;
+            @AltSelect.canceled += instance.OnAltSelect;
         }
 
         private void UnregisterCallbacks(IBattleActions instance)
@@ -216,6 +242,9 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
             @Select.started -= instance.OnSelect;
             @Select.performed -= instance.OnSelect;
             @Select.canceled -= instance.OnSelect;
+            @AltSelect.started -= instance.OnAltSelect;
+            @AltSelect.performed -= instance.OnAltSelect;
+            @AltSelect.canceled -= instance.OnAltSelect;
         }
 
         public void RemoveCallbacks(IBattleActions instance)
@@ -237,5 +266,6 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
     {
         void OnMove(InputAction.CallbackContext context);
         void OnSelect(InputAction.CallbackContext context);
+        void OnAltSelect(InputAction.CallbackContext context);
     }
 }

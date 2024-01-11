@@ -76,15 +76,26 @@ public class BattleManager : MonoBehaviour
         stateClone.SetParent(transform, false);
     }
 
+    public void PreviousState()
+    {
+        //Clean up current state, and then transition to previous state
+        GameObject currentGameObject = transform.GetChild(currentStateIndex).gameObject;
+        currentGameObject.SetActive(false);
+        Destroy(currentGameObject);
+        currentStateIndex--;
+        transform.GetChild(currentStateIndex).gameObject.SetActive(true);
+    }
+
     /// <summary>
-    /// Moves to the next State in the Battle Manager's list of States (if it has anymore).
+    /// Moves to the next State in the Battle Manager's list of States (if anymore are found).
     /// </summary>
     public void NextState()
     {
         if(currentStateIndex < transform.childCount-1)
         {
             //Clean up current state, and then transition to next state
-            transform.GetChild(currentStateIndex).gameObject.SetActive(false);
+            GameObject currentGameObject = transform.GetChild(currentStateIndex).gameObject;
+            currentGameObject.SetActive(false);
             currentStateIndex++;
             transform.GetChild(currentStateIndex).gameObject.SetActive(true);
         }

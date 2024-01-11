@@ -8,10 +8,24 @@ public class MoveSelectionState : MonoBehaviour
     {
         Debug.Log("MoveSelectionState's OnEnable Ran!");
         BattleManager.Instance.playerInput.OnSelectAction += PlayerInput_OnSelectAction;
+        BattleManager.Instance.playerInput.OnAltSelectAction += PlayerInput_OnAltSelectAction;
     }
 
-    private void PlayerInput_OnSelectAction(object sender, PlayerInput.InputActionArgs e)
+    private void PlayerInput_OnSelectAction(object sender, PlayerInput.InputActionArgs args)
     {
         Debug.Log("This is running in MoveSelection!");
+    }
+
+    private void PlayerInput_OnAltSelectAction(object sender, PlayerInput.InputActionArgs args)
+    {
+        Debug.Log("This is running in MoveSelection!");
+        BattleManager.Instance.PreviousState();
+    }
+
+    private void OnDisable()
+    {
+        Debug.Log("MoveSelectionState's OnDisable Ran!");
+        BattleManager.Instance.playerInput.OnSelectAction -= PlayerInput_OnSelectAction;
+        BattleManager.Instance.playerInput.OnAltSelectAction -= PlayerInput_OnAltSelectAction;
     }
 }

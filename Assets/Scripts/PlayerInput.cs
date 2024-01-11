@@ -18,6 +18,7 @@ public class PlayerInput : MonoBehaviour
 {
     public event EventHandler<InputActionArgs> OnMoveAction;
     public event EventHandler<InputActionArgs> OnSelectAction;
+    public event EventHandler<InputActionArgs> OnAltSelectAction;
 
     /// <summary>
     /// Generic EventArgs class used to obtain callbackContext of PlayerInputActions'
@@ -36,6 +37,12 @@ public class PlayerInput : MonoBehaviour
         inputActions.Battle.Enable();
         inputActions.Battle.Move.performed += Move_performed;
         inputActions.Battle.Select.performed += Select_performed;
+        inputActions.Battle.AltSelect.performed += AltSelect_performed;
+    }
+
+    private void Move_performed(InputAction.CallbackContext obj)
+    {
+        OnMoveAction?.Invoke(this, new InputActionArgs() { callbackContext = obj });
     }
 
     private void Select_performed(InputAction.CallbackContext obj)
@@ -43,8 +50,8 @@ public class PlayerInput : MonoBehaviour
         OnSelectAction?.Invoke(this, new InputActionArgs() { callbackContext = obj });
     }
 
-    private void Move_performed(InputAction.CallbackContext obj)
+    private void AltSelect_performed(InputAction.CallbackContext obj)
     {
-        OnMoveAction?.Invoke(this, new InputActionArgs() { callbackContext = obj });
+        OnAltSelectAction?.Invoke(this, new InputActionArgs() { callbackContext = obj });
     }
 }
