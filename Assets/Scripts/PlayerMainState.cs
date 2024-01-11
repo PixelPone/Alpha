@@ -1,5 +1,8 @@
 using UnityEngine;
 
+/// <summary>
+/// Default main state of a player in battle.
+/// </summary>
 public class PlayerMainState : MonoBehaviour
 {
 

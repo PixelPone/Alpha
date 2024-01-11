@@ -1,11 +1,11 @@
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public class BattleManager : MonoBehaviour
 {
     [SerializeField] public PlayerInput playerInput;
     [SerializeField] private List<GameObject> turnOrder;
-    //private Queue<GameObject> actionQueue;
 
     //Singleton pattern- useful when there is only one instance of an item
     public static BattleManager Instance { get; private set; }
@@ -18,6 +18,7 @@ public class BattleManager : MonoBehaviour
         {
             Debug.LogError("There is more than one instance of BattleManager!", transform.gameObject);
         }
+        
         Instance = this;
 
         if (turnOrder.Count == 0)
@@ -25,6 +26,7 @@ public class BattleManager : MonoBehaviour
             Debug.LogWarning("Battle Manager does not have any Battle Entities assigned to it!", transform.gameObject);
             turnOrder = new List<GameObject>();
         }
+
     }
 
     private void OnEnable()
@@ -42,6 +44,34 @@ public class BattleManager : MonoBehaviour
     private void Update()
     {
         
+    }
+
+    /// <summary>
+    /// Add behavior (list of associated state GameObjects) to end of Battle Manager's state list.
+    /// </summary>
+    /// <param name="behaviorObject">The parent GameObject whose children are the list of state GameObjects to be added.</param>
+    public void AddBehavior(GameObject behaviorObject)
+    {
+        //Get list of state GameObjects associated with behavior except for behavior object itself
+        IEnumerable<Transform> behaviorStates = behaviorObject.GetComponentsInChildren<Transform>().Where(t => {
+            return t != behaviorObject.transform;
+        });
+
+        foreach (Transform t in behaviorStates)
+        {
+            Transform stateClone = Instantiate(t);
+            stateClone.SetParent(transform, false);
+        }
+    }
+
+    /// <summary>
+    /// Add individual state to end of Battle Manager's state list.
+    /// </summary>
+    /// <param name="state">State GameObject that will be added.</param>
+    public void AddState(GameObject state)
+    {
+        Transform stateClone = Instantiate(state.transform);
+        stateClone.SetParent(transform, false);
     }
 
 }
