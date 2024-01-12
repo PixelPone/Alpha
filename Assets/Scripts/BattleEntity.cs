@@ -20,5 +20,13 @@ public class BattleEntity : MonoBehaviour
     /// in battle.
     /// </summary>
     public GameObject DefaultBehavior { get { return defaultBehavior; } }
-    public Vector2 BattleGridPosition { get; set; }
+    public Vector2Int BattleGridPosition { get; set; }
+
+    public int CurrentAP { get; set; }
+
+    private void Awake()
+    {
+        CurrentAP = battleEntityData.MaxAP;
+        BattleGridPosition = new Vector2Int(4, 4);
+    }
 }

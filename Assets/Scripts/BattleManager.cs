@@ -8,11 +8,14 @@ public class BattleManager : MonoBehaviour
     /// Keeps track of the current State being processed by the Battle Manager.
     /// </summary>
     private int currentStateIndex;
+    private BattleGrid battleGrid;
     [SerializeField] public PlayerInput playerInput;
     [SerializeField] private List<BattleEntity> turnOrder;
 
     //Singleton pattern- useful when there is only one instance of an item
     public static BattleManager Instance { get; private set; }
+
+    public BattleGrid BattleGridProperty { get { return battleGrid; } }
 
 
     private void Awake()
@@ -22,8 +25,9 @@ public class BattleManager : MonoBehaviour
         {
             Debug.LogError("There is more than one instance of BattleManager!", transform.gameObject);
         }
-        
+
         Instance = this;
+        battleGrid = new BattleGrid(new Vector2(-192, -60f), 12, 8, 32, 16);
         currentStateIndex = 0;
 
         if (turnOrder.Count == 0)
@@ -48,7 +52,7 @@ public class BattleManager : MonoBehaviour
     // Update is called once per frame
     private void Update()
     {
-        
+
     }
 
     /// <summary>
@@ -58,7 +62,8 @@ public class BattleManager : MonoBehaviour
     public void AddBehavior(GameObject behaviorObject)
     {
         //Get list of state GameObjects associated with behavior except for behavior object itself
-        IEnumerable<Transform> behaviorStates = behaviorObject.GetComponentsInChildren<Transform>().Where(t => {
+        IEnumerable<Transform> behaviorStates = behaviorObject.GetComponentsInChildren<Transform>().Where(t =>
+        {
             return t != behaviorObject.transform;
         });
 
@@ -99,7 +104,7 @@ public class BattleManager : MonoBehaviour
     /// </summary>
     public void NextState()
     {
-        if(currentStateIndex < transform.childCount-1)
+        if (currentStateIndex < transform.childCount - 1)
         {
             //Clean up current state, and then transition to next state
             GameObject currentGameObject = transform.GetChild(currentStateIndex).gameObject;
