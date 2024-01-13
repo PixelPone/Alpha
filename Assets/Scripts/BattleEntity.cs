@@ -11,7 +11,7 @@ public class BattleEntity : MonoBehaviour
     /// The default values that this BattleEntity has.
     /// </summary>
     /// <remarks>
-    /// This is very useful for Enemies that share a pool of stats.
+    /// This is very useful for enemies that share a pool of stats.
     /// </remarks>
     [SerializeField] private BattleEntityData battleEntityData;
     [SerializeField] private GameObject defaultBehavior;
@@ -20,8 +20,14 @@ public class BattleEntity : MonoBehaviour
     /// in battle.
     /// </summary>
     public GameObject DefaultBehavior { get { return defaultBehavior; } }
+    /// <summary>
+    /// Current battle grid position of this BattleEntity.
+    /// </summary>
     public Vector2Int BattleGridPosition { get; set; }
 
+    /// <summary>
+    /// The current AP that this BattleEntity has in battle.
+    /// </summary>
     public int CurrentAP { get; set; }
 
     private void Awake()

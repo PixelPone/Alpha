@@ -13,6 +13,9 @@ public class BattleManager : MonoBehaviour
     [SerializeField] private List<BattleEntity> turnOrder;
 
     //Singleton pattern- useful when there is only one instance of an item
+    /// <summary>
+    /// Instance reference to BattleManager.
+    /// </summary>
     public static BattleManager Instance { get; private set; }
 
     public BattleGrid BattleGridProperty { get { return battleGrid; } }
@@ -46,7 +49,8 @@ public class BattleManager : MonoBehaviour
     // Start is called before the first frame update
     private void Start()
     {
-        turnOrder[0].DefaultBehavior.SetActive(true);
+        AddState(turnOrder[0].DefaultBehavior);
+        transform.GetChild(0).gameObject.SetActive(true);
     }
 
     // Update is called once per frame

@@ -25,17 +25,20 @@ public class MoveSelectionState : MonoBehaviour
     /// </summary>
     private Vector2Int hoverPosition;
     /// <summary>
-    /// Index of top left box of area that player can select from
+    /// Index of top left box of area that player can select from.
     /// </summary>
     private Vector2Int selectBoundsTopLeft;
     /// <summary>
-    /// Index of bottom right box of area that player can select from
+    /// Index of bottom right box of area that player can select from.
     /// </summary>
     private Vector2Int selectBoundsBotRight;
     /// <summary>
-    /// List that stores the path that the player makes- used for undo as well
-    /// (Using a list in order to iterate from oldest to newest movements easier- can't do that with a Stack)
+    /// List that stores the path that the player makes- used for undo as well.
     /// </summary>
+    /// <remarks>
+    /// I used a List instead of a Stack in order to iterate through the path the
+    /// player creates.
+    /// </remarks>
     private List<Vector2Int> selectMovements;
 
     [SerializeField] private BattleEntity battleEntity;
@@ -73,6 +76,11 @@ public class MoveSelectionState : MonoBehaviour
         return movement.x != 0 && movement.y != 0 ? 2 : 1;
     }
 
+    /// <summary>
+    /// Updates selection bounds from which a player can currently select a tile
+    /// to move to.
+    /// </summary>
+    /// <param name="center">Center index who the new bounds are to be based on.</param>
     private void UpdateBounds(Vector2Int center)
     {
 
