@@ -8,6 +8,7 @@ public class BattleManager : MonoBehaviour
     /// Keeps track of the current State being processed by the Battle Manager.
     /// </summary>
     private int currentStateIndex;
+    private int currentEntityIndex;
     private BattleGrid battleGrid;
     [SerializeField] public PlayerInput playerInput;
     [SerializeField] private List<BattleEntity> turnOrder;
@@ -23,7 +24,7 @@ public class BattleManager : MonoBehaviour
 
     private void Awake()
     {
-        Debug.Log(gameObject.name + "'s BattleManager Awake Method Ran!");
+        Debug.Log("BattleManager Awake Method Ran!");
         if (Instance != null)
         {
             Debug.LogError("There is more than one instance of BattleManager!", transform.gameObject);
@@ -31,6 +32,7 @@ public class BattleManager : MonoBehaviour
 
         Instance = this;
         battleGrid = new BattleGrid(new Vector2(-192, -60f), 12, 8, 32, 16);
+        currentEntityIndex = 0;
         currentStateIndex = 0;
 
         if (turnOrder.Count == 0)
@@ -43,7 +45,7 @@ public class BattleManager : MonoBehaviour
 
     private void OnEnable()
     {
-        Debug.Log(gameObject.name + "'s BattleManager's OnEnable Ran!");
+        Debug.Log("BattleManager's OnEnable Ran!");
     }
 
     // Start is called before the first frame update
@@ -57,6 +59,19 @@ public class BattleManager : MonoBehaviour
     private void Update()
     {
 
+    }
+
+    public void NextBattleEntity()
+    {
+        //First get proper index in turn order
+        currentEntityIndex = currentEntityIndex == turnOrder.Count - 1 ? 0 : currentEntityIndex + 1;
+
+        AddState(turnOrder[currentEntityIndex].DefaultBehavior);
+        //As GameObjects are delayed when destroyed, technically the previous BattleEntity's states will
+        //still exist in Battle Manager's list of states. The child count will include these states as well
+        //To account for this, use childCount -1 as the next Battle Entity's states will be at the end of the
+        //list
+        transform.GetChild(transform.childCount - 1).gameObject.SetActive(true);
     }
 
     /// <summary>
@@ -118,10 +133,15 @@ public class BattleManager : MonoBehaviour
         }
         else
         {
-            //Clean up current state and then transition to next BattleEntity who is next
-            //in turn order
+            //Clean up last state, remove all current states and transition to next
+            //BattleEntity in turn order
             transform.GetChild(currentStateIndex).gameObject.SetActive(false);
+            foreach(Transform child in transform.GetComponentInChildren<Transform>())
+            {
+                Destroy(child.gameObject);
+            }
             currentStateIndex = 0;
+            NextBattleEntity();
         }
     }
 

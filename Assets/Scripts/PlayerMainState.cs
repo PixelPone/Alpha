@@ -31,7 +31,7 @@ public class PlayerMainState : MonoBehaviour
 
     private void PlayerInput_OnMoveAction(object sender, PlayerInput.InputActionArgs args)
     {
-        Debug.Log("OnMoveAction Ran in PlayerMainState!");
+        //Debug.Log("OnMoveAction Ran in PlayerMainState!");
         Vector2 currentInput = args.callbackContext.ReadValue<Vector2>();
         if(currentInput == Vector2.left)
         {
@@ -97,7 +97,7 @@ public class PlayerMainState : MonoBehaviour
 
     private void PlayerInput_OnSelectAction(object sender, PlayerInput.InputActionArgs args)
     {
-        Debug.Log("SelectionAction Ran in PlayerMainState!");
+        //Debug.Log("SelectionAction Ran in PlayerMainState!");
         string test = string.Empty;
         switch(menuIndex)
         {

@@ -134,8 +134,8 @@ public class MoveSelectionState : MonoBehaviour
 
     private void PlayerInput_OnSelectAction(object sender, PlayerInput.InputActionArgs args)
     {
-        Debug.Log("SelectionAction Ran in MoveSelection!");
-        Debug.Log($"The value of the square you are touching is: {battleGrid.GetSquareValue(hoverPosition.x, hoverPosition.y)}");
+        //Debug.Log("SelectionAction Ran in MoveSelection!");
+        //Debug.Log($"The value of the square you are touching is: {battleGrid.GetSquareValue(hoverPosition.x, hoverPosition.y)}");
         Vector2Int movement = hoverPosition - centerPosition;
         int costOfMovement = GetCostOfPathMovement(movement);
         if (!centerPosition.Equals(hoverPosition) && (costOfCurrentPath + costOfMovement) <= battleEntity.CurrentAP)
@@ -159,6 +159,7 @@ public class MoveSelectionState : MonoBehaviour
         else if (centerPosition.Equals(hoverPosition) && selectMovements.Count != 0)
         {
             battleEntity.CurrentAP -= costOfCurrentPath;
+            BattleManager.Instance.NextState();
             //StartCoroutine(MoveAlongPathCoroutine());
         }
         else
@@ -169,13 +170,14 @@ public class MoveSelectionState : MonoBehaviour
             string feedback = selectMovements.Count != 0
                 ? "You do not have enough Action Points to move this far!"
                 : "You haven't created a Path to move yet!";
+            Debug.Log(feedback);
             //StartCoroutine(DialogPathErrorCoroutine(feedback));
         }
     }
 
     private void PlayerInput_OnAltSelectAction(object sender, PlayerInput.InputActionArgs args)
     {
-        Debug.Log("AltSelectionAction Ran in MoveSelection!");
+        //Debug.Log("AltSelectionAction Ran in MoveSelection!");
         if (selectMovements.Count > 0)
         {
             Vector2Int top = selectMovements[selectMovements.Count - 1];
@@ -191,7 +193,7 @@ public class MoveSelectionState : MonoBehaviour
             foreach (Vector2Int position in selectMovements)
             {
                 currentPath += position;
-                battleGrid.DrawSquare(Color.green, currentPath.x, currentPath.y);
+                //battleGrid.DrawSquare(Color.green, currentPath.x, currentPath.y);
             }
             hoverPosition = centerPosition;
 
