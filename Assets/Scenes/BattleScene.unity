@@ -442,6 +442,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a3fb3f9fa855828468aa7b8f348da9eb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  selectionWidth: 3
+  selectionHeight: 3
   battleEntity: {fileID: 742464566}
 --- !u!1 &1983020682
 GameObject:

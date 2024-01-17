@@ -11,6 +11,12 @@ public class MoveSelectionState : MonoBehaviour
     /// </summary>
     private int costOfCurrentPath;
     /// <summary>
+    /// Width for selection bounds.
+    /// </summary>
+    [SerializeField] private int selectionWidth;
+    /// Height for selection bounds.
+    [SerializeField] private int selectionHeight;
+    /// <summary>
     /// The start of the current potential path being built.
     /// </summary>
     private Vector2Int startOfCurrentPath;
@@ -54,7 +60,18 @@ public class MoveSelectionState : MonoBehaviour
         centerPosition = battleEntity.BattleGridPosition;
         startOfCurrentPath = centerPosition;
         hoverPosition = centerPosition;
-        selectionBounds = new SquareSelection(new Vector2Int(centerPosition.x - 1, centerPosition.y - 1), 3, 3);
+
+        if(selectionWidth == 0 || selectionHeight == 0)
+        {
+            Debug.LogError("One or both of MoveSelectionState's selection bounds is 0!");
+        }
+
+        //Square bounds are created from the bottom left corner, subtract half of width and
+        //half of height selection bounds from center of selection
+        int halfWidth = selectionWidth / 2;
+        int halfHeight = selectionHeight / 2;
+        selectionBounds = new SquareSelection(new Vector2Int(centerPosition.x - halfWidth, centerPosition.y - halfHeight),
+            selectionWidth, selectionHeight);
 
         BattleManager.Instance.playerInput.OnMoveAction += PlayerInput_OnMoveAction;
         BattleManager.Instance.playerInput.OnSelectAction += PlayerInput_OnSelectAction;
@@ -78,7 +95,12 @@ public class MoveSelectionState : MonoBehaviour
     /// <param name="center">Center index who the new bounds are to be based on.</param>
     private void UpdateBounds(Vector2Int center)
     {
-        selectionBounds = new SquareSelection(new Vector2Int(center.x - 1, center.y - 1), 3, 3);
+        //Square bounds are created from the bottom left corner, subtract half of width and
+        //half of height selection bounds from center of selection
+        int halfWidth = selectionWidth / 2;
+        int halfHeight = selectionHeight / 2;
+        selectionBounds = new SquareSelection(new Vector2Int(center.x - halfWidth, center.y - halfHeight),
+            selectionWidth, selectionHeight);
     }
 
     private void PlayerInput_OnMoveAction(object sender, PlayerInput.InputActionArgs args)
@@ -111,6 +133,8 @@ public class MoveSelectionState : MonoBehaviour
         //Debug.Log($"The value of the square you are touching is: {battleGrid.GetSquareValue(hoverPosition.x, hoverPosition.y)}");
         Vector2Int movement = hoverPosition - centerPosition;
         int costOfMovement = GetCostOfPathMovement(movement);
+        
+        //Player is trying to add another battle tile to the path they are building and is able to
         if (!centerPosition.Equals(hoverPosition) && (costOfCurrentPath + costOfMovement) <= battleEntity.CurrentAP)
         {
             //Debug.Log($"Position Difference: {movement}");
@@ -129,20 +153,31 @@ public class MoveSelectionState : MonoBehaviour
                 //battleGrid.DrawSquare(Color.green, currentPath.x, currentPath.y);
             }
         }
+        //Player selects the center position, ending the path building process
         else if (centerPosition.Equals(hoverPosition) && selectMovements.Count != 0)
         {
             battleEntity.CurrentAP -= costOfCurrentPath;
             BattleManager.Instance.NextState();
             //StartCoroutine(MoveAlongPathCoroutine());
         }
+        //At this point, player is either trying to extend past what they can move to or
+        //hasn't created a path at all
         else
         {
-            //At this point, player is either trying to extend past what they can move to or
-            //hasn't created a path at all
+            string feedback = string.Empty;
+            if(battleEntity.CurrentAP == 0)
+            {
+                feedback = "You do not have enough Action Points to create a path!";
+            }
+            else if(battleEntity.CurrentAP > 0 && selectMovements.Count == 0)
+            {
+                feedback = "You haven't created a Path to move yet!";
+            }
+            else if(battleEntity.CurrentAP > 0 && selectMovements.Count > 0)
+            {
+                feedback = "You do not have enough Action Points to move this far!";
+            }
 
-            string feedback = selectMovements.Count != 0
-                ? "You do not have enough Action Points to move this far!"
-                : "You haven't created a Path to move yet!";
             Debug.Log(feedback);
             //StartCoroutine(DialogPathErrorCoroutine(feedback));
         }
