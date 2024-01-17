@@ -1,7 +1,5 @@
 using System.Collections.Generic;
-using System.Xml.Linq;
 using UnityEngine;
-using static UnityEditor.Timeline.TimelinePlaybackControls;
 
 /// <summary>
 /// The move selection phase of the player's battle turn.
@@ -25,13 +23,11 @@ public class MoveSelectionState : MonoBehaviour
     /// </summary>
     private Vector2Int hoverPosition;
     /// <summary>
-    /// Index of top left box of area that player can select from.
+    /// Bounds in which the player can select each tile of the path they
+    /// want to move.
     /// </summary>
-    private Vector2Int selectBoundsTopLeft;
-    /// <summary>
-    /// Index of bottom right box of area that player can select from.
-    /// </summary>
-    private Vector2Int selectBoundsBotRight;
+    private SquareSelection selectionBounds;
+
     /// <summary>
     /// List that stores the path that the player makes- used for undo as well.
     /// </summary>
@@ -48,8 +44,6 @@ public class MoveSelectionState : MonoBehaviour
     {
         costOfCurrentPath = 0;
         hoverPosition = Vector2Int.zero;
-        selectBoundsTopLeft = Vector2Int.zero;
-        selectBoundsBotRight = Vector2Int.zero;
         selectMovements = new List<Vector2Int>();
     }
 
@@ -60,6 +54,7 @@ public class MoveSelectionState : MonoBehaviour
         centerPosition = battleEntity.BattleGridPosition;
         startOfCurrentPath = centerPosition;
         hoverPosition = centerPosition;
+        selectionBounds = new SquareSelection(new Vector2Int(centerPosition.x - 1, centerPosition.y - 1), 3, 3);
 
         BattleManager.Instance.playerInput.OnMoveAction += PlayerInput_OnMoveAction;
         BattleManager.Instance.playerInput.OnSelectAction += PlayerInput_OnSelectAction;
@@ -83,52 +78,30 @@ public class MoveSelectionState : MonoBehaviour
     /// <param name="center">Center index who the new bounds are to be based on.</param>
     private void UpdateBounds(Vector2Int center)
     {
-
-        selectBoundsTopLeft = new Vector2Int(center.x - 1, center.y + 1);
-        selectBoundsBotRight = new Vector2Int(center.x + 1, center.y - 1);
-        if (selectBoundsTopLeft.x < 0)
-        {
-            selectBoundsTopLeft.x = 0;
-        }
-        if (selectBoundsTopLeft.y > battleGrid.Height - 1)
-        {
-            selectBoundsTopLeft.y = battleGrid.Height - 1;
-        }
-        if (selectBoundsBotRight.x > battleGrid.Width - 1)
-        {
-            selectBoundsBotRight.x = battleGrid.Width - 1;
-        }
-        if (selectBoundsBotRight.y < 0)
-        {
-            selectBoundsBotRight.y = 0;
-        }
+        selectionBounds = new SquareSelection(new Vector2Int(center.x - 1, center.y - 1), 3, 3);
     }
 
-        private void PlayerInput_OnMoveAction(object sender, PlayerInput.InputActionArgs args)
+    private void PlayerInput_OnMoveAction(object sender, PlayerInput.InputActionArgs args)
     {
         Vector2 playerInput = args.callbackContext.ReadValue<Vector2>();
-        //Debug.Log("Player Input: " + playerInput);
 
-        //Bound player input to selection square
-        if (playerInput.Equals(Vector2Int.left) && hoverPosition.x > 0
-            && hoverPosition.x > centerPosition.x - 1)
+        if (playerInput == Vector2Int.left || playerInput == Vector2Int.right
+            || playerInput == Vector2Int.up || playerInput == Vector2Int.down)
         {
-            hoverPosition.x--;
-        }
-        else if (playerInput.Equals(Vector2Int.right) && hoverPosition.x < battleGrid.Width - 1
-            && hoverPosition.x < centerPosition.x + 1)
-        {
-            hoverPosition.x++;
-        }
-        else if (playerInput.Equals(Vector2Int.down) && hoverPosition.y > 0
-            && hoverPosition.y > centerPosition.y - 1)
-        {
-            hoverPosition.y--;
-        }
-        else if (playerInput.Equals(Vector2Int.up) && hoverPosition.y < battleGrid.Height - 1
-            && hoverPosition.y < centerPosition.y + 1)
-        {
-            hoverPosition.y++;
+            Vector2Int newHoverPosition = hoverPosition + Vector2Int.RoundToInt(playerInput);
+            //Debug.Log("Player Input: " + playerInput);
+            //Debug.Log("Rounded Player Input: " + Vector2Int.RoundToInt(playerInput));
+            //Debug.Log("Potential New Hover Position: " + newHoverPosition);
+
+            //Have to check if the potential movement is in bounds or not
+            //As a result, need to check -1 rather then 0
+            if (selectionBounds.SelectionArea.Contains(newHoverPosition)
+                && newHoverPosition.x < battleGrid.Width && newHoverPosition.y < battleGrid.Height
+                && newHoverPosition.x > -1 && newHoverPosition.y > -1)
+            {
+                hoverPosition = newHoverPosition;
+            }
+
         }
     }
 
@@ -153,7 +126,7 @@ public class MoveSelectionState : MonoBehaviour
             foreach (Vector2Int position in selectMovements)
             {
                 currentPath += position;
-                battleGrid.DrawSquare(Color.green, currentPath.x, currentPath.y);
+                //battleGrid.DrawSquare(Color.green, currentPath.x, currentPath.y);
             }
         }
         else if (centerPosition.Equals(hoverPosition) && selectMovements.Count != 0)
@@ -202,7 +175,7 @@ public class MoveSelectionState : MonoBehaviour
         {
             BattleManager.Instance.PreviousState();
         }
-        
+
     }
 
     private void OnDisable()
