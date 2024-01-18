@@ -10,11 +10,11 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 98017264290ea3c44b7fa376368be122, type: 3}
-  m_Name: BattleEntityData
+  m_Name: Player
   m_EditorClassIdentifier: 
   description: The main player!
   maxHP: 20
-  maxAP: 20
+  maxAP: 100
   attack: 10
   defense: 10
   speed: 10

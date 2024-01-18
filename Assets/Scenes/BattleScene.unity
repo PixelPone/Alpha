@@ -382,7 +382,6 @@ MonoBehaviour:
   playerInput: {fileID: 130350313}
   turnOrder:
   - {fileID: 742464566}
-  - {fileID: 1983020683}
 --- !u!4 &1209393345
 Transform:
   m_ObjectHideFlags: 0
