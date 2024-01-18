@@ -4,7 +4,7 @@ using UnityEngine;
 [System.Serializable]
 public class SquareSelection : SelectionBase
 {
-    public SquareSelection(Vector2Int originPoint, int width, int height)
+    public SquareSelection(Vector2Int originPoint, int width, int height) : base()
     {
         OriginPoint = originPoint;
         SelectionArea = new HashSet<Vector2Int>();

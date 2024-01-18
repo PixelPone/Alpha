@@ -4,12 +4,12 @@ using UnityEngine;
 [System.Serializable]
 public class RightTriangleSelection : SelectionBase
 {
-    public RightTriangleSelection(Vector2Int originPoint, int side)
+    public RightTriangleSelection(Vector2Int originPoint, int width) : base()
     {
         OriginPoint = originPoint;
         SelectionArea = new HashSet<Vector2Int>();
 
-        for (int i = 0; i < side; i++)
+        for (int i = 0; i < width; i++)
         {
             for(int j = 0; j <= i; j++)
             {
