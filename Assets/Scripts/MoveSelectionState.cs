@@ -32,7 +32,7 @@ public class MoveSelectionState : MonoBehaviour
     /// Bounds in which the player can select each tile of the path they
     /// want to move.
     /// </summary>
-    private PyramidSelection selectionBounds;
+    private SquareSelection selectionBounds;
 
     /// <summary>
     /// List that stores the path that the player makes- used for undo as well.
@@ -70,9 +70,8 @@ public class MoveSelectionState : MonoBehaviour
         //half of height selection bounds from center of selection
         int halfWidth = selectionWidth / 2;
         int halfHeight = selectionHeight / 2;
-        /*selectionBounds = new SquareSelection(new Vector2Int(centerPosition.x - halfWidth, centerPosition.y - halfHeight),
-            selectionWidth, selectionHeight);*/
-        selectionBounds = new PyramidSelection(centerPosition, 3);
+        selectionBounds = new SquareSelection(new Vector2Int(centerPosition.x - halfWidth, centerPosition.y - halfHeight),
+            selectionWidth, selectionHeight);
 
         BattleManager.Instance.playerInput.OnMoveAction += PlayerInput_OnMoveAction;
         BattleManager.Instance.playerInput.OnSelectAction += PlayerInput_OnSelectAction;
@@ -100,9 +99,8 @@ public class MoveSelectionState : MonoBehaviour
         //half of height selection bounds from center of selection
         int halfWidth = selectionWidth / 2;
         int halfHeight = selectionHeight / 2;
-        selectionBounds = new PyramidSelection(centerPosition, 3);
-        /*selectionBounds = new SquareSelection(new Vector2Int(center.x - halfWidth, center.y - halfHeight),
-            selectionWidth, selectionHeight);*/
+        selectionBounds = new SquareSelection(new Vector2Int(center.x - halfWidth, center.y - halfHeight),
+            selectionWidth, selectionHeight);
     }
 
     private void PlayerInput_OnMoveAction(object sender, PlayerInput.InputActionArgs args)
