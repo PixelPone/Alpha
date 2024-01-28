@@ -51,7 +51,7 @@ public class BattleManager : MonoBehaviour
     // Start is called before the first frame update
     private void Start()
     {
-        AddState(turnOrder[0].DefaultBehavior);
+        AddBehavior(turnOrder[0].DefaultBehavior);
         transform.GetChild(0).gameObject.SetActive(true);
     }
 
@@ -66,7 +66,8 @@ public class BattleManager : MonoBehaviour
         //First get proper index in turn order
         currentEntityIndex = currentEntityIndex == turnOrder.Count - 1 ? 0 : currentEntityIndex + 1;
 
-        AddState(turnOrder[currentEntityIndex].DefaultBehavior);
+        //Then add its default behavior
+        AddBehavior(turnOrder[currentEntityIndex].DefaultBehavior);
         //As GameObjects are delayed when destroyed, technically the previous BattleEntity's states will
         //still exist in Battle Manager's list of states. The child count will include these states as well
         //To account for this, use childCount -1 as the next Battle Entity's states will be at the end of the
@@ -81,7 +82,7 @@ public class BattleManager : MonoBehaviour
     public void AddBehavior(GameObject behaviorObject)
     {
         //Get list of state GameObjects associated with behavior except for behavior object itself
-        IEnumerable<Transform> behaviorStates = behaviorObject.GetComponentsInChildren<Transform>().Where(t =>
+        IEnumerable<Transform> behaviorStates = behaviorObject.GetComponentsInChildren<Transform>(true).Where(t =>
         {
             return t != behaviorObject.transform;
         });
