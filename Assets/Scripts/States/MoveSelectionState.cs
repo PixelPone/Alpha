@@ -4,7 +4,7 @@ using UnityEngine;
 /// <summary>
 /// The move selection phase of the player's battle turn.
 /// </summary>
-public class MoveSelectionState : MonoBehaviour
+public class MoveSelectionState : State
 {
     /// <summary>
     /// The AP cost of the current potential path being built.
@@ -51,31 +51,6 @@ public class MoveSelectionState : MonoBehaviour
         costOfCurrentPath = 0;
         hoverPosition = Vector2Int.zero;
         selectMovements = new List<Vector2Int>();
-    }
-
-    private void OnEnable()
-    {
-        Debug.Log("MoveSelectionState's OnEnable Ran!");
-
-        centerPosition = battleEntity.BattleGridPosition;
-        startOfCurrentPath = centerPosition;
-        hoverPosition = centerPosition;
-
-        if(selectionWidth == 0 || selectionHeight == 0)
-        {
-            Debug.LogError("One or both of MoveSelectionState's selection bounds is 0!");
-        }
-
-        //Square bounds are created from the bottom left corner, subtract half of width and
-        //half of height selection bounds from center of selection
-        int halfWidth = selectionWidth / 2;
-        int halfHeight = selectionHeight / 2;
-        selectionBounds = new SquareSelection(new Vector2Int(centerPosition.x - halfWidth, centerPosition.y - halfHeight),
-            selectionWidth, selectionHeight);
-
-        BattleManager.Instance.playerInput.OnMoveAction += PlayerInput_OnMoveAction;
-        BattleManager.Instance.playerInput.OnSelectAction += PlayerInput_OnSelectAction;
-        BattleManager.Instance.playerInput.OnAltSelectAction += PlayerInput_OnAltSelectAction;
     }
 
     private void Start()
@@ -213,9 +188,39 @@ public class MoveSelectionState : MonoBehaviour
 
     }
 
-    private void OnDisable()
+    public override void StartState()
     {
-        Debug.Log("MoveSelectionState's OnDisable Ran!");
+        Debug.Log("MoveSelectionState's StartState Ran!");
+
+        centerPosition = battleEntity.BattleGridPosition;
+        startOfCurrentPath = centerPosition;
+        hoverPosition = centerPosition;
+
+        if (selectionWidth == 0 || selectionHeight == 0)
+        {
+            Debug.LogError("One or both of MoveSelectionState's selection bounds is 0!");
+        }
+
+        //Square bounds are created from the bottom left corner, subtract half of width and
+        //half of height selection bounds from center of selection
+        int halfWidth = selectionWidth / 2;
+        int halfHeight = selectionHeight / 2;
+        selectionBounds = new SquareSelection(new Vector2Int(centerPosition.x - halfWidth, centerPosition.y - halfHeight),
+            selectionWidth, selectionHeight);
+
+        BattleManager.Instance.playerInput.OnMoveAction += PlayerInput_OnMoveAction;
+        BattleManager.Instance.playerInput.OnSelectAction += PlayerInput_OnSelectAction;
+        BattleManager.Instance.playerInput.OnAltSelectAction += PlayerInput_OnAltSelectAction;
+    }
+
+    public override void UpdateState(float deltaTime)
+    {
+        throw new System.NotImplementedException();
+    }
+
+    public override void EndState()
+    {
+        Debug.Log("MoveSelectionState's EndState Ran!");
         BattleManager.Instance.playerInput.OnSelectAction -= PlayerInput_OnSelectAction;
         BattleManager.Instance.playerInput.OnAltSelectAction -= PlayerInput_OnAltSelectAction;
     }

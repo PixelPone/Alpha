@@ -3,7 +3,7 @@ using UnityEngine;
 /// <summary>
 /// Default main state of a player in battle.
 /// </summary>
-public class PlayerMainState : MonoBehaviour
+public class PlayerMainState : State
 {
 
     private int menuIndex;
@@ -15,16 +15,8 @@ public class PlayerMainState : MonoBehaviour
     {
         menuIndex = 0;
     }
+
     private void OnEnable()
-    {
-        Debug.Log("MainPlayerState's OnEnable Ran!");
-
-        BattleManager.Instance.playerInput.OnMoveAction += PlayerInput_OnMoveAction;
-        BattleManager.Instance.playerInput.OnSelectAction += PlayerInput_OnSelectAction;
-    }
-
-    // Start is called before the first frame update
-    private void Start()
     {
 
     }
@@ -123,11 +115,23 @@ public class PlayerMainState : MonoBehaviour
         }
     }
 
-    private void OnDisable()
+    public override void StartState()
     {
-        Debug.Log("MainPlayerState's OnDisable Ran!");
+        Debug.Log("PlayerMainState's StartState Ran!");
+
+        BattleManager.Instance.playerInput.OnMoveAction += PlayerInput_OnMoveAction;
+        BattleManager.Instance.playerInput.OnSelectAction += PlayerInput_OnSelectAction;
+    }
+
+    public override void UpdateState(float deltaTime)
+    {
+        throw new System.NotImplementedException();
+    }
+
+    public override void EndState()
+    {
+        Debug.Log("MainPlayerState's EndState Ran!");
         BattleManager.Instance.playerInput.OnMoveAction -= PlayerInput_OnMoveAction;
         BattleManager.Instance.playerInput.OnSelectAction -= PlayerInput_OnSelectAction;
     }
-
 }

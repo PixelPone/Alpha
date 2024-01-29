@@ -2,31 +2,25 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class TestState : MonoBehaviour
+public class TestState : State
 {
-    private void OnEnable()
-    {
-        BattleManager.Instance.playerInput.OnSelectAction += PlayerInput_OnSelectAction;
-    }
-
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
 
     private void PlayerInput_OnSelectAction(object sender, PlayerInput.InputActionArgs args)
     {
         Debug.Log("This is from Test State!");
     }
 
-    private void OnDisable()
+    public override void StartState()
+    {
+        BattleManager.Instance.playerInput.OnSelectAction += PlayerInput_OnSelectAction;
+    }
+
+    public override void UpdateState(float deltaTime)
+    {
+        throw new System.NotImplementedException();
+    }
+
+    public override void EndState()
     {
         BattleManager.Instance.playerInput.OnSelectAction -= PlayerInput_OnSelectAction;
     }

@@ -9,6 +9,7 @@ public class BattleManager : MonoBehaviour
     /// </summary>
     private int currentStateIndex;
     private int currentEntityIndex;
+    private State currentState;
     private BattleGrid battleGrid;
     [SerializeField] public PlayerInput playerInput;
     [SerializeField] private List<BattleEntity> turnOrder;
@@ -52,13 +53,9 @@ public class BattleManager : MonoBehaviour
     private void Start()
     {
         AddBehavior(turnOrder[0].DefaultBehavior);
-        transform.GetChild(0).gameObject.SetActive(true);
-    }
-
-    // Update is called once per frame
-    private void Update()
-    {
-
+        //transform.GetChild(0).gameObject.SetActive(true);
+        currentState = transform.GetChild(0).GetComponent<State>();
+        currentState.StartState();
     }
 
     public void NextBattleEntity()
@@ -72,7 +69,9 @@ public class BattleManager : MonoBehaviour
         //still exist in Battle Manager's list of states. The child count will include these states as well
         //To account for this, use childCount -1 as the next Battle Entity's states will be at the end of the
         //list
-        transform.GetChild(transform.childCount - 1).gameObject.SetActive(true);
+        //transform.GetChild(transform.childCount - 1).gameObject.SetActive(true);
+        currentState = transform.GetChild(transform.childCount - 1).gameObject.GetComponent<State>();
+        currentState.StartState();
     }
 
     /// <summary>
@@ -110,13 +109,21 @@ public class BattleManager : MonoBehaviour
     public void PreviousState()
     {
         //Clean up current state, and then transition to previous state
-        GameObject currentGameObject = transform.GetChild(currentStateIndex).gameObject;
-        currentGameObject.SetActive(false);
+        /*GameObject currentGameObject = transform.GetChild(currentStateIndex).gameObject;
+        currentGameObject.SetActive(false);*/
+        
+        currentState.EndState();
+        
         //Destroys current state (so it clears logic flow for any new states the previous state
         //might introduce)
-        Destroy(currentGameObject);
+        //Destroy(currentGameObject);
+        Destroy(currentState.gameObject);
+
+        /*currentStateIndex--;
+        transform.GetChild(currentStateIndex).gameObject.SetActive(true);*/
         currentStateIndex--;
-        transform.GetChild(currentStateIndex).gameObject.SetActive(true);
+        currentState = transform.GetChild(currentStateIndex).gameObject.GetComponent<State>();
+        currentState.StartState();
     }
 
     /// <summary>
@@ -127,17 +134,30 @@ public class BattleManager : MonoBehaviour
         if (currentStateIndex < transform.childCount - 1)
         {
             //Clean up current state, and then transition to next state
-            GameObject currentGameObject = transform.GetChild(currentStateIndex).gameObject;
+            /*GameObject currentGameObject = transform.GetChild(currentStateIndex).gameObject;
             currentGameObject.SetActive(false);
             currentStateIndex++;
-            transform.GetChild(currentStateIndex).gameObject.SetActive(true);
+            transform.GetChild(currentStateIndex).gameObject.SetActive(true);*/
+
+            currentState.EndState();
+            currentStateIndex++;
+            currentState = transform.GetChild(currentStateIndex).gameObject.GetComponent<State>();
+            currentState.StartState();
         }
         else
         {
             //Clean up last state, remove all current states and transition to next
             //BattleEntity in turn order
-            transform.GetChild(currentStateIndex).gameObject.SetActive(false);
+            /*transform.GetChild(currentStateIndex).gameObject.SetActive(false);
             foreach(Transform child in transform.GetComponentInChildren<Transform>())
+            {
+                Destroy(child.gameObject);
+            }
+            currentStateIndex = 0;
+            NextBattleEntity();*/
+
+            currentState.EndState();
+            foreach (Transform child in transform.GetComponentInChildren<Transform>())
             {
                 Destroy(child.gameObject);
             }
