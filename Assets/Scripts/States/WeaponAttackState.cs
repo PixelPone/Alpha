@@ -4,22 +4,18 @@ using UnityEngine;
 /// <summary>
 /// The move selection phase of the player's battle turn.
 /// </summary>
-public class MoveSelectionState : State
+public class WeaponAttackState : State
 {
     /// <summary>
-    /// The AP cost of the current potential path being built.
+    /// The AP cost of attack.
     /// </summary>
-    private int costOfCurrentPath;
+    [SerializeField] private int costOfAttack;
     /// <summary>
     /// Width for selection bounds.
     /// </summary>
     [SerializeField] private int selectionWidth;
     /// Height for selection bounds.
     [SerializeField] private int selectionHeight;
-    /// <summary>
-    /// The start of the current potential path being built.
-    /// </summary>
-    private Vector2Int startOfCurrentPath;
     /// <summary>
     /// Index of center of area that player can select from.
     /// </summary>
@@ -34,41 +30,31 @@ public class MoveSelectionState : State
     /// </summary>
     private SquareSelection selectionBounds;
 
-    /// <summary>
-    /// List that stores the path that the player makes- used for undo as well.
-    /// </summary>
-    /// <remarks>
-    /// I used a List instead of a Stack in order to iterate through the path the
-    /// player creates.
-    /// </remarks>
-    private List<Vector2Int> selectMovements;
-
     [SerializeField] private BattleEntity battleEntity;
     private BattleGrid battleGrid;
 
     public void Awake()
     {
-        costOfCurrentPath = 0;
+        costOfAttack = 0;
         hoverPosition = Vector2Int.zero;
-        selectMovements = new List<Vector2Int>();
     }
 
     private void Start()
     {
         battleGrid = BattleManager.Instance.BattleGridProperty;
+        //Need to configure user properly
     }
 
     public override void StartState()
     {
-        Debug.Log("MoveSelectionState's StartState Ran!");
+        Debug.Log("WeaponAttackState's StartState Ran!");
 
         centerPosition = battleEntity.BattleGridPosition;
-        startOfCurrentPath = centerPosition;
         hoverPosition = centerPosition;
 
         if (selectionWidth == 0 || selectionHeight == 0)
         {
-            Debug.LogError("One or both of MoveSelectionState's selection bounds is 0!");
+            Debug.LogError("One or both of WeaponAttackState's selection bounds is 0!");
         }
 
         //Square bounds are created from the bottom left corner, subtract half of width and
@@ -90,14 +76,9 @@ public class MoveSelectionState : State
 
     public override void EndState()
     {
-        Debug.Log("MoveSelectionState's EndState Ran!");
+        Debug.Log("WeaponAttackState's EndState Ran!");
         BattleManager.Instance.playerInput.OnSelectAction -= PlayerInput_OnSelectAction;
         BattleManager.Instance.playerInput.OnAltSelectAction -= PlayerInput_OnAltSelectAction;
-    }
-
-    private int GetCostOfPathMovement(Vector2Int movement)
-    {
-        return movement.x != 0 && movement.y != 0 ? 2 : 1;
     }
 
     /// <summary>
@@ -141,87 +122,32 @@ public class MoveSelectionState : State
 
     private void PlayerInput_OnSelectAction(object sender, PlayerInput.InputActionArgs args)
     {
-        //Debug.Log("SelectionAction Ran in MoveSelection!");
-        //Debug.Log($"The value of the square you are touching is: {battleGrid.GetSquareValue(hoverPosition.x, hoverPosition.y)}");
-        Vector2Int movement = hoverPosition - centerPosition;
-        int costOfMovement = GetCostOfPathMovement(movement);
-        
-        //Player is trying to add another battle tile to the path they are building and is able to
-        if (!centerPosition.Equals(hoverPosition) && (costOfCurrentPath + costOfMovement) <= battleEntity.CurrentAP)
-        {
-            //Debug.Log($"Position Difference: {movement}");
-            selectMovements.Add(movement);
-            //Add cost of movement that was just added to path
-            costOfCurrentPath += costOfMovement;
-            //Debug.Log("Position Movement Added!");
-            centerPosition = hoverPosition;
-            UpdateBounds(centerPosition);
 
-            //Update green squares showing path so far to account for this new movement
-            Vector2Int currentPath = startOfCurrentPath;
-            foreach (Vector2Int position in selectMovements)
-            {
-                currentPath += position;
-                //battleGrid.DrawSquare(Color.green, currentPath.x, currentPath.y);
-            }
-        }
-        //Player selects the center position, ending the path building process
-        else if (centerPosition.Equals(hoverPosition) && selectMovements.Count != 0)
+        //Player selects a tile that is not themselves and has enough AP to attack
+        if (!centerPosition.Equals(hoverPosition) && costOfAttack <= battleEntity.CurrentAP)
         {
-            battleEntity.CurrentAP -= costOfCurrentPath;
+            battleEntity.CurrentAP -= costOfAttack;
             BattleManager.Instance.NextState();
-            //StartCoroutine(MoveAlongPathCoroutine());
         }
-        //At this point, player is either trying to extend past what they can move to or
-        //hasn't created a path at all
         else
         {
+            //Player does not have enough AP at all to attack
             string feedback = string.Empty;
-            if(battleEntity.CurrentAP == 0)
+            if (battleEntity.CurrentAP < costOfAttack)
             {
-                feedback = "You do not have enough Action Points to create a path!";
+                feedback = "You do not have enough Action Points to attack!";
             }
-            else if(battleEntity.CurrentAP > 0 && selectMovements.Count == 0)
+            //Player selects a tile that is themselves and has enough AP to attack
+            else if (battleEntity.CurrentAP > 0 && centerPosition.Equals(centerPosition))
             {
-                feedback = "You haven't created a Path to move yet!";
+                feedback = "You can't attack yourself!";
             }
-            else if(battleEntity.CurrentAP > 0 && selectMovements.Count > 0)
-            {
-                feedback = "You do not have enough Action Points to move this far!";
-            }
-
             Debug.Log(feedback);
-            //StartCoroutine(DialogPathErrorCoroutine(feedback));
         }
     }
 
     private void PlayerInput_OnAltSelectAction(object sender, PlayerInput.InputActionArgs args)
     {
-        //Debug.Log("AltSelectionAction Ran in MoveSelection!");
-        if (selectMovements.Count > 0)
-        {
-            Vector2Int top = selectMovements[selectMovements.Count - 1];
-            selectMovements.RemoveAt(selectMovements.Count - 1);
-            Vector2Int reverse = new Vector2Int(-top.x, -top.y);
-            int costOfReverse = GetCostOfPathMovement(reverse);
-            costOfCurrentPath -= costOfReverse;
-            centerPosition += reverse;
-            UpdateBounds(centerPosition);
-
-            //Given the grid was just refreshed, redraw current path up to the this new final step
-            Vector2Int currentPath = startOfCurrentPath;
-            foreach (Vector2Int position in selectMovements)
-            {
-                currentPath += position;
-                //battleGrid.DrawSquare(Color.green, currentPath.x, currentPath.y);
-            }
-            hoverPosition = centerPosition;
-
-        }
-        else
-        {
-            BattleManager.Instance.PreviousState();
-        }
-
+        BattleManager.Instance.PreviousState();
     }
 }
