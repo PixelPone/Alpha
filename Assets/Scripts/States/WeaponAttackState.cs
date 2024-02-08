@@ -35,7 +35,6 @@ public class WeaponAttackState : State
 
     public void Awake()
     {
-        costOfAttack = 0;
         hoverPosition = Vector2Int.zero;
     }
 

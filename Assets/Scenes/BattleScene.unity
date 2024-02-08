@@ -337,7 +337,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   battleEntityData: {fileID: 11400000, guid: 79a1486812a65e6438c3e08d082c5de1, type: 2}
-  defaultState: {fileID: 808161360}
+  defaultState: {fileID: 51553073}
 --- !u!4 &742464567
 Transform:
   m_ObjectHideFlags: 0
@@ -397,7 +397,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0b2ac1e21683c3d4a80eaf6dcc379c7a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  moveSelectionState: {fileID: 1514974414}
+  moveSelectionState: {fileID: 1514974416}
 --- !u!1 &1209393343
 GameObject:
   m_ObjectHideFlags: 0
@@ -570,7 +570,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   battleEntityData: {fileID: 11400000, guid: 79a1486812a65e6438c3e08d082c5de1, type: 2}
-  defaultState: {fileID: 2140291014}
+  defaultState: {fileID: 2140291015}
 --- !u!4 &1983020684
 Transform:
   m_ObjectHideFlags: 0
@@ -641,5 +641,5 @@ SceneRoots:
   - {fileID: 1983020684}
   - {fileID: 2140291016}
   - {fileID: 1954506521}
-  - {fileID: 808161361}
   - {fileID: 1514974415}
+  - {fileID: 808161361}
