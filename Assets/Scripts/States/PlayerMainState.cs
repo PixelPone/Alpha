@@ -8,7 +8,7 @@ public class PlayerMainState : State
 
     private int menuIndex;
 
-    [SerializeField] private GameObject moveSelectionState;
+    [SerializeField] private State moveSelectionState;
 
 
     private void Awake()

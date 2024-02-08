@@ -14,12 +14,12 @@ public class BattleEntity : MonoBehaviour
     /// This is very useful for enemies that share a pool of stats.
     /// </remarks>
     [SerializeField] private BattleEntityData battleEntityData;
-    [SerializeField] private GameObject defaultBehavior;
+    [SerializeField] private State defaultState;
     /// <summary>
-    /// The default state(s) that are first run when it is this BattleEntity's turn
+    /// The default state that are first run when it is this BattleEntity's turn
     /// in battle.
     /// </summary>
-    public GameObject DefaultBehavior { get { return defaultBehavior; } }
+    public State DefaultState { get { return defaultState; } }
     /// <summary>
     /// Current battle grid position of this BattleEntity.
     /// </summary>

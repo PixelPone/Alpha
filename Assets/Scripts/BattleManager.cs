@@ -52,8 +52,7 @@ public class BattleManager : MonoBehaviour
     // Start is called before the first frame update
     private void Start()
     {
-        AddBehavior(turnOrder[0].DefaultBehavior);
-        //transform.GetChild(0).gameObject.SetActive(true);
+        AddState(turnOrder[0].DefaultState);
         currentState = transform.GetChild(0).GetComponent<State>();
         currentState.StartState();
     }
@@ -64,7 +63,7 @@ public class BattleManager : MonoBehaviour
         currentEntityIndex = currentEntityIndex == turnOrder.Count - 1 ? 0 : currentEntityIndex + 1;
 
         //Then add its default behavior
-        AddBehavior(turnOrder[currentEntityIndex].DefaultBehavior);
+        AddState(turnOrder[currentEntityIndex].DefaultState);
         //As GameObjects are delayed when destroyed, technically the previous BattleEntity's states will
         //still exist in Battle Manager's list of states. The child count will include these states as well
         //To account for this, use childCount -1 as the next Battle Entity's states will be at the end of the
@@ -75,29 +74,10 @@ public class BattleManager : MonoBehaviour
     }
 
     /// <summary>
-    /// Add behavior (list of associated state GameObjects) to end of Battle Manager's state list.
-    /// </summary>
-    /// <param name="behaviorObject">The parent GameObject whose children are the list of state GameObjects to be added.</param>
-    public void AddBehavior(GameObject behaviorObject)
-    {
-        //Get list of state GameObjects associated with behavior except for behavior object itself
-        IEnumerable<Transform> behaviorStates = behaviorObject.GetComponentsInChildren<Transform>(true).Where(t =>
-        {
-            return t != behaviorObject.transform;
-        });
-
-        foreach (Transform t in behaviorStates)
-        {
-            Transform stateClone = Instantiate(t);
-            stateClone.SetParent(transform, false);
-        }
-    }
-
-    /// <summary>
     /// Add individual state to end of Battle Manager's state list.
     /// </summary>
-    /// <param name="state">State GameObject that will be added.</param>
-    public void AddState(GameObject state)
+    /// <param name="state">State that will be added.</param>
+    public void AddState(State state)
     {
         Transform stateClone = Instantiate(state.transform);
         stateClone.SetParent(transform, false);
@@ -109,18 +89,12 @@ public class BattleManager : MonoBehaviour
     public void PreviousState()
     {
         //Clean up current state, and then transition to previous state
-        /*GameObject currentGameObject = transform.GetChild(currentStateIndex).gameObject;
-        currentGameObject.SetActive(false);*/
-        
         currentState.EndState();
         
         //Destroys current state (so it clears logic flow for any new states the previous state
         //might introduce)
-        //Destroy(currentGameObject);
         Destroy(currentState.gameObject);
 
-        /*currentStateIndex--;
-        transform.GetChild(currentStateIndex).gameObject.SetActive(true);*/
         currentStateIndex--;
         currentState = transform.GetChild(currentStateIndex).gameObject.GetComponent<State>();
         currentState.StartState();
@@ -134,11 +108,6 @@ public class BattleManager : MonoBehaviour
         if (currentStateIndex < transform.childCount - 1)
         {
             //Clean up current state, and then transition to next state
-            /*GameObject currentGameObject = transform.GetChild(currentStateIndex).gameObject;
-            currentGameObject.SetActive(false);
-            currentStateIndex++;
-            transform.GetChild(currentStateIndex).gameObject.SetActive(true);*/
-
             currentState.EndState();
             currentStateIndex++;
             currentState = transform.GetChild(currentStateIndex).gameObject.GetComponent<State>();
@@ -148,14 +117,6 @@ public class BattleManager : MonoBehaviour
         {
             //Clean up last state, remove all current states and transition to next
             //BattleEntity in turn order
-            /*transform.GetChild(currentStateIndex).gameObject.SetActive(false);
-            foreach(Transform child in transform.GetComponentInChildren<Transform>())
-            {
-                Destroy(child.gameObject);
-            }
-            currentStateIndex = 0;
-            NextBattleEntity();*/
-
             currentState.EndState();
             foreach (Transform child in transform.GetComponentInChildren<Transform>())
             {
