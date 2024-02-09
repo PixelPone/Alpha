@@ -30,7 +30,7 @@ public class WeaponAttackState : State
     /// </summary>
     private SquareSelection selectionBounds;
 
-    private BattleEntity battleEntity;
+    [SerializeField] private BattleEntity battleEntity;
     private BattleGrid battleGrid;
 
     public void Awake()
@@ -41,8 +41,11 @@ public class WeaponAttackState : State
     private void Start()
     {
         battleGrid = BattleManager.Instance.BattleGridProperty;
-        //Abstract this to other weapons
-        battleEntity = transform.parent.GetComponent<Pistol>().User;
+        //Need to abstract this for any weapon type
+        if (transform.parent.GetComponent<Pistol>() != null)
+        {
+            battleEntity = transform.parent.GetComponent<Pistol>().User;
+        }
     }
 
     public override void StartState()
@@ -79,21 +82,6 @@ public class WeaponAttackState : State
         Debug.Log("WeaponAttackState's EndState Ran!");
         BattleManager.Instance.playerInput.OnSelectAction -= PlayerInput_OnSelectAction;
         BattleManager.Instance.playerInput.OnAltSelectAction -= PlayerInput_OnAltSelectAction;
-    }
-
-    /// <summary>
-    /// Updates selection bounds from which a player can currently select a tile
-    /// to move to.
-    /// </summary>
-    /// <param name="center">Center index who the new bounds are to be based on.</param>
-    private void UpdateBounds(Vector2Int center)
-    {
-        //Square bounds are created from the bottom left corner, subtract half of width and
-        //half of height selection bounds from center of selection
-        int halfWidth = selectionWidth / 2;
-        int halfHeight = selectionHeight / 2;
-        selectionBounds = new SquareSelection(new Vector2Int(center.x - halfWidth, center.y - halfHeight),
-            selectionWidth, selectionHeight);
     }
 
     private void PlayerInput_OnMoveAction(object sender, PlayerInput.InputActionArgs args)

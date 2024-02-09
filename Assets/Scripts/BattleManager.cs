@@ -88,16 +88,19 @@ public class BattleManager : MonoBehaviour
     /// </summary>
     public void PreviousState()
     {
-        //Clean up current state, and then transition to previous state
-        currentState.EndState();
-        
-        //Destroys current state (so it clears logic flow for any new states the previous state
-        //might introduce)
-        Destroy(currentState.gameObject);
+        if (transform.childCount > 1)
+        {
+            //Clean up current state, and then transition to previous state
+            currentState.EndState();
 
-        currentStateIndex--;
-        currentState = transform.GetChild(currentStateIndex).gameObject.GetComponent<State>();
-        currentState.StartState();
+            //Destroys current state (so it clears logic flow for any new states the previous state
+            //might introduce)
+            Destroy(currentState.gameObject);
+
+            currentStateIndex--;
+            currentState = transform.GetChild(currentStateIndex).gameObject.GetComponent<State>();
+            currentState.StartState();
+        }
     }
 
     /// <summary>
