@@ -155,7 +155,6 @@ MonoBehaviour:
   costOfAttack: 2
   selectionWidth: 3
   selectionHeight: 3
-  battleEntity: {fileID: 742464566}
 --- !u!4 &51553074
 Transform:
   m_ObjectHideFlags: 0

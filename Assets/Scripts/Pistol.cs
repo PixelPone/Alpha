@@ -9,9 +9,10 @@ public class Pistol : MonoBehaviour
     [SerializeField] private int clipSize;
     [SerializeField] private BattleEntity user;
 
-    public List<GameObject> Targets {  get; private set; }
-    public ItemData WeaponData {  get { return weaponData; } set {  weaponData = value; } }
     public int ClipSize { get { return clipSize; } set { clipSize = value; } }
+    public ItemData WeaponData { get { return weaponData; } set { weaponData = value; } }
+    public BattleEntity User { get { return user; } private set { user = value; } }
+    public List<GameObject> Targets {  get; private set; }
 
     public void Awake()
     {

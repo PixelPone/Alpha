@@ -30,7 +30,7 @@ public class WeaponAttackState : State
     /// </summary>
     private SquareSelection selectionBounds;
 
-    [SerializeField] private BattleEntity battleEntity;
+    private BattleEntity battleEntity;
     private BattleGrid battleGrid;
 
     public void Awake()
@@ -41,16 +41,17 @@ public class WeaponAttackState : State
     private void Start()
     {
         battleGrid = BattleManager.Instance.BattleGridProperty;
-        //Need to configure user properly
+        //Abstract this to other weapons
+        battleEntity = transform.parent.GetComponent<Pistol>().User;
     }
 
     public override void StartState()
     {
         Debug.Log("WeaponAttackState's StartState Ran!");
-
+        
         centerPosition = battleEntity.BattleGridPosition;
         hoverPosition = centerPosition;
-
+        
         if (selectionWidth == 0 || selectionHeight == 0)
         {
             Debug.LogError("One or both of WeaponAttackState's selection bounds is 0!");
