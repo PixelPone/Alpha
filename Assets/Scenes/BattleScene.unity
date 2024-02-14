@@ -169,16 +169,16 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   costOfAttack: 0
   selectionBounds:
-    rid: 4008622905169543183
+    rid: 4008622913307017219
   battleEntity: {fileID: 0}
   references:
     version: 2
     RefIds:
-    - rid: 4008622905169543183
-      type: {class: PyramidSelection, ns: , asm: Assembly-CSharp}
+    - rid: 4008622913307017219
+      type: {class: CenterSquareSelection, ns: , asm: Assembly-CSharp}
       data:
         selectionAreaList: []
-        width: 3
+        halfWidth: 1
 --- !u!1 &130350312
 GameObject:
   m_ObjectHideFlags: 0
@@ -345,7 +345,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   battleEntityData: {fileID: 11400000, guid: 79a1486812a65e6438c3e08d082c5de1, type: 2}
-  defaultState: {fileID: 51553075}
+  defaultState: {fileID: 1514974416}
 --- !u!4 &742464567
 Transform:
   m_ObjectHideFlags: 0
@@ -497,9 +497,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a3fb3f9fa855828468aa7b8f348da9eb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  selectionWidth: 3
-  selectionHeight: 3
+  selectionBounds:
+    rid: 4008622913307017217
   battleEntity: {fileID: 742464566}
+  references:
+    version: 2
+    RefIds:
+    - rid: 4008622913307017217
+      type: {class: CenterSquareSelection, ns: , asm: Assembly-CSharp}
+      data:
+        selectionAreaList: []
+        halfWidth: 1
 --- !u!1 &1954506519
 GameObject:
   m_ObjectHideFlags: 0

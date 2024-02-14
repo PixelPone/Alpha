@@ -11,12 +11,6 @@ public class MoveSelectionState : State
     /// </summary>
     private int costOfCurrentPath;
     /// <summary>
-    /// Width for selection bounds.
-    /// </summary>
-    [SerializeField] private int selectionWidth;
-    /// Height for selection bounds.
-    [SerializeField] private int selectionHeight;
-    /// <summary>
     /// The start of the current potential path being built.
     /// </summary>
     private Vector2Int startOfCurrentPath;
@@ -32,7 +26,7 @@ public class MoveSelectionState : State
     /// Bounds in which the player can select each tile of the path they
     /// want to move.
     /// </summary>
-    private CenterSquareSelection selectionBounds;
+    [SerializeReference, SubclassSelector] private SelectionBase selectionBounds;
 
     /// <summary>
     /// List that stores the path that the player makes- used for undo as well.
@@ -66,17 +60,7 @@ public class MoveSelectionState : State
         startOfCurrentPath = centerPosition;
         hoverPosition = centerPosition;
 
-        if (selectionWidth == 0 || selectionHeight == 0)
-        {
-            Debug.LogError("One or both of MoveSelectionState's selection bounds is 0!");
-        }
-
-        //Square bounds are created from the bottom left corner, subtract half of width and
-        //half of height selection bounds from center of selection
-        int halfWidth = selectionWidth / 2;
-        int halfHeight = selectionHeight / 2;
-        /*selectionBounds = new CenterSquareSelection(new Vector2Int(centerPosition.x - halfWidth, centerPosition.y - halfHeight),
-            selectionWidth, selectionHeight);*/
+        selectionBounds.UpdateSelectionArea(centerPosition);
 
         BattleManager.Instance.playerInput.OnMoveAction += PlayerInput_OnMoveAction;
         BattleManager.Instance.playerInput.OnSelectAction += PlayerInput_OnSelectAction;
@@ -107,12 +91,9 @@ public class MoveSelectionState : State
     /// <param name="center">Center index who the new bounds are to be based on.</param>
     private void UpdateBounds(Vector2Int center)
     {
-        //Square bounds are created from the bottom left corner, subtract half of width and
-        //half of height selection bounds from center of selection
-        int halfWidth = selectionWidth / 2;
-        int halfHeight = selectionHeight / 2;
         /*selectionBounds = new CenterSquareSelection(new Vector2Int(center.x - halfWidth, center.y - halfHeight),
             selectionWidth, selectionHeight);*/
+        selectionBounds.UpdateSelectionArea(centerPosition);
     }
 
     private void PlayerInput_OnMoveAction(object sender, PlayerInput.InputActionArgs args)
