@@ -11,12 +11,6 @@ public class WeaponAttackState : State
     /// </summary>
     [SerializeField] private int costOfAttack;
     /// <summary>
-    /// Width for selection bounds.
-    /// </summary>
-    [SerializeField] private int selectionWidth;
-    /// Height for selection bounds.
-    [SerializeField] private int selectionHeight;
-    /// <summary>
     /// Index of center of area that player can select from.
     /// </summary>
     private Vector2Int centerPosition;
@@ -28,7 +22,7 @@ public class WeaponAttackState : State
     /// Bounds in which the player can select each tile of the path they
     /// want to move.
     /// </summary>
-    private SquareSelection selectionBounds;
+    [SerializeReference, SubclassSelector] private SelectionBase selectionBounds;
 
     [SerializeField] private BattleEntity battleEntity;
     private BattleGrid battleGrid;
@@ -54,18 +48,9 @@ public class WeaponAttackState : State
         
         centerPosition = battleEntity.BattleGridPosition;
         hoverPosition = centerPosition;
-        
-        if (selectionWidth == 0 || selectionHeight == 0)
-        {
-            Debug.LogError("One or both of WeaponAttackState's selection bounds is 0!");
-        }
 
-        //Square bounds are created from the bottom left corner, subtract half of width and
-        //half of height selection bounds from center of selection
-        int halfWidth = selectionWidth / 2;
-        int halfHeight = selectionHeight / 2;
-        selectionBounds = new SquareSelection(new Vector2Int(centerPosition.x - halfWidth, centerPosition.y - halfHeight),
-            selectionWidth, selectionHeight);
+        //selectionBounds = new CenterSquareSelection(new Vector2Int(centerPosition.x, centerPosition.y), 1);
+        selectionBounds.UpdateSelectionArea(centerPosition);
 
         BattleManager.Instance.playerInput.OnMoveAction += PlayerInput_OnMoveAction;
         BattleManager.Instance.playerInput.OnSelectAction += PlayerInput_OnSelectAction;

@@ -132,7 +132,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 51553074}
-  - component: {fileID: 51553073}
+  - component: {fileID: 51553075}
   m_Layer: 0
   m_Name: WeaponAimState
   m_TagString: Untagged
@@ -140,21 +140,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &51553073
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 51553072}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 47b81802ecbb02d48adc49bcb67414fb, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  costOfAttack: 2
-  selectionWidth: 3
-  selectionHeight: 3
 --- !u!4 &51553074
 Transform:
   m_ObjectHideFlags: 0
@@ -170,6 +155,30 @@ Transform:
   m_Children: []
   m_Father: {fileID: 1954506521}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &51553075
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 51553072}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 47b81802ecbb02d48adc49bcb67414fb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  costOfAttack: 0
+  selectionBounds:
+    rid: 4008622905169543183
+  battleEntity: {fileID: 0}
+  references:
+    version: 2
+    RefIds:
+    - rid: 4008622905169543183
+      type: {class: PyramidSelection, ns: , asm: Assembly-CSharp}
+      data:
+        selectionAreaList: []
+        width: 3
 --- !u!1 &130350312
 GameObject:
   m_ObjectHideFlags: 0
@@ -336,7 +345,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   battleEntityData: {fileID: 11400000, guid: 79a1486812a65e6438c3e08d082c5de1, type: 2}
-  defaultState: {fileID: 51553073}
+  defaultState: {fileID: 51553075}
 --- !u!4 &742464567
 Transform:
   m_ObjectHideFlags: 0
@@ -537,7 +546,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   weaponData: {fileID: 11400000, guid: 00f6f0e23ad3bad48a4dd8eea7644812, type: 2}
-  clipSize: 12
+  maxAmmoCount: 0
   user: {fileID: 742464566}
 --- !u!1 &1983020682
 GameObject:
