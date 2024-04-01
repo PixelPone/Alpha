@@ -169,16 +169,16 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   costOfAttack: 0
   selectionBounds:
-    rid: 4008622913307017219
+    rid: 4008623106760638465
   battleEntity: {fileID: 0}
   references:
     version: 2
     RefIds:
-    - rid: 4008622913307017219
+    - rid: 4008623106760638465
       type: {class: CenterSquareSelection, ns: , asm: Assembly-CSharp}
       data:
         selectionAreaList: []
-        halfWidth: 1
+        halfWidth: 2
 --- !u!1 &130350312
 GameObject:
   m_ObjectHideFlags: 0
