@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using UnityEngine;
+using static Constants;
 
 /// <summary>
 /// The move selection phase of the player's battle turn.
@@ -37,7 +38,7 @@ public class MoveSelectionState : State
     /// </remarks>
     private List<Vector2Int> selectMovements;
 
-    [SerializeField] private BattleEntity battleEntity;
+    [SerializeField] private BattleEntityStats battleEntityStats;
     private BattleGrid battleGrid;
 
     public void Awake()
@@ -56,7 +57,7 @@ public class MoveSelectionState : State
     {
         Debug.Log("MoveSelectionState's StartState Ran!");
 
-        centerPosition = battleEntity.BattleGridPosition;
+        centerPosition = battleEntityStats.BattleGridPosition;
         startOfCurrentPath = centerPosition;
         hoverPosition = centerPosition;
 
@@ -128,7 +129,8 @@ public class MoveSelectionState : State
         int costOfMovement = GetCostOfPathMovement(movement);
         
         //Player is trying to add another battle tile to the path they are building and is able to
-        if (!centerPosition.Equals(hoverPosition) && (costOfCurrentPath + costOfMovement) <= battleEntity.CurrentAP)
+        if (!centerPosition.Equals(hoverPosition) && (costOfCurrentPath + costOfMovement) 
+            <= battleEntityStats.GetStat(Keys_Stats.KEY_CURRENT_AP))
         {
             //Debug.Log($"Position Difference: {movement}");
             selectMovements.Add(movement);
@@ -149,7 +151,7 @@ public class MoveSelectionState : State
         //Player selects the center position, ending the path building process
         else if (centerPosition.Equals(hoverPosition) && selectMovements.Count != 0)
         {
-            battleEntity.CurrentAP -= costOfCurrentPath;
+            battleEntityStats.CurrentStats[Keys_Stats.KEY_CURRENT_AP] -= costOfCurrentPath;
             BattleManager.Instance.NextState();
             //StartCoroutine(MoveAlongPathCoroutine());
         }
@@ -158,15 +160,15 @@ public class MoveSelectionState : State
         else
         {
             string feedback = string.Empty;
-            if(battleEntity.CurrentAP == 0)
+            if(battleEntityStats.GetStat(Keys_Stats.KEY_CURRENT_AP) == 0)
             {
                 feedback = "You do not have enough Action Points to create a path!";
             }
-            else if(battleEntity.CurrentAP > 0 && selectMovements.Count == 0)
+            else if(battleEntityStats.GetStat(Keys_Stats.KEY_CURRENT_AP) > 0 && selectMovements.Count == 0)
             {
                 feedback = "You haven't created a Path to move yet!";
             }
-            else if(battleEntity.CurrentAP > 0 && selectMovements.Count > 0)
+            else if(battleEntityStats.GetStat(Keys_Stats.KEY_CURRENT_AP) > 0 && selectMovements.Count > 0)
             {
                 feedback = "You do not have enough Action Points to move this far!";
             }

@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using UnityEngine;
+using static Constants;
 
 /// <summary>
 /// The move selection phase of the player's battle turn.
@@ -24,7 +25,7 @@ public class WeaponAttackState : State
     /// </summary>
     [SerializeReference, SubclassSelector] private SelectionBase selectionBounds;
 
-    [SerializeField] private BattleEntity battleEntity;
+    [SerializeField] private BattleEntityStats battleStats;
     private BattleGrid battleGrid;
 
     public void Awake()
@@ -38,7 +39,7 @@ public class WeaponAttackState : State
         //Need to abstract this for any weapon type
         if (transform.parent.GetComponent<Pistol>() != null)
         {
-            battleEntity = transform.parent.GetComponent<Pistol>().User;
+            battleStats = transform.parent.GetComponent<Pistol>().User;
         }
     }
 
@@ -46,7 +47,7 @@ public class WeaponAttackState : State
     {
         Debug.Log("WeaponAttackState's StartState Ran!");
         
-        centerPosition = battleEntity.BattleGridPosition;
+        centerPosition = battleStats.BattleGridPosition;
         hoverPosition = centerPosition;
 
         //selectionBounds = new CenterSquareSelection(new Vector2Int(centerPosition.x, centerPosition.y), 1);
@@ -97,21 +98,21 @@ public class WeaponAttackState : State
     {
 
         //Player selects a tile that is not themselves and has enough AP to attack
-        if (!centerPosition.Equals(hoverPosition) && costOfAttack <= battleEntity.CurrentAP)
+        if (!centerPosition.Equals(hoverPosition) && costOfAttack <= battleStats.GetStat(Keys_Stats.KEY_CURRENT_AP))
         {
-            battleEntity.CurrentAP -= costOfAttack;
+            battleStats.CurrentStats[Keys_Stats.KEY_CURRENT_AP] -= costOfAttack;
             BattleManager.Instance.NextState();
         }
         else
         {
             //Player does not have enough AP at all to attack
             string feedback = string.Empty;
-            if (battleEntity.CurrentAP < costOfAttack)
+            if (battleStats.GetStat(Keys_Stats.KEY_CURRENT_AP) < costOfAttack)
             {
                 feedback = "You do not have enough Action Points to attack!";
             }
             //Player selects a tile that is themselves and has enough AP to attack
-            else if (battleEntity.CurrentAP > 0 && centerPosition.Equals(centerPosition))
+            else if (battleStats.GetStat(Keys_Stats.KEY_CURRENT_AP) > 0 && centerPosition.Equals(centerPosition))
             {
                 feedback = "You can't attack yourself!";
             }

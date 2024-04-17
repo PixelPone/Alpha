@@ -15,7 +15,6 @@ using UnityEngine;
 ///  that state machines' methods run before their states, these methods will be explicitly called using this class.
 /// </para>
 /// </remarks>
-/// <seealso cref="TurnMachine"/>
 public abstract class State : MonoBehaviour
 {
 

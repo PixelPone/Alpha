@@ -11,8 +11,8 @@ public class BattleManager : MonoBehaviour
     private int currentEntityIndex;
     private State currentState;
     private BattleGrid battleGrid;
-    [SerializeField] public PlayerInput playerInput;
-    [SerializeField] private List<BattleEntity> turnOrder;
+    public PlayerInput playerInput;
+    [SerializeField] private List<BattleEntityStats> turnOrder;
 
     //Singleton pattern- useful when there is only one instance of an item
     /// <summary>
@@ -39,7 +39,7 @@ public class BattleManager : MonoBehaviour
         if (turnOrder.Count == 0)
         {
             Debug.LogWarning("Battle Manager does not have any Battle Entities assigned to it!", transform.gameObject);
-            turnOrder = new List<BattleEntity>();
+            turnOrder = new List<BattleEntityStats>();
         }
 
     }
@@ -54,6 +54,7 @@ public class BattleManager : MonoBehaviour
     {
         AddState(turnOrder[0].DefaultState);
         currentState = transform.GetChild(0).GetComponent<State>();
+        currentState.gameObject.SetActive(true);
         currentState.StartState();
     }
 
@@ -70,6 +71,7 @@ public class BattleManager : MonoBehaviour
         //list
         //transform.GetChild(transform.childCount - 1).gameObject.SetActive(true);
         currentState = transform.GetChild(transform.childCount - 1).gameObject.GetComponent<State>();
+        currentState.gameObject.SetActive(true);
         currentState.StartState();
     }
 
@@ -114,6 +116,7 @@ public class BattleManager : MonoBehaviour
             currentState.EndState();
             currentStateIndex++;
             currentState = transform.GetChild(currentStateIndex).gameObject.GetComponent<State>();
+            currentState.gameObject.SetActive(true);
             currentState.StartState();
         }
         else

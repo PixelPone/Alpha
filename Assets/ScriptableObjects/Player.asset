@@ -9,12 +9,12 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 98017264290ea3c44b7fa376368be122, type: 3}
+  m_Script: {fileID: 11500000, guid: 28b73847f3d100246b2781000d14f796, type: 3}
   m_Name: Player
   m_EditorClassIdentifier: 
-  description: The main player!
+  description: 
   maxHP: 20
-  maxAP: 100
-  attack: 10
-  defense: 10
-  speed: 10
+  maxAP: 10
+  attack: 0
+  defense: 0
+  speed: 0

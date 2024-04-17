@@ -139,7 +139,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &51553074
 Transform:
   m_ObjectHideFlags: 0
@@ -169,16 +169,16 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   costOfAttack: 0
   selectionBounds:
-    rid: 4008623106760638465
-  battleEntity: {fileID: 0}
+    rid: 8321960545273774084
+  battleStats: {fileID: 0}
   references:
     version: 2
     RefIds:
-    - rid: 4008623106760638465
+    - rid: 8321960545273774084
       type: {class: CenterSquareSelection, ns: , asm: Assembly-CSharp}
       data:
         selectionAreaList: []
-        halfWidth: 2
+        halfWidth: 0
 --- !u!1 &130350312
 GameObject:
   m_ObjectHideFlags: 0
@@ -341,11 +341,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 742464565}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 116756bf232f7c342b98be07544db241, type: 3}
+  m_Script: {fileID: 11500000, guid: 98017264290ea3c44b7fa376368be122, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  battleEntityData: {fileID: 11400000, guid: 79a1486812a65e6438c3e08d082c5de1, type: 2}
-  defaultState: {fileID: 1514974416}
+  baseStats: {fileID: 11400000, guid: b2ed5579aa226404da2b575803afe7d3, type: 2}
+  defaultState: {fileID: 808161362}
 --- !u!4 &742464567
 Transform:
   m_ObjectHideFlags: 0
@@ -377,7 +377,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &808161361
 Transform:
   m_ObjectHideFlags: 0
@@ -499,7 +499,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   selectionBounds:
     rid: 4008622913307017217
-  battleEntity: {fileID: 742464566}
+  battleEntityStats: {fileID: 742464566}
   references:
     version: 2
     RefIds:
@@ -572,7 +572,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &1983020683
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -582,10 +582,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 1983020682}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 116756bf232f7c342b98be07544db241, type: 3}
+  m_Script: {fileID: 11500000, guid: 98017264290ea3c44b7fa376368be122, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  battleEntityData: {fileID: 11400000, guid: 79a1486812a65e6438c3e08d082c5de1, type: 2}
+  baseStats: {fileID: 0}
   defaultState: {fileID: 2140291015}
 --- !u!4 &1983020684
 Transform:
