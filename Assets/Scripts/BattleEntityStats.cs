@@ -68,7 +68,7 @@ public class BattleEntityStats : MonoBehaviour
         };
     }
 
-    public int GetStat(Keys_Stats key)
+    public int GetModifiedStat(Keys_Stats key)
     {
         int startValue;
         int addValue = 0;

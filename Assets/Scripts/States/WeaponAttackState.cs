@@ -98,7 +98,7 @@ public class WeaponAttackState : State
     {
 
         //Player selects a tile that is not themselves and has enough AP to attack
-        if (!centerPosition.Equals(hoverPosition) && costOfAttack <= battleStats.GetStat(Keys_Stats.KEY_CURRENT_AP))
+        if (!centerPosition.Equals(hoverPosition) && costOfAttack <= battleStats.GetModifiedStat(Keys_Stats.KEY_CURRENT_AP))
         {
             battleStats.CurrentStats[Keys_Stats.KEY_CURRENT_AP] -= costOfAttack;
             BattleManager.Instance.NextState();
@@ -107,12 +107,12 @@ public class WeaponAttackState : State
         {
             //Player does not have enough AP at all to attack
             string feedback = string.Empty;
-            if (battleStats.GetStat(Keys_Stats.KEY_CURRENT_AP) < costOfAttack)
+            if (battleStats.GetModifiedStat(Keys_Stats.KEY_CURRENT_AP) < costOfAttack)
             {
                 feedback = "You do not have enough Action Points to attack!";
             }
             //Player selects a tile that is themselves and has enough AP to attack
-            else if (battleStats.GetStat(Keys_Stats.KEY_CURRENT_AP) > 0 && centerPosition.Equals(centerPosition))
+            else if (battleStats.GetModifiedStat(Keys_Stats.KEY_CURRENT_AP) > 0 && centerPosition.Equals(centerPosition))
             {
                 feedback = "You can't attack yourself!";
             }

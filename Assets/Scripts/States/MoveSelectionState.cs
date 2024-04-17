@@ -130,7 +130,7 @@ public class MoveSelectionState : State
         
         //Player is trying to add another battle tile to the path they are building and is able to
         if (!centerPosition.Equals(hoverPosition) && (costOfCurrentPath + costOfMovement) 
-            <= battleEntityStats.GetStat(Keys_Stats.KEY_CURRENT_AP))
+            <= battleEntityStats.GetModifiedStat(Keys_Stats.KEY_CURRENT_AP))
         {
             //Debug.Log($"Position Difference: {movement}");
             selectMovements.Add(movement);
@@ -160,15 +160,15 @@ public class MoveSelectionState : State
         else
         {
             string feedback = string.Empty;
-            if(battleEntityStats.GetStat(Keys_Stats.KEY_CURRENT_AP) == 0)
+            if(battleEntityStats.GetModifiedStat(Keys_Stats.KEY_CURRENT_AP) == 0)
             {
                 feedback = "You do not have enough Action Points to create a path!";
             }
-            else if(battleEntityStats.GetStat(Keys_Stats.KEY_CURRENT_AP) > 0 && selectMovements.Count == 0)
+            else if(battleEntityStats.GetModifiedStat(Keys_Stats.KEY_CURRENT_AP) > 0 && selectMovements.Count == 0)
             {
                 feedback = "You haven't created a Path to move yet!";
             }
-            else if(battleEntityStats.GetStat(Keys_Stats.KEY_CURRENT_AP) > 0 && selectMovements.Count > 0)
+            else if(battleEntityStats.GetModifiedStat(Keys_Stats.KEY_CURRENT_AP) > 0 && selectMovements.Count > 0)
             {
                 feedback = "You do not have enough Action Points to move this far!";
             }
