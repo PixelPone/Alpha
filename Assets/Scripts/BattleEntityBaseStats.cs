@@ -33,6 +33,8 @@ public class BattleEntityBaseStats : ScriptableObject
     {
         //Normally don't want to change the values that are stored in ScriptableObject
         //But this is here for testing in editor
+        //This is so that when any of these values get changed in the editor, the dictionary is updated
+        //to account for those changes.
         baseStats = new Dictionary<Keys_Stats, int>
         {
             { Keys_Stats.KEY_MAX_HEALTH, maxHP },

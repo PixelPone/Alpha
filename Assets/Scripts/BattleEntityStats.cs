@@ -21,7 +21,7 @@ public class BattleEntityStats : MonoBehaviour
     public Dictionary<Keys_Stats, int> CurrentStats { get; set; }
 
     public Dictionary<Keys_Stats, List<int>> addModifiers;
-    public Dictionary<Keys_Stats, List<int>> multiplyModifiers;
+    public Dictionary<Keys_Stats, List<double>> multiplyModifiers;
 
     /// <summary>
     /// The default state that are first run when it is this BattleEntity's turn
@@ -56,15 +56,15 @@ public class BattleEntityStats : MonoBehaviour
             { Keys_Stats.KEY_DEFENSE, new List<int>() },
             { Keys_Stats.KEY_SPEED, new List<int>() }
         };
-        multiplyModifiers = new Dictionary<Keys_Stats, List<int>>
+        multiplyModifiers = new Dictionary<Keys_Stats, List<double>>
         {
-            { Keys_Stats.KEY_MAX_HEALTH, new List<int>() },
-            { Keys_Stats.KEY_CURRENT_HEALTH, new List<int>() },
-            { Keys_Stats.KEY_MAX_AP, new List<int>() },
-            { Keys_Stats.KEY_CURRENT_AP, new List<int>() },
-            { Keys_Stats.KEY_ATTACK, new List<int>() },
-            { Keys_Stats.KEY_DEFENSE, new List<int>() },
-            { Keys_Stats.KEY_SPEED, new List<int>() }
+            { Keys_Stats.KEY_MAX_HEALTH, new List<double>() },
+            { Keys_Stats.KEY_CURRENT_HEALTH, new List<double>() },
+            { Keys_Stats.KEY_MAX_AP, new List<double>() },
+            { Keys_Stats.KEY_CURRENT_AP, new List<double>() },
+            { Keys_Stats.KEY_ATTACK, new List<double>() },
+            { Keys_Stats.KEY_DEFENSE, new List<double>() },
+            { Keys_Stats.KEY_SPEED, new List<double>() }
         };
     }
 
@@ -72,7 +72,7 @@ public class BattleEntityStats : MonoBehaviour
     {
         int startValue;
         int addValue = 0;
-        int multValue = 1;
+        double multValue = 1;
         if(key == Keys_Stats.KEY_CURRENT_HEALTH || key == Keys_Stats.KEY_CURRENT_AP)
         {
             startValue = CurrentStats[key];
@@ -87,11 +87,24 @@ public class BattleEntityStats : MonoBehaviour
             addValue += value;
         }
 
-        foreach(int value in multiplyModifiers[key])
+        foreach(double value in multiplyModifiers[key])
         {
             multValue += value;
         }
 
-        return (startValue + addValue) * multValue;
+        int sum = startValue + addValue;
+        int total = (int) (sum * multValue);
+
+        return total;
+    }
+
+    public void AddNewAddModifier(Keys_Stats key, int value)
+    {
+        addModifiers[key].Add(value);
+    }
+
+    public void AddNewMultiplyModifier(Keys_Stats key, double value)
+    {
+        multiplyModifiers[key].Add(value);
     }
 }

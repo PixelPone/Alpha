@@ -52,10 +52,20 @@ public class BattleManager : MonoBehaviour
     // Start is called before the first frame update
     private void Start()
     {
-        AddState(turnOrder[0].DefaultState);
+        BattleEntityStats testing = turnOrder[0];
+        foreach (var stat in testing.CurrentStats)
+        {
+            Debug.Log(stat.Key+ " = "+ testing.GetModifiedStat(stat.Key));
+        }
+        testing.AddNewAddModifier(Constants.Keys_Stats.KEY_MAX_HEALTH, -10);
+        Debug.Log(Constants.Keys_Stats.KEY_MAX_HEALTH + " = " + testing.GetModifiedStat(Constants.Keys_Stats.KEY_MAX_HEALTH));
+        testing.AddNewMultiplyModifier(Constants.Keys_Stats.KEY_MAX_HEALTH, 0.5);
+        testing.AddNewMultiplyModifier(Constants.Keys_Stats.KEY_MAX_HEALTH, -1);
+        Debug.Log(Constants.Keys_Stats.KEY_MAX_HEALTH + " = " + testing.GetModifiedStat(Constants.Keys_Stats.KEY_MAX_HEALTH));
+        /*AddState(turnOrder[0].DefaultState);
         currentState = transform.GetChild(0).GetComponent<State>();
         currentState.gameObject.SetActive(true);
-        currentState.StartState();
+        currentState.StartState();*/
     }
 
     public void NextBattleEntity()
