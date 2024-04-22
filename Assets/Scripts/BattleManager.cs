@@ -53,15 +53,17 @@ public class BattleManager : MonoBehaviour
     private void Start()
     {
         BattleEntityStats testing = turnOrder[0];
-        foreach (var stat in testing.CurrentStats)
+        /*foreach (var stat in testing.CurrentStats)
         {
             Debug.Log(stat.Key+ " = "+ testing.GetModifiedStat(stat.Key));
-        }
-        testing.AddNewAddModifier(Constants.Keys_Stats.KEY_MAX_HEALTH, -10);
+        }*/
+        Dice dice = new Dice("1d4+3");
+        Debug.Log(dice.RollDice());
+        /*testing.AddNewAddModifier(Constants.Keys_Stats.KEY_MAX_HEALTH, -10);
         Debug.Log(Constants.Keys_Stats.KEY_MAX_HEALTH + " = " + testing.GetModifiedStat(Constants.Keys_Stats.KEY_MAX_HEALTH));
         testing.AddNewMultiplyModifier(Constants.Keys_Stats.KEY_MAX_HEALTH, 0.5);
         testing.AddNewMultiplyModifier(Constants.Keys_Stats.KEY_MAX_HEALTH, -1);
-        Debug.Log(Constants.Keys_Stats.KEY_MAX_HEALTH + " = " + testing.GetModifiedStat(Constants.Keys_Stats.KEY_MAX_HEALTH));
+        Debug.Log(Constants.Keys_Stats.KEY_MAX_HEALTH + " = " + testing.GetModifiedStat(Constants.Keys_Stats.KEY_MAX_HEALTH));*/
         /*AddState(turnOrder[0].DefaultState);
         currentState = transform.GetChild(0).GetComponent<State>();
         currentState.gameObject.SetActive(true);

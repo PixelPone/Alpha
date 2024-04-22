@@ -68,6 +68,11 @@ public class BattleEntityStats : MonoBehaviour
         };
     }
 
+    public int GetBaseStat(Keys_Stats key)
+    {
+        return baseStats.GetBaseStat(key);
+    }
+
     public int GetModifiedStat(Keys_Stats key)
     {
         int startValue;
@@ -92,10 +97,12 @@ public class BattleEntityStats : MonoBehaviour
             multValue += value;
         }
 
+        //Calculate and proper round value
         int sum = startValue + addValue;
-        int total = (int) (sum * multValue);
+        float total = (float)(sum * multValue);
+        int roundedTotal = Mathf.RoundToInt(total);
 
-        return total;
+        return roundedTotal;
     }
 
     public void AddNewAddModifier(Keys_Stats key, int value)
