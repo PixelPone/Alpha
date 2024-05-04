@@ -14,6 +14,8 @@ public class BattleManager : MonoBehaviour
     public PlayerInput playerInput;
     [SerializeField] private List<BattleEntityStats> turnOrder;
 
+    [SerializeField] private string diceString;
+
     //Singleton pattern- useful when there is only one instance of an item
     /// <summary>
     /// Instance reference to BattleManager.
@@ -42,11 +44,15 @@ public class BattleManager : MonoBehaviour
             turnOrder = new List<BattleEntityStats>();
         }
 
+        diceString = "2d4+3";
+
     }
 
     private void OnEnable()
     {
         Debug.Log("BattleManager's OnEnable Ran!");
+        Dice dice = new Dice(diceString);
+        Debug.Log(dice.RollDice());
     }
 
     // Start is called before the first frame update
@@ -57,8 +63,6 @@ public class BattleManager : MonoBehaviour
         {
             Debug.Log(stat.Key+ " = "+ testing.GetModifiedStat(stat.Key));
         }*/
-        Dice dice = new Dice("1d4+3");
-        Debug.Log(dice.RollDice());
         /*testing.AddNewAddModifier(Constants.Keys_Stats.KEY_MAX_HEALTH, -10);
         Debug.Log(Constants.Keys_Stats.KEY_MAX_HEALTH + " = " + testing.GetModifiedStat(Constants.Keys_Stats.KEY_MAX_HEALTH));
         testing.AddNewMultiplyModifier(Constants.Keys_Stats.KEY_MAX_HEALTH, 0.5);
