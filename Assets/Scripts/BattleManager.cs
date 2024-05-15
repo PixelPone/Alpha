@@ -80,7 +80,7 @@ public class BattleManager : MonoBehaviour
         currentEntityIndex = currentEntityIndex == turnOrder.Count - 1 ? 0 : currentEntityIndex + 1;
 
         //Then add its default behavior
-        AddState(turnOrder[currentEntityIndex].DefaultState);
+        //AddState(turnOrder[currentEntityIndex].DefaultState);
         //As GameObjects are delayed when destroyed, technically the previous BattleEntity's states will
         //still exist in Battle Manager's list of states. The child count will include these states as well
         //To account for this, use childCount -1 as the next Battle Entity's states will be at the end of the

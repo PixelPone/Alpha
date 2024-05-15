@@ -27,7 +27,7 @@ public class BattleEntityStats : MonoBehaviour
     /// The default state that are first run when it is this BattleEntity's turn
     /// in battle.
     /// </summary>
-    public State DefaultState { get { return defaultState; } }
+    //public State DefaultState { get { return defaultState; } }
     /// <summary>
     /// Current battle grid position of this BattleEntity.
     /// </summary>
