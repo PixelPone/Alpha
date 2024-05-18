@@ -1,3 +1,5 @@
+using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 using static Constants;
 
@@ -30,43 +32,6 @@ public class BaseActorStats : ScriptableObject
     private Special_Name magicSpecial;
     private int magicSpecialValue;
 
-    //Secondary Stats
-    //Pain Thresholds at 5 HP, 3 HP, and 1 HP
-    private int maxHp;
-    private int maxAp;
-
-    private int healingRate;
-    //Default = 20, +5 every 5 levels
-    private int maxStrain;
-    private int maxInsanity;
-    
-    private int skillPoints;
-    private int carryWeight;
-
-    private int poisionResistance;
-    private int radiationResistance;
-    private int coldResistance; //SPECIAL Check
-    private int heatResistance; //Endurance SPECIAL Check
-    private int electricityResistance; //SPECIAL Check
-
-    //Skills
-    private int barter;
-    private int diplomacy;
-    private int explosives;
-    private int firearms;
-    private int intimidation;
-    private int lockpick;
-    private int magicEnergyWeapons;
-    private int mechanics;
-    private int medicine;
-    private int melee;
-    private int science;
-    private int sleight;
-    private int sneak;
-    private int survival;
-    private int thaumaturgy;
-    private int unarmed;
-
     public void Awake()
     {
         Debug.Log("On BaseActorStat Awake!");
@@ -78,7 +43,7 @@ public class BaseActorStats : ScriptableObject
         Debug.Log($"agility {agility}");
         Debug.Log($"luck {luck}");
 
-        UpdateAllSecondaryStats();
+        UpdateMagicSpecial();
     }
 
     public void OnValidate()
@@ -92,7 +57,7 @@ public class BaseActorStats : ScriptableObject
         Debug.Log($"agility {agility}");
         Debug.Log($"luck {luck}");*/
 
-        UpdateAllSecondaryStats();
+        UpdateMagicSpecial();
     }
 
     public void Reset()
@@ -114,40 +79,11 @@ public class BaseActorStats : ScriptableObject
         Debug.Log($"agility {agility}");
         Debug.Log($"luck {luck}");*/
 
-        UpdateAllSecondaryStats();
+        UpdateMagicSpecial();
     }
 
-    private void UpdateAllSecondaryStats()
+    private void UpdateMagicSpecial()
     {
-        maxHp = 10 + endurance;
-        maxAp = 10 + (agility / 2);
-
-        if (endurance >= 1 && endurance <= 3)
-        {
-            healingRate = 1;
-        }
-        else if (endurance >= 3 && endurance <= 7)
-        {
-            healingRate = 2;
-        }
-        else
-        {
-            healingRate = 3;
-        }
-
-        maxInsanity = 5 + (intelligence / 2);
-
-        maxStrain = 20;
-
-        skillPoints = 10 + (intelligence / 2);
-        carryWeight = 10 + (strength / 2);
-
-        poisionResistance = 1 / 10;
-        radiationResistance = 1 / 20;
-        coldResistance = endurance / agility;
-        heatResistance = endurance;
-        electricityResistance = endurance / strength;
-
         switch (magicSpecial)
         {
             case Special_Name.STRENGTH:
@@ -170,28 +106,11 @@ public class BaseActorStats : ScriptableObject
                 break;
             case Special_Name.LUCK:
                 Debug.LogWarning("Magic Special is set to LUCK. This is not a valid SPECIAL!");
+                magicSpecialValue = 0;
                 break;
             default:
                 magicSpecialValue = strength;
                 break;
         }
-
-
-        //Skills
-        barter = (2 * charisma) + (luck / 2);
-        diplomacy = (2 * charisma) + (luck / 2);
-        explosives = (2 * perception) + (luck / 2);
-        firearms = (2 * agility) + (luck / 2);
-        intimidation = (2 * strength) + (luck / 2);
-        lockpick = (2 * perception) + (luck / 2);
-        magicEnergyWeapons = (2 * perception) + (luck / 2);
-        mechanics = (2 * intelligence) + (luck / 2);
-        melee = (2 * strength) + (luck / 2);
-        science = (2 * intelligence) + (luck / 2);
-        sleight = (2 * agility) + (luck / 2);
-        sneak = (2 * agility) + (luck / 2);
-        survival = (2 * endurance) + (luck / 2);
-        thaumaturgy = (2 * magicSpecialValue) + (luck / 2);
-        unarmed = (2 * endurance) + (luck / 2);
     }
 }
