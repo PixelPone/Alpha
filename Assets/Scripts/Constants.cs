@@ -11,4 +11,26 @@ public static class Constants
         KEY_DEFENSE,
         KEY_SPEED
     }
+
+    public enum Actor_Stats
+    {
+        STRENGTH,
+        PERCEPTION,
+        ENDURANCE,
+        CHARISMA,
+        INTELLIGENCE,
+        AGILITY,
+        LUCK
+    }
+
+    public enum Special_Name
+    {
+        STRENGTH,
+        PERCEPTION,
+        ENDURANCE,
+        CHARISMA,
+        INTELLIGENCE,
+        AGILITY,
+        LUCK
+    }
 }

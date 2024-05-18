@@ -1,52 +1,48 @@
-
-using System.Collections.Generic;
 using UnityEngine;
-using static Constants;
 
+[CreateAssetMenu(fileName = "BaseActorStats", menuName = "Alpha/BaseActorStats")]
 public class BaseActorStats : ScriptableObject
 {
-
+    [SerializeField]
+    [TextArea]
     private string description;
+    [SerializeField]
     private string raceName = "Earth";
 
     //SPECIAL stats
     //Ranges [1 - 10] normally, can go up to 15 with temporary buffs
     [field: Range(1, 10)]
     [field: SerializeField]
-    public int Strength { get; private set; }
+    private int strength = 5;
     [field: Range(1, 10)]
     [field: SerializeField]
-    public int Perception { get; private set; }
+    private int perception = 5;
     [field: Range(1, 10)]
     [field: SerializeField]
-    public int Endurance { get; private set; }
+    private int endurance = 5;
     [field: Range(1, 10)]
     [field: SerializeField]
-    public int Charisma { get; private set; }
+    private int charisma = 5;
     [field: Range(1, 10)]
     [field: SerializeField]
-    public int Intelligence { get; private set; }
+    private int intelligence = 5;
     [field: Range(1, 10)]
     [field: SerializeField]
-    public int Agility { get; private set; }
+    private int agility = 5;
     [field: Range(1, 10)]
     [field: SerializeField]
-    public int Luck { get; private set; }
+    private int luck = 5;
 
     private int magicSpecial;
 
     //Secondary Stats
     //Pain Thresholds at 5 HP, 3 HP, and 1 HP
-    private int currentHp;
     private int maxHp;
-    private int currentAp;
     private int maxAp;
 
     private int healingRate;
-    private int currentStrain;
     //Default = 20, +5 every 5 levels
     private int maxStrain;
-    private int currentInsanity;
     private int maxInsanity;
     
     private int skillPoints;
@@ -78,14 +74,41 @@ public class BaseActorStats : ScriptableObject
 
     public void Awake()
     {
-        maxHp = 10 + Endurance;
-        maxAp = 10 + (Agility / 2);
+        Debug.Log("On BaseActorStat Awake!");
+        Debug.Log($"strength {strength}");
+        Debug.Log($"perception {perception}");
+        Debug.Log($"endurance {endurance}");
+        Debug.Log($"charisma {charisma}");
+        Debug.Log($"intelligence {intelligence}");
+        Debug.Log($"agility {agility}");
+        Debug.Log($"luck {luck}");
 
-        if (Endurance >= 1 && Endurance <= 3)
+        UpdateAllSecondaryStats();
+    }
+
+    public void OnValidate()
+    {
+        Debug.Log("On BaseActorStat OnValidate!");
+        Debug.Log($"strength {strength}");
+        Debug.Log($"perception {perception}");
+        Debug.Log($"endurance {endurance}");
+        Debug.Log($"charisma {charisma}");
+        Debug.Log($"intelligence {intelligence}");
+        Debug.Log($"agility {agility}");
+        Debug.Log($"luck {luck}");
+        UpdateAllSecondaryStats();
+    }
+
+    private void UpdateAllSecondaryStats()
+    {
+        maxHp = 10 + endurance;
+        maxAp = 10 + (agility / 2);
+
+        if (endurance >= 1 && endurance <= 3)
         {
             healingRate = 1;
         }
-        else if (Endurance >= 3 && Endurance <= 7)
+        else if (endurance >= 3 && endurance <= 7)
         {
             healingRate = 2;
         }
@@ -94,35 +117,34 @@ public class BaseActorStats : ScriptableObject
             healingRate = 3;
         }
 
-        maxInsanity = 5 + (Intelligence / 2);
-        currentInsanity = 0;
+        maxInsanity = 5 + (intelligence / 2);
 
         maxStrain = 20;
 
-        skillPoints = 10 + (Intelligence / 2);
-        carryWeight = 10 + (Strength / 2);
+        skillPoints = 10 + (intelligence / 2);
+        carryWeight = 10 + (strength / 2);
 
         poisionResistance = 1 / 10;
         radiationResistance = 1 / 20;
-        coldResistance = Endurance / Agility;
-        heatResistance = Endurance;
-        electricityResistance = Endurance / Strength;
+        coldResistance = endurance / agility;
+        heatResistance = endurance;
+        electricityResistance = endurance / strength;
 
         //Skills
-        barter = (2 * Charisma) + (Luck / 2);
-        diplomacy = (2 * Charisma) + (Luck / 2);
-        explosives = (2 * Perception) + (Luck / 2);
-        firearms = (2 * Agility) + (Luck / 2);
-        intimidation = (2 * Strength) + (Luck / 2);
-        lockpick = (2 * Perception) + (Luck / 2);
-        magicEnergyWeapons = (2 * Perception) + (Luck / 2);
-        mechanics = (2 * Intelligence) + (Luck / 2);
-        melee = (2 * Strength) + (Luck / 2);
-        science = (2 * Intelligence) + (Luck / 2);
-        sleight = (2 * Agility) + (Luck / 2);
-        sneak = (2 * Agility) + (Luck / 2);
-        survival = (2 * Endurance) + (Luck / 2);
-        thaumaturgy = (2 * magicSpecial) + (Luck / 2);
-        unarmed = (2 * Endurance) + (Luck / 2);
+        barter = (2 * charisma) + (luck / 2);
+        diplomacy = (2 * charisma) + (luck / 2);
+        explosives = (2 * perception) + (luck / 2);
+        firearms = (2 * agility) + (luck / 2);
+        intimidation = (2 * strength) + (luck / 2);
+        lockpick = (2 * perception) + (luck / 2);
+        magicEnergyWeapons = (2 * perception) + (luck / 2);
+        mechanics = (2 * intelligence) + (luck / 2);
+        melee = (2 * strength) + (luck / 2);
+        science = (2 * intelligence) + (luck / 2);
+        sleight = (2 * agility) + (luck / 2);
+        sneak = (2 * agility) + (luck / 2);
+        survival = (2 * endurance) + (luck / 2);
+        thaumaturgy = (2 * magicSpecial) + (luck / 2);
+        unarmed = (2 * endurance) + (luck / 2);
     }
 }

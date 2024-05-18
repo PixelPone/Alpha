@@ -10,6 +10,11 @@ public class ActorStats : MonoBehaviour
     private int karma;
     private int size;
 
+    private int currentHp;
+    private int currentAp;
+    private int currentStrain;
+    private int currentInsanity;
+
 
     [SerializeField]
     private BaseActorStats baseActorStats;
