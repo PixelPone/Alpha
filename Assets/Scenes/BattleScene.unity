@@ -268,7 +268,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 742464567}
-  - component: {fileID: 742464568}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -291,25 +290,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &742464568
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 742464565}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ea6115f329fd3724f87e3c35ecbb5b3c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  <Strength>k__BackingField: 0
-  <Perception>k__BackingField: 0
-  <Endurance>k__BackingField: 0
-  <Charisma>k__BackingField: 0
-  <Intelligence>k__BackingField: 0
-  <Agility>k__BackingField: 0
-  <Luck>k__BackingField: 0
 --- !u!1 &1209393343
 GameObject:
   m_ObjectHideFlags: 0
@@ -319,30 +299,13 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1209393345}
-  - component: {fileID: 1209393344}
   m_Layer: 0
   m_Name: BattleManager
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!114 &1209393344
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1209393343}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: cb1824d2531dcc647b41bda113f714f8, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  playerInput: {fileID: 130350313}
-  turnOrder:
-  - {fileID: 0}
-  diceString: 
+  m_IsActive: 0
 --- !u!4 &1209393345
 Transform:
   m_ObjectHideFlags: 0
