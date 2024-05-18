@@ -1,39 +1,34 @@
 using UnityEngine;
+using static Constants;
 
 [CreateAssetMenu(fileName = "BaseActorStats", menuName = "Alpha/BaseActorStats")]
 public class BaseActorStats : ScriptableObject
 {
-    [SerializeField]
-    [TextArea]
+    [SerializeField, TextArea]
     private string description;
     [SerializeField]
     private string raceName = "Earth";
 
     //SPECIAL stats
     //Ranges [1 - 10] normally, can go up to 15 with temporary buffs
-    [field: Range(1, 10)]
-    [field: SerializeField]
+    [SerializeField, Range(1, 10)]
     private int strength = 5;
-    [field: Range(1, 10)]
-    [field: SerializeField]
+    [SerializeField, Range(1, 10)]
     private int perception = 5;
-    [field: Range(1, 10)]
-    [field: SerializeField]
+    [SerializeField, Range(1, 10)]
     private int endurance = 5;
-    [field: Range(1, 10)]
-    [field: SerializeField]
+    [SerializeField, Range(1, 10)]
     private int charisma = 5;
-    [field: Range(1, 10)]
-    [field: SerializeField]
+    [SerializeField, Range(1, 10)]
     private int intelligence = 5;
-    [field: Range(1, 10)]
-    [field: SerializeField]
+    [SerializeField, Range(1, 10)]
     private int agility = 5;
-    [field: Range(1, 10)]
-    [field: SerializeField]
+    [SerializeField, Range(1, 10)]
     private int luck = 5;
 
-    private int magicSpecial;
+    [SerializeField]
+    private Special_Name magicSpecial;
+    private int magicSpecialValue;
 
     //Secondary Stats
     //Pain Thresholds at 5 HP, 3 HP, and 1 HP
@@ -88,14 +83,37 @@ public class BaseActorStats : ScriptableObject
 
     public void OnValidate()
     {
-        Debug.Log("On BaseActorStat OnValidate!");
+        /*Debug.Log("On BaseActorStat OnValidate!");
         Debug.Log($"strength {strength}");
         Debug.Log($"perception {perception}");
         Debug.Log($"endurance {endurance}");
         Debug.Log($"charisma {charisma}");
         Debug.Log($"intelligence {intelligence}");
         Debug.Log($"agility {agility}");
-        Debug.Log($"luck {luck}");
+        Debug.Log($"luck {luck}");*/
+
+        UpdateAllSecondaryStats();
+    }
+
+    public void Reset()
+    {
+        strength = 5;
+        perception = 5;
+        endurance = 5;
+        charisma = 5;
+        intelligence = 5;
+        agility = 5;
+        luck = 5;
+
+        /*Debug.Log("On BaseActorStat Reset!");
+        Debug.Log($"strength {strength}");
+        Debug.Log($"perception {perception}");
+        Debug.Log($"endurance {endurance}");
+        Debug.Log($"charisma {charisma}");
+        Debug.Log($"intelligence {intelligence}");
+        Debug.Log($"agility {agility}");
+        Debug.Log($"luck {luck}");*/
+
         UpdateAllSecondaryStats();
     }
 
@@ -130,6 +148,35 @@ public class BaseActorStats : ScriptableObject
         heatResistance = endurance;
         electricityResistance = endurance / strength;
 
+        switch (magicSpecial)
+        {
+            case Special_Name.STRENGTH:
+                magicSpecialValue = strength;
+                break;
+            case Special_Name.PERCEPTION:
+                magicSpecialValue = perception;
+                break;
+            case Special_Name.ENDURANCE:
+                magicSpecialValue = endurance;
+                break;
+            case Special_Name.CHARISMA:
+                magicSpecialValue = charisma;
+                break;
+            case Special_Name.INTELLIGENCE:
+                magicSpecialValue = intelligence;
+                break;
+            case Special_Name.AGILITY:
+                magicSpecialValue = agility;
+                break;
+            case Special_Name.LUCK:
+                Debug.LogWarning("Magic Special is set to LUCK. This is not a valid SPECIAL!");
+                break;
+            default:
+                magicSpecialValue = strength;
+                break;
+        }
+
+
         //Skills
         barter = (2 * charisma) + (luck / 2);
         diplomacy = (2 * charisma) + (luck / 2);
@@ -144,7 +191,7 @@ public class BaseActorStats : ScriptableObject
         sleight = (2 * agility) + (luck / 2);
         sneak = (2 * agility) + (luck / 2);
         survival = (2 * endurance) + (luck / 2);
-        thaumaturgy = (2 * magicSpecial) + (luck / 2);
+        thaumaturgy = (2 * magicSpecialValue) + (luck / 2);
         unarmed = (2 * endurance) + (luck / 2);
     }
 }
