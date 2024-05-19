@@ -5,14 +5,14 @@ using static Constants;
 [CreateAssetMenu(fileName = "BaseActorStats", menuName = "Alpha/BaseActorStats")]
 public class BaseActorStats : ScriptableObject
 {
-    [field: SerializeField, TextArea]
+    [field: SerializeField, TextArea, Header("General Info")]
     public string Description { get; private set; }
     [field: SerializeField]
     public string RaceName { get; private set; } = "Earth";
 
     //SPECIAL stats
     //Ranges [1 - 10] normally, can go up to 15 with temporary buffs
-    [field: SerializeField, Range(1, 10)]
+    [field: SerializeField, Range(1, 10), Header("SPECIAL Values")]
     public int Strength { get; private set; } = 5;
     [field: SerializeField, Range(1, 10)]
     public int Perception { get; private set; } = 5;
