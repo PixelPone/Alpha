@@ -5,10 +5,10 @@ using static Constants;
 [CreateAssetMenu(fileName = "BaseActorStats", menuName = "Alpha/BaseActorStats")]
 public class BaseActorStats : ScriptableObject
 {
-    [SerializeField, TextArea]
-    private string description;
-    [SerializeField]
-    private string raceName = "Earth";
+    [field: SerializeField, TextArea]
+    public string Description { get; private set; }
+    [field: SerializeField]
+    public string RaceName { get; private set; } = "Earth";
 
     //SPECIAL stats
     //Ranges [1 - 10] normally, can go up to 15 with temporary buffs
@@ -47,15 +47,7 @@ public class BaseActorStats : ScriptableObject
 
     public void OnValidate()
     {
-        /*Debug.Log("On BaseActorStat OnValidate!");
-        Debug.Log($"strength {strength}");
-        Debug.Log($"perception {perception}");
-        Debug.Log($"endurance {endurance}");
-        Debug.Log($"charisma {charisma}");
-        Debug.Log($"intelligence {intelligence}");
-        Debug.Log($"agility {agility}");
-        Debug.Log($"luck {luck}");*/
-
+        PrintSpecialValues();
         UpdateMagicSpecial();
     }
 
@@ -69,7 +61,13 @@ public class BaseActorStats : ScriptableObject
         Agility = 5;
         Luck = 5;
 
-        /*Debug.Log("On BaseActorStat Reset!");
+        PrintSpecialValues();
+        UpdateMagicSpecial();
+    }
+
+    private void PrintSpecialValues()
+    {
+        /*Debug.Log("On BaseActorStat OnValidate!");
         Debug.Log($"strength {strength}");
         Debug.Log($"perception {perception}");
         Debug.Log($"endurance {endurance}");
@@ -77,8 +75,6 @@ public class BaseActorStats : ScriptableObject
         Debug.Log($"intelligence {intelligence}");
         Debug.Log($"agility {agility}");
         Debug.Log($"luck {luck}");*/
-
-        UpdateMagicSpecial();
     }
 
     private void UpdateMagicSpecial()

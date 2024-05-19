@@ -12,15 +12,15 @@ public static class Constants
         KEY_SPEED
     }
 
-    public enum Actor_Stats
+    public enum Key_Actor_Stats
     {
-        STRENGTH,
-        PERCEPTION,
-        ENDURANCE,
-        CHARISMA,
-        INTELLIGENCE,
-        AGILITY,
-        LUCK
+        KEY_STRENGTH,
+        KEY_PERCEPTION,
+        KEY_ENDURANCE,
+        KEY_CHARISMA,
+        KEY_INTELLIGENCE,
+        KEY_AGILITY,
+        KEY_LUCK
     }
 
     public enum Special_Name
