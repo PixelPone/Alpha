@@ -1,5 +1,4 @@
-using System.Collections;
-using System.Collections.Generic;
+using Unity.Collections;
 using UnityEngine;
 using static Constants;
 
@@ -13,35 +12,35 @@ public class BaseActorStats : ScriptableObject
 
     //SPECIAL stats
     //Ranges [1 - 10] normally, can go up to 15 with temporary buffs
-    [SerializeField, Range(1, 10)]
-    private int strength = 5;
-    [SerializeField, Range(1, 10)]
-    private int perception = 5;
-    [SerializeField, Range(1, 10)]
-    private int endurance = 5;
-    [SerializeField, Range(1, 10)]
-    private int charisma = 5;
-    [SerializeField, Range(1, 10)]
-    private int intelligence = 5;
-    [SerializeField, Range(1, 10)]
-    private int agility = 5;
-    [SerializeField, Range(1, 10)]
-    private int luck = 5;
+    [field: SerializeField, Range(1, 10)]
+    public int Strength { get; private set; } = 5;
+    [field: SerializeField, Range(1, 10)]
+    public int Perception { get; private set; } = 5;
+    [field: SerializeField, Range(1, 10)]
+    public int Endurance { get; private set; } = 5;
+    [field:SerializeField, Range(1, 10)]
+    public int Charisma { get; private set; } = 5;
+    [field: SerializeField, Range(1, 10)]
+    public int Intelligence { get; private set; } = 5;
+    [field: SerializeField, Range(1, 10)]
+    public int Agility { get; private set; } = 5;
+    [field:SerializeField, Range(1, 10)]
+    public int Luck { get; private set; } = 5;
 
-    [SerializeField]
-    private Special_Name magicSpecial;
-    private int magicSpecialValue;
+    [field: SerializeField]
+    public Special_Name MagicSpecial { get; private set; } = Special_Name.STRENGTH;
+    public int MagicSpecialValue { get; private set; }
 
     public void Awake()
     {
-        Debug.Log("On BaseActorStat Awake!");
-        Debug.Log($"strength {strength}");
-        Debug.Log($"perception {perception}");
-        Debug.Log($"endurance {endurance}");
-        Debug.Log($"charisma {charisma}");
-        Debug.Log($"intelligence {intelligence}");
-        Debug.Log($"agility {agility}");
-        Debug.Log($"luck {luck}");
+        /*Debug.Log("On BaseActorStat Awake!");
+        Debug.Log($"strength {Strength}");
+        Debug.Log($"perception {Perception}");
+        Debug.Log($"endurance {Endurance}");
+        Debug.Log($"charisma {Charisma}");
+        Debug.Log($"intelligence {Intelligence}");
+        Debug.Log($"agility {Agility}");
+        Debug.Log($"luck {Luck}");*/
 
         UpdateMagicSpecial();
     }
@@ -62,13 +61,13 @@ public class BaseActorStats : ScriptableObject
 
     public void Reset()
     {
-        strength = 5;
-        perception = 5;
-        endurance = 5;
-        charisma = 5;
-        intelligence = 5;
-        agility = 5;
-        luck = 5;
+        Strength = 5;
+        Perception = 5;
+        Endurance = 5;
+        Charisma = 5;
+        Intelligence = 5;
+        Agility = 5;
+        Luck = 5;
 
         /*Debug.Log("On BaseActorStat Reset!");
         Debug.Log($"strength {strength}");
@@ -84,32 +83,32 @@ public class BaseActorStats : ScriptableObject
 
     private void UpdateMagicSpecial()
     {
-        switch (magicSpecial)
+        switch (MagicSpecial)
         {
             case Special_Name.STRENGTH:
-                magicSpecialValue = strength;
+                MagicSpecialValue = Strength;
                 break;
             case Special_Name.PERCEPTION:
-                magicSpecialValue = perception;
+                MagicSpecialValue = Perception;
                 break;
             case Special_Name.ENDURANCE:
-                magicSpecialValue = endurance;
+                MagicSpecialValue = Endurance;
                 break;
             case Special_Name.CHARISMA:
-                magicSpecialValue = charisma;
+                MagicSpecialValue = Charisma;
                 break;
             case Special_Name.INTELLIGENCE:
-                magicSpecialValue = intelligence;
+                MagicSpecialValue = Intelligence;
                 break;
             case Special_Name.AGILITY:
-                magicSpecialValue = agility;
+                MagicSpecialValue = Agility;
                 break;
             case Special_Name.LUCK:
                 Debug.LogWarning("Magic Special is set to LUCK. This is not a valid SPECIAL!");
-                magicSpecialValue = 0;
+                MagicSpecialValue = 0;
                 break;
             default:
-                magicSpecialValue = strength;
+                MagicSpecialValue = Strength;
                 break;
         }
     }
