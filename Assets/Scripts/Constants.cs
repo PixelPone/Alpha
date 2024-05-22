@@ -33,4 +33,12 @@ public static class Constants
         AGILITY,
         LUCK
     }
+
+    public enum Item_Rarity
+    {
+        COMMON,
+        UNCOMMON,
+        RARE,
+        EXOTIC
+    }
 }
