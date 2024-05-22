@@ -304,6 +304,45 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   baseActorStats: {fileID: 11400000, guid: f5c78acca3e4770449668fd897b1a289, type: 2}
+  <Strength>k__BackingField: 0
+  <Perception>k__BackingField: 0
+  <Endurance>k__BackingField: 0
+  <Charisma>k__BackingField: 0
+  <Intelligence>k__BackingField: 0
+  <Agility>k__BackingField: 0
+  <Luck>k__BackingField: 0
+  currentHp: 0
+  currentAp: 0
+  currentStrain: 0
+  currentInsanity: 0
+  <MaxHp>k__BackingField: 0
+  <MaxAp>k__BackingField: 0
+  <MaxStrain>k__BackingField: 0
+  <MaxInsanity>k__BackingField: 0
+  <HealingRate>k__BackingField: 0
+  <SkillPoints>k__BackingField: 0
+  <CarryWeight>k__BackingField: 0
+  <ResistancePoision>k__BackingField: 0
+  <ResistanceRadiation>k__BackingField: 0
+  <ResistanceCold>k__BackingField: 0
+  <ResistanceHeat>k__BackingField: 0
+  <ResistanceElectricity>k__BackingField: 0
+  <SkillBarter>k__BackingField: 0
+  <SkillDiplomacy>k__BackingField: 0
+  <SkillExplosives>k__BackingField: 0
+  <SkillFirearms>k__BackingField: 0
+  <SkillIntimidation>k__BackingField: 0
+  <SkillLockpick>k__BackingField: 0
+  <SkillMagicEnergyWeapons>k__BackingField: 0
+  <SkillMechanics>k__BackingField: 0
+  <SkillMedicine>k__BackingField: 0
+  <SkillMelee>k__BackingField: 0
+  <SkillScience>k__BackingField: 0
+  <SkillSleight>k__BackingField: 0
+  <SkillSneak>k__BackingField: 0
+  <SkillSurvival>k__BackingField: 0
+  <SkillThaumaturgy>k__BackingField: 0
+  <SkillUnarmed>k__BackingField: 0
 --- !u!1 &1209393343
 GameObject:
   m_ObjectHideFlags: 0

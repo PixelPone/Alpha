@@ -18,17 +18,28 @@ public class ActorStats : MonoBehaviour
     //Ranges [1 - 10] normally, can go up to 15 with temporary buffs
     //This is so that each indiviual Actor can have their own SPECIAL if needed
     //(useful for permenant modifiers)
-    public int Strength { get; private set; }
-    public int Perception { get; private set; }
-    public int Endurance { get; private set; }
-    public int Charisma { get; private set; }
-    public int Intelligence {  get; private set; }
-    public int Agility { get; private set; }
-    public int Luck { get; private set; }
+    [field: Header("SPECIAL Values"), SerializeField]
+    public int Strength { get; set; }
+    [field: SerializeField]
+    public int Perception { get; set; }
+    [field: SerializeField]
+    public int Endurance { get; set; }
+    [field: SerializeField]
+    public int Charisma { get; set; }
+    [field: SerializeField]
+    public int Intelligence {  get; set; }
+    [field: SerializeField]
+    public int Agility { get; set; }
+    [field: SerializeField]
+    public int Luck { get; set; }
 
+    [Header("Current Values"), SerializeField]
     private int currentHp;
+    [SerializeField]
     private int currentAp;
+    [SerializeField]
     private int currentStrain;
+    [SerializeField]
     private int currentInsanity;
 
     public int CurrentHp { get { return currentHp; } set { currentHp = Mathf.Clamp(value, 0, MaxHp); } }
@@ -38,42 +49,70 @@ public class ActorStats : MonoBehaviour
 
     //Secondary Stats
     //Pain Thresholds at 5 HP, 3 HP, and 1 HP
+    [field: Header("Max Thresholds"), SerializeField]
     public int MaxHp { get; private set; }
+    [field: SerializeField]
     public int MaxAp { get; private set; }
     //Default = 20, +5 every 5 levels
+    [field: SerializeField]
     public int MaxStrain { get; private set; }
+    [field: SerializeField]
     public int MaxInsanity { get; private set; }
 
+    [field: Header("Healing, Skills, and Weight"), SerializeField]
     public int HealingRate { get; private set; }
+    [field: SerializeField]
     public int SkillPoints { get; private set; }
+    [field: SerializeField]
     public int CarryWeight { get; private set; }
 
     //Resistances
+    [field: Header("Resistances"), SerializeField]
     public int ResistancePoision {  get; private set; }
+    [field: SerializeField]
     public int ResistanceRadiation { get; private set; }
     //Used for SPECIAL Check
+    [field: SerializeField]
     public int ResistanceCold { get; private set; }
     //Used for Endurance SPECIAL Check
+    [field: SerializeField]
     public int ResistanceHeat { get; private set; }
     //Used for SPECIAL Check
+    [field: SerializeField]
     public int ResistanceElectricity { get; private set; }
 
     //Skills
+    [field: Header("Skills"), SerializeField]
     public int SkillBarter { get; private set; }
+    [field: SerializeField]
     public int SkillDiplomacy {  get; private set; }
+    [field: SerializeField]
     public int SkillExplosives { get; private set; }
+    [field: SerializeField]
     public int SkillFirearms { get; private set; }
+    [field: SerializeField]
     public int SkillIntimidation { get; private set; }
+    [field: SerializeField]
     public int SkillLockpick { get; private set; }
+    [field: SerializeField]
     public int SkillMagicEnergyWeapons { get; private set; }
+    [field: SerializeField]
     public int SkillMechanics { get; private set; }
+    [field: SerializeField]
     public int SkillMedicine { get; private set; }
+    [field: SerializeField]
     public int SkillMelee { get; private set; }
+    [field: SerializeField]
     public int SkillScience { get; private set; }
+    [field: SerializeField]
     public int SkillSleight { get; private set; }
+    [field: SerializeField]
     public int SkillSneak { get; private set; }
+    [field: SerializeField]
     public int SkillSurvival { get; private set; }
+    [field: SerializeField]
     public int SkillThaumaturgy { get; private set; }
+    [field: SerializeField]
     public int SkillUnarmed { get; private set; }
 
     private void Awake()
@@ -152,6 +191,5 @@ public class ActorStats : MonoBehaviour
         SkillSurvival = (2 * Endurance) + (Luck / 2);
         SkillThaumaturgy = (2 * baseActorStats.MagicSpecialValue) + (Luck / 2);
         SkillUnarmed = (2 * Endurance) + (Luck / 2);
-
     }
 }
