@@ -7,7 +7,7 @@ public class ItemStats : ScriptableObject
     [field: SerializeField]
     public string ItemName { get; private set; } = "DummyItem";
     [field: SerializeField]
-    public int ItemWeight { get; private set; }
+    public double ItemWeight { get; private set; }
     [field: SerializeField]
     public Item_Rarity Item_Rarity { get; private set; }
     [field: SerializeField]

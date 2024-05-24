@@ -7,6 +7,8 @@ public class Dice
 {
     private List<(int, int, int)> listOfDice;
 
+    public List<(int, int, int)> ListOfDice { get { return listOfDice; } private set { listOfDice = value; } }
+
     public Dice(string diceString)
     {
         listOfDice = new List<(int, int, int)> ();
@@ -21,7 +23,12 @@ public class Dice
         //In this case, outer () captures the entire dice string, Group 0 and 1 are the same string
         Regex diceCaptureRegex = new Regex(@"(((\d+)d(\d+))((\+|-)(\d+))?)+", RegexOptions.None);
         MatchCollection diceMatches = diceCaptureRegex.Matches(diceString);
-        
+
+        if (diceMatches.Count == 0)
+        {
+            Debug.LogError("This Dice String was not formatted properly!");
+        }
+
         //For each dice string
         foreach (Match match in diceMatches.Cast<Match>())
         {
@@ -39,7 +46,7 @@ public class Dice
             Debug.Log("Number of Rolls: " + numberOfRolls + " Number of Sides: " + numberOfSides + " Modifier: " + modifier);
             listOfDice.Add((numberOfRolls, numberOfSides, modifierResult));
         }
-    } 
+    }
 
     public int RollDice()
     {
