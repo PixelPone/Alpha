@@ -8,6 +8,8 @@ public class ActorStats : MonoBehaviour
     //Where this Actor's General Information and Base SPECIAL stats are stored
     [SerializeField]
     private BaseActorStats baseActorStats;
+    [SerializeField]
+    private ActorPast testing;
 
     private int level = 1;
     private int experience = 0;
@@ -83,37 +85,37 @@ public class ActorStats : MonoBehaviour
 
     //Skills
     [field: Header("Skills"), SerializeField]
-    public int SkillBarter { get; private set; }
+    public int SkillBarter { get; set; }
     [field: SerializeField]
-    public int SkillDiplomacy {  get; private set; }
+    public int SkillDiplomacy {  get; set; }
     [field: SerializeField]
-    public int SkillExplosives { get; private set; }
+    public int SkillExplosives { get; set; }
     [field: SerializeField]
-    public int SkillFirearms { get; private set; }
+    public int SkillFirearms { get; set; }
     [field: SerializeField]
-    public int SkillIntimidation { get; private set; }
+    public int SkillIntimidation { get; set; }
     [field: SerializeField]
-    public int SkillLockpick { get; private set; }
+    public int SkillLockpick { get; set; }
     [field: SerializeField]
-    public int SkillMagicEnergyWeapons { get; private set; }
+    public int SkillMagicEnergyWeapons { get; set; }
     [field: SerializeField]
-    public int SkillMechanics { get; private set; }
+    public int SkillMechanics { get; set; }
     [field: SerializeField]
-    public int SkillMedicine { get; private set; }
+    public int SkillMedicine { get; set; }
     [field: SerializeField]
-    public int SkillMelee { get; private set; }
+    public int SkillMelee { get; set; }
     [field: SerializeField]
-    public int SkillScience { get; private set; }
+    public int SkillScience { get; set; }
     [field: SerializeField]
-    public int SkillSleight { get; private set; }
+    public int SkillSleight { get; set; }
     [field: SerializeField]
-    public int SkillSneak { get; private set; }
+    public int SkillSneak { get; set; }
     [field: SerializeField]
-    public int SkillSurvival { get; private set; }
+    public int SkillSurvival { get; set; }
     [field: SerializeField]
-    public int SkillThaumaturgy { get; private set; }
+    public int SkillThaumaturgy { get; set; }
     [field: SerializeField]
-    public int SkillUnarmed { get; private set; }
+    public int SkillUnarmed { get; set; }
 
     private void Awake()
     {
@@ -126,6 +128,7 @@ public class ActorStats : MonoBehaviour
         Luck = baseActorStats.Luck;
 
         UpdateAllSecondaryStats();
+        testing.OnEffect(this.gameObject);
     }
 
     // Start is called before the first frame update
