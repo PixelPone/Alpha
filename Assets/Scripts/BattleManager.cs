@@ -9,7 +9,7 @@ public class BattleManager : MonoBehaviour
     /// </summary>
     private int currentStateIndex;
     private int currentEntityIndex;
-    private State currentState;
+    private StateOld currentState;
     private BattleGrid battleGrid;
     public PlayerInput playerInput;
     [SerializeField] private List<BattleEntityStats> turnOrder;
@@ -86,7 +86,7 @@ public class BattleManager : MonoBehaviour
         //To account for this, use childCount -1 as the next Battle Entity's states will be at the end of the
         //list
         //transform.GetChild(transform.childCount - 1).gameObject.SetActive(true);
-        currentState = transform.GetChild(transform.childCount - 1).gameObject.GetComponent<State>();
+        currentState = transform.GetChild(transform.childCount - 1).gameObject.GetComponent<StateOld>();
         currentState.gameObject.SetActive(true);
         currentState.StartState();
     }
@@ -95,7 +95,7 @@ public class BattleManager : MonoBehaviour
     /// Add individual state to end of Battle Manager's state list.
     /// </summary>
     /// <param name="state">State that will be added.</param>
-    public void AddState(State state)
+    public void AddState(StateOld state)
     {
         Transform stateClone = Instantiate(state.transform);
         stateClone.SetParent(transform, false);
@@ -116,7 +116,7 @@ public class BattleManager : MonoBehaviour
             Destroy(currentState.gameObject);
 
             currentStateIndex--;
-            currentState = transform.GetChild(currentStateIndex).gameObject.GetComponent<State>();
+            currentState = transform.GetChild(currentStateIndex).gameObject.GetComponent<StateOld>();
             currentState.StartState();
         }
     }
@@ -131,7 +131,7 @@ public class BattleManager : MonoBehaviour
             //Clean up current state, and then transition to next state
             currentState.EndState();
             currentStateIndex++;
-            currentState = transform.GetChild(currentStateIndex).gameObject.GetComponent<State>();
+            currentState = transform.GetChild(currentStateIndex).gameObject.GetComponent<StateOld>();
             currentState.gameObject.SetActive(true);
             currentState.StartState();
         }

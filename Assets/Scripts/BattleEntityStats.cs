@@ -16,7 +16,7 @@ public class BattleEntityStats : MonoBehaviour
     /// just have their own BaseStats ScriptableObject.
     /// </remarks>
     [SerializeField] private BattleEntityBaseStats baseStats;
-    [SerializeField] private State defaultState;
+    [SerializeField] private StateOld defaultState;
 
     public Dictionary<Keys_Stats, int> CurrentStats { get; set; }
 

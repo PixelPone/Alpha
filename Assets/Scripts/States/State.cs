@@ -1,35 +1,18 @@
 using UnityEngine;
 
-/// <summary>
-/// Represents a phase of battle.
-/// </summary>
-/// <remarks>
-/// <para>
-///  In Unity, there is no set order for which objects call their Awake, Start, and Update methods
-///  (even for a GameObject with child GameObjects). This means that a child's Awake method can
-///  run before its parent's, leading to potential null reference errors when initializing.
-/// </para>
-///  <para>
-///  In the context of this state machine system, it means that is possible for a state's Start method to run 
-///  before the Start method of its associated state machine. To control the order of initilization and updating so 
-///  that state machines' methods run before their states, these methods will be explicitly called using this class.
-/// </para>
-/// </remarks>
 public abstract class State : MonoBehaviour
 {
+    public bool IsComplete { get; protected set; }
 
-    /// <summary>
-    /// Sets up the logic for the state.
-    /// </summary>
-    public abstract void StartState();
+    protected float startTime;
 
-    /// <summary>
-    /// Updates the logic for the state every frame.
-    /// </summary>
-    public abstract void UpdateState(float deltaTime);
+    public float CurrentDuration => Time.time - startTime;
 
-    /// <summary>
-    /// Cleans up the logic for the state.
-    /// </summary>
-    public abstract void EndState();
+    public abstract void StateEnter();
+
+    public abstract void StateUpdate();
+
+    public abstract void StateFixedUpdate();
+
+    public abstract void StateExit();
 }
