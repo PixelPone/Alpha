@@ -12,11 +12,11 @@ public class StateMachine
         {
             if (currentState != null)
             {
-                currentState.Exit();
+                currentState.StateExit();
             }
             currentState = newState;
-            currentState.InitializeState();
-            currentState.Enter();
+            currentState.InitializeState(this);
+            currentState.StateEnter();
         }
     }
 }

@@ -5,6 +5,9 @@ public abstract class StateMachineCore : MonoBehaviour
     public Animator animator;
     public StateMachine stateMachine;
 
+    [SerializeField]
+    private State defaultState;
+
     public void SetUpInstances()
     {
         stateMachine = new StateMachine();
