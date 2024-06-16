@@ -1,5 +1,7 @@
 using System.Collections.Generic;
+using UnityEditor.Experimental.GraphView;
 using UnityEngine;
+using UnityEngine.AI;
 
 public class BattleManager : MonoBehaviour
 {
@@ -36,13 +38,61 @@ public class BattleManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-
+        GetInitiative();
     }
 
     // Update is called once per frame
     void Update()
     {
 
+    }
+
+    /// <summary>
+    /// Sets up the initial turn order for a battle.
+    /// </summary>
+    private void GetInitiative()
+    {
+        Dice initiativeModifier = new Dice("1d10");
+        Dice coin = new Dice("1d2");
+
+        turnOrder.Sort(delegate (ActorStats one, ActorStats two)
+        {
+            //Negative value of CompareTo is returned in order to make Actors with higher stats toward front of order
+            //Have to use BASE Perception when calculating Initiative rolls
+            int initiativeTotalOne = one.BaseActorSpecial.Perception + initiativeModifier.RollDice();
+            int initiativeTotalTwo = two.BaseActorSpecial.Perception + initiativeModifier.RollDice();
+
+            int compare = initiativeTotalOne.CompareTo(initiativeTotalTwo);
+            if(compare != 0)
+            {
+                return -compare;
+            }
+
+            //If Initiative rolls are both equal, next compare Agility
+            compare = one.Agility.CompareTo(two.Agility);
+            if(compare != 0)
+            {
+                return -compare;
+            }
+
+            //If Agilities are both equal, then next use Luck
+            compare = one.Luck.CompareTo(two.Luck);
+            if (compare != 0)
+            {
+                return -compare;
+            }
+
+            //If all fails, then just flip a coin for position
+            int coinResult = coin.RollDice();
+            if (coinResult == 1)
+            {
+                return -1;
+            }
+            else
+            {
+                return 1;
+            }
+        });
     }
 
     /// <summary>

@@ -314,7 +314,7 @@ GameObject:
   - component: {fileID: 742464567}
   - component: {fileID: 742464568}
   m_Layer: 0
-  m_Name: Player
+  m_Name: Player Actor
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -347,7 +347,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f96a8453cad8c3a438da14f5527a9bd1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  baseActorStats: {fileID: 11400000, guid: f5c78acca3e4770449668fd897b1a289, type: 2}
+  <BaseActorSpecial>k__BackingField: {fileID: 11400000, guid: f5c78acca3e4770449668fd897b1a289, type: 2}
   testing: {fileID: 11400000, guid: c9086d3b9816ab5479031c4de5256f5b, type: 2}
   <Strength>k__BackingField: 0
   <Perception>k__BackingField: 0
@@ -388,7 +388,7 @@ MonoBehaviour:
   <SkillSurvival>k__BackingField: 0
   <SkillThaumaturgy>k__BackingField: 0
   <SkillUnarmed>k__BackingField: 0
---- !u!1 &1648852919
+--- !u!1 &1613550174
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -396,38 +396,78 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 1648852921}
-  - component: {fileID: 1648852920}
+  - component: {fileID: 1613550176}
+  - component: {fileID: 1613550175}
   m_Layer: 0
-  m_Name: Test2
+  m_Name: Test Actor
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &1648852920
+--- !u!114 &1613550175
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1648852919}
+  m_GameObject: {fileID: 1613550174}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ad4ed0b0f2406aa4e956d67d2cd59194, type: 3}
+  m_Script: {fileID: 11500000, guid: f96a8453cad8c3a438da14f5527a9bd1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  turnOrder: []
---- !u!4 &1648852921
+  <BaseActorSpecial>k__BackingField: {fileID: 0}
+  testing: {fileID: 11400000, guid: c9086d3b9816ab5479031c4de5256f5b, type: 2}
+  <Strength>k__BackingField: 0
+  <Perception>k__BackingField: 0
+  <Endurance>k__BackingField: 0
+  <Charisma>k__BackingField: 0
+  <Intelligence>k__BackingField: 0
+  <Agility>k__BackingField: 0
+  <Luck>k__BackingField: 0
+  currentHp: 0
+  currentAp: 0
+  currentStrain: 0
+  currentInsanity: 0
+  <MaxHp>k__BackingField: 0
+  <MaxAp>k__BackingField: 0
+  <MaxStrain>k__BackingField: 0
+  <MaxInsanity>k__BackingField: 0
+  <HealingRate>k__BackingField: 0
+  <SkillPoints>k__BackingField: 0
+  <CarryWeight>k__BackingField: 0
+  <ResistancePoision>k__BackingField: 0
+  <ResistanceRadiation>k__BackingField: 0
+  <ResistanceCold>k__BackingField: 0
+  <ResistanceHeat>k__BackingField: 0
+  <ResistanceElectricity>k__BackingField: 0
+  <SkillBarter>k__BackingField: 0
+  <SkillDiplomacy>k__BackingField: 0
+  <SkillExplosives>k__BackingField: 0
+  <SkillFirearms>k__BackingField: 0
+  <SkillIntimidation>k__BackingField: 0
+  <SkillLockpick>k__BackingField: 0
+  <SkillMagicEnergyWeapons>k__BackingField: 0
+  <SkillMechanics>k__BackingField: 0
+  <SkillMedicine>k__BackingField: 0
+  <SkillMelee>k__BackingField: 0
+  <SkillScience>k__BackingField: 0
+  <SkillSleight>k__BackingField: 0
+  <SkillSneak>k__BackingField: 0
+  <SkillSurvival>k__BackingField: 0
+  <SkillThaumaturgy>k__BackingField: 0
+  <SkillUnarmed>k__BackingField: 0
+--- !u!4 &1613550176
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1648852919}
+  m_GameObject: {fileID: 1613550174}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.37176308, y: 0.08745704, z: 0.034724735}
+  m_LocalPosition: {x: -0.194191, y: 0.2564386, z: 0.04762637}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -440,5 +480,5 @@ SceneRoots:
   - {fileID: 519420032}
   - {fileID: 130350314}
   - {fileID: 742464567}
+  - {fileID: 1613550176}
   - {fileID: 540512346}
-  - {fileID: 1648852921}

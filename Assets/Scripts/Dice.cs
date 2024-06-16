@@ -15,7 +15,7 @@ public class Dice
         ParseDiceString(diceString);
     }
 
-    public void ParseDiceString(string diceString)
+    private void ParseDiceString(string diceString)
     {
         //Match = entire substring that matches regex, contains Groups stored in GroupCollection
         //Group = captured sections of matched substring- number determined by going left to right
@@ -32,7 +32,7 @@ public class Dice
         //For each dice string
         foreach (Match match in diceMatches.Cast<Match>())
         {
-            Debug.Log("Match: "+match.ToString());
+            //Debug.Log("Match: "+match.ToString());
             GroupCollection matchGroups = match.Groups;
 
             //Group 3 = number of rolls, just obtain Group string and parse it
@@ -43,7 +43,7 @@ public class Dice
             int numberOfSides = sidesResult;
             int.TryParse(matchGroups[5].Value, out int modifierResult);
             int modifier = modifierResult;
-            Debug.Log("Number of Rolls: " + numberOfRolls + " Number of Sides: " + numberOfSides + " Modifier: " + modifier);
+            //Debug.Log("Number of Rolls: " + numberOfRolls + " Number of Sides: " + numberOfSides + " Modifier: " + modifier);
             listOfDice.Add((numberOfRolls, numberOfSides, modifierResult));
         }
     }

@@ -2,12 +2,13 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEditor.Playables;
 using UnityEngine;
+using static Constants;
 
 public class ActorStats : MonoBehaviour
 {
     //Where this Actor's General Information and Base SPECIAL stats are stored
-    [SerializeField]
-    private BaseActorStats baseActorStats;
+    [field: SerializeField]
+    public BaseActorStats BaseActorSpecial { get; private set; }
     [SerializeField]
     private ActorPast testing;
 
@@ -29,7 +30,7 @@ public class ActorStats : MonoBehaviour
     [field: SerializeField]
     public int Charisma { get; set; }
     [field: SerializeField]
-    public int Intelligence {  get; set; }
+    public int Intelligence { get; set; }
     [field: SerializeField]
     public int Agility { get; set; }
     [field: SerializeField]
@@ -70,7 +71,7 @@ public class ActorStats : MonoBehaviour
 
     //Resistances
     [field: Header("Resistances"), SerializeField]
-    public int ResistancePoision {  get; private set; }
+    public int ResistancePoision { get; private set; }
     [field: SerializeField]
     public int ResistanceRadiation { get; private set; }
     //Used for SPECIAL Check
@@ -87,7 +88,7 @@ public class ActorStats : MonoBehaviour
     [field: Header("Skills"), SerializeField]
     public int SkillBarter { get; set; }
     [field: SerializeField]
-    public int SkillDiplomacy {  get; set; }
+    public int SkillDiplomacy { get; set; }
     [field: SerializeField]
     public int SkillExplosives { get; set; }
     [field: SerializeField]
@@ -119,29 +120,83 @@ public class ActorStats : MonoBehaviour
 
     private void Awake()
     {
-        Strength = baseActorStats.Strength;
-        Perception = baseActorStats.Perception;
-        Endurance = baseActorStats.Endurance;
-        Charisma = baseActorStats.Charisma;
-        Intelligence = baseActorStats.Intelligence;
-        Agility = baseActorStats.Agility;
-        Luck = baseActorStats.Luck;
+        Strength = BaseActorSpecial.Strength;
+        Perception = BaseActorSpecial.Perception;
+        Endurance = BaseActorSpecial.Endurance;
+        Charisma = BaseActorSpecial.Charisma;
+        Intelligence = BaseActorSpecial.Intelligence;
+        Agility = BaseActorSpecial.Agility;
+        Luck = BaseActorSpecial.Luck;
 
         UpdateAllSecondaryStats();
-        testing.OnEffect(this.gameObject);
+        //testing.OnEffect(this.gameObject);
     }
 
     // Start is called before the first frame update
     private void Start()
     {
-        
+
     }
 
     // Update is called once per frame
     private void Update()
     {
-        
+
     }
+
+    /*public int CompareSpecial(Special_Name special, ActorStats otherStats)
+    {
+        int thisValue;
+        int otherValue;
+        switch(special)
+        {
+            case Special_Name.STRENGTH:
+                thisValue = this.Strength;
+                otherValue = otherStats.Strength;
+                break;
+            case Special_Name.PERCEPTION:
+                thisValue = this.Perception;
+                otherValue = otherStats.Perception;
+                break;
+            case Special_Name.ENDURANCE:
+                thisValue = this.Endurance;
+                otherValue = otherStats.Endurance;
+                break;
+            case Special_Name.CHARISMA:
+                thisValue = this.Charisma;
+                otherValue = otherStats.Charisma;
+                break;
+            case Special_Name.INTELLIGENCE:
+                thisValue = this.Intelligence;
+                otherValue = otherStats.Intelligence;
+                break;
+            case Special_Name.AGILITY:
+                thisValue = this.Agility;
+                otherValue = otherStats.Agility;
+                break;
+            case Special_Name.LUCK:
+                thisValue = this.Luck;
+                otherValue = otherStats.Luck;
+                break;
+            default:
+                thisValue = this.Strength;
+                otherValue = otherStats.Strength;
+                break;
+        }
+        if (thisValue > otherValue)
+        {
+            return 1;
+        }
+        else if(thisValue < otherValue)
+        {
+            return -1;
+        }
+        else
+        {
+            return 0;
+        }
+            
+    }*/
 
     private void UpdateAllSecondaryStats()
     {
@@ -192,7 +247,7 @@ public class ActorStats : MonoBehaviour
         SkillSleight = (2 * Agility) + (Luck / 2);
         SkillSneak = (2 * Agility) + (Luck / 2);
         SkillSurvival = (2 * Endurance) + (Luck / 2);
-        SkillThaumaturgy = (2 * baseActorStats.MagicSpecialValue) + (Luck / 2);
+        SkillThaumaturgy = (2 * BaseActorSpecial.MagicSpecialValue) + (Luck / 2);
         SkillUnarmed = (2 * Endurance) + (Luck / 2);
     }
 }
