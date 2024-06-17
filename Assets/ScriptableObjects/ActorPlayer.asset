@@ -15,10 +15,10 @@ MonoBehaviour:
   <Description>k__BackingField: The player!
   <RaceName>k__BackingField: Unicorn
   <Strength>k__BackingField: 5
-  <Perception>k__BackingField: 10
+  <Perception>k__BackingField: 5
   <Endurance>k__BackingField: 5
   <Charisma>k__BackingField: 5
   <Intelligence>k__BackingField: 5
-  <Agility>k__BackingField: 5
+  <Agility>k__BackingField: 10
   <Luck>k__BackingField: 5
   <MagicSpecial>k__BackingField: 0

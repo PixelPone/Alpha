@@ -15,58 +15,58 @@ using UnityEngine;
 ///  that state machines' methods run before their states, these methods will be explicitly called using this class.
 /// </para>
 /// </remarks>
-public abstract class CombatEvent : MonoBehaviour
+public abstract class CombatState : MonoBehaviour
 {
     /// <summary>
-    /// Represents how soon the CombatEvent is due to execute.
+    /// Represents how soon the CombatState is due to execute.
     /// </summary>
     /// <remarks>
     /// <para>
-    ///  The CombatEvent with the lowest CountDown value is the one that is set to execute next- it is removed from 
+    ///  The CombatState with the lowest CountDown value is the one that is set to execute next- it is removed from 
     ///  the CombatQueue and all the other CountDown values are decreased by one.
     /// </para>
     ///  <para>
-    ///  Note!- CountDown is only used to determine the order of a CombatEvent, not how much time it will take for 
-    ///  a CombatEvent to run.
+    ///  Note!- CountDown is only used to determine the order of a CombatState, not how much time it will take for 
+    ///  a CombatState to run.
     /// </para>
     /// </remarks>
     public int CountDown { get; set; }
 
     /// <summary>
-    /// Indicates “who” owns the CombatEvent. Useful when removing all CombatEvents associated with a certain owner from
+    /// Indicates “who” owns the CombatState. Useful when removing all CombatStates associated with a certain owner from
     /// CombatQueue.
     /// </summary>
     public GameObject Owner { get; private set; }
 
     /// <summary>
-    /// Runs when the CombatEvent is first run (can be used setup values need for CombatEvent)
+    /// Runs when the CombatState is first run (can be used setup values need for CombatState)
     /// </summary>
     /// <remarks>
     /// This is equivalent to the Start method for Monobehaviour but is being explicitly called 
     /// instead of being run on its own. It also can be run multiple times
     /// </remarks>
-    public abstract void StartEvent();
+    public abstract void StartState();
 
     /// <summary>
-    /// Updates components associated with the CombatEvent every frame.
+    /// Updates components associated with the CombatState every frame.
     /// </summary>
     /// <remarks>
     /// This is equivalent to the Update method for Monobehaviour, but is being explicitly called 
     /// instead of being run on its own. 
     /// </remarks>
-    public abstract void UpdateEvent();
+    public abstract void UpdateState();
 
     /// <summary>
-    /// Cleans up the logic for the CombatEvent.
+    /// Cleans up the logic for the CombatState.
     /// </summary>
-    public abstract void EndEvent();
+    public abstract void EndState();
 
     /// <summary>
-    /// Indicates if the CombatEvent is finished.
+    /// Indicates if the CombatState is finished.
     /// </summary>
     /// <returns>
-    /// True- if the CombatEvent is finished.
-    /// False- if the CombatEvent is not finished.
+    /// True- if the CombatState is finished.
+    /// False- if the CombatState is not finished.
     /// </returns>
     public abstract bool IsFinished();
 

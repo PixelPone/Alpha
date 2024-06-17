@@ -9,18 +9,18 @@ public class BattleManager : MonoBehaviour
     [SerializeField] private List<ActorStats> turnOrder;
 
     /// <summary>
-    /// Maintains the CombatEvents that currently running in battle.
+    /// Maintains the CombatStates that currently running in battle.
     /// </summary>
     /// <remarks>
-    /// CombatEvents at the front of the queue are executed first (have lower CountDown values)
-    /// CombatEvents are inserted and ordered by their CountDown value.
+    /// CombatStates at the front of the queue are executed first (have lower CountDown values)
+    /// CombatStates are inserted and ordered by their CountDown value.
     /// </remarks>
-    private List<CombatEvent> combatQueue;
+    private List<CombatState> combatQueue;
     /// <summary>
-    /// Current CombatEvent that is running from the queue- 
-    /// this CombatEvent was the one previously at the front of the queue.
+    /// Current CombatState that is running from the queue- 
+    /// this CombatState was the one previously at the front of the queue.
     /// </summary>
-    private CombatEvent currentEvent;
+    private CombatState currentEvent;
 
     private BattleGrid battleGrid;
 
@@ -32,7 +32,7 @@ public class BattleManager : MonoBehaviour
             Debug.LogWarning("Battle Manager does not have any Actors assigned to it!", transform.gameObject);
             turnOrder = new List<ActorStats>();
         }
-        combatQueue = new List<CombatEvent>();
+        combatQueue = new List<CombatState>();
     }
 
     // Start is called before the first frame update
@@ -96,25 +96,25 @@ public class BattleManager : MonoBehaviour
     }
 
     /// <summary>
-    /// Adds a CombatEvent to its proper place in the CombatQueue.
+    /// Adds a CombatState to its proper place in the CombatQueue.
     /// </summary>
     /// <remarks>
     /// <para>
-    /// CombatEvents are ordered based on their CountDown value (how soon they are expected to execute). 
+    /// CombatStates are ordered based on their CountDown value (how soon they are expected to execute). 
     /// Adding goes like this:
     /// <br></br>
 	/// If CountDown == -1, add it to the front of the queue(after all events that have -1),<br></br>
-	/// If CountDown != -1, iterate through the queue until a CombatEvent with a higherCountDown has been found, 
-    /// and then insert CombatEvent right before it.
+	/// If CountDown != -1, iterate through the queue until a CombatState with a higherCountDown has been found, 
+    /// and then insert CombatState right before it.
     /// </para>
     /// </remarks>
-    /// <param name="newEvent">The new CombatEvent that is being added to the CombatQueue.</param>
-    /// <param name="eventCountDown">The CountDown that is associated with the CombatEvent.</param>
-    public void AddCombatEvent(CombatEvent newEvent, int eventCountDown)
+    /// <param name="newEvent">The new CombatState that is being added to the CombatQueue.</param>
+    /// <param name="eventCountDown">The CountDown that is associated with the CombatState.</param>
+    public void AddCombatEvent(CombatState newEvent, int eventCountDown)
     {
         for (int i = 0; i < combatQueue.Count; i++)
         {
-            CombatEvent current = combatQueue[i];
+            CombatState current = combatQueue[i];
             if (current.CountDown > eventCountDown)
             {
                 combatQueue.Insert(i, newEvent);
@@ -123,7 +123,7 @@ public class BattleManager : MonoBehaviour
     }
 
     /// <summary>
-    /// Checks if an Actor has at least one CombatEvent associated with it currently in the CombatQueue.
+    /// Checks if an Actor has at least one CombatState associated with it currently in the CombatQueue.
     /// </summary>
     /// <remarks>
     /// Note!- When I refer to CombatQueue here, I am referring to both to currentEvent and the CombatQueue itself
@@ -131,8 +131,8 @@ public class BattleManager : MonoBehaviour
     /// </remarks>
     /// <param name="actor">The Actor that is being looked for.</param>
     /// <returns>
-    /// True- if at least one CombatEvent is found in the current CombatQueue.
-    /// False- if no CombatEvents are found in the current CombatQueue.
+    /// True- if at least one CombatState is found in the current CombatQueue.
+    /// False- if no CombatStates are found in the current CombatQueue.
     /// </returns>
     public bool DoesActorHaveCombatEvent(GameObject actor)
     {
@@ -142,7 +142,7 @@ public class BattleManager : MonoBehaviour
             return true;
         }
 
-        foreach (CombatEvent queueEvent in combatQueue)
+        foreach (CombatState queueEvent in combatQueue)
         {
             if (queueEvent.Owner == actor)
             {
@@ -153,7 +153,7 @@ public class BattleManager : MonoBehaviour
     }
 
     /// <summary>
-    /// Removes all CombatEvents associated with an Actor in the CombatQueue.
+    /// Removes all CombatStates associated with an Actor in the CombatQueue.
     /// </summary>
     /// <param name="actor">The Actor whose events are getting removed.</param>
     public void RemoveEventsOwnedBy(GameObject actor)
@@ -181,12 +181,12 @@ public class BattleManager : MonoBehaviour
     /// Returns if the CombatQueue is currently empty
     /// </summary>
     /// <remarks>
-    /// This does not check for currentEvent- meaning that technically there can be a single CombatEvent
+    /// This does not check for currentEvent- meaning that technically there can be a single CombatState
     /// even if the current CombatQueue is empty.
     /// </remarks>
     /// <returns>
-    /// True- if no CombatEvents are found in the current CombatQueue.
-    /// False- if at least one CombatEvent is found in the current CombatQueue.
+    /// True- if no CombatStates are found in the current CombatQueue.
+    /// False- if at least one CombatState is found in the current CombatQueue.
     /// </returns>
     public bool IsEmpty()
     {
@@ -194,7 +194,7 @@ public class BattleManager : MonoBehaviour
     }
 
     /// <summary>
-    /// Prints the current CombatEvent as well as all the CombatEvents that are currently in the CombatQueue.
+    /// Prints the current CombatState as well as all the CombatStates that are currently in the CombatQueue.
     /// </summary>
     public void PrintQueue()
     {
@@ -208,7 +208,7 @@ public class BattleManager : MonoBehaviour
             Debug.Log("CombatEvent Queue:");
             for (int i = 0; i < combatQueue.Count; i++)
             {
-                CombatEvent current = combatQueue[i];
+                CombatState current = combatQueue[i];
                 Debug.Log("[" + i + "] combatQueue: [" + current.CountDown + "][" + current + "]");
             }
         }

@@ -144,60 +144,6 @@ public class ActorStats : MonoBehaviour
 
     }
 
-    /*public int CompareSpecial(Special_Name special, ActorStats otherStats)
-    {
-        int thisValue;
-        int otherValue;
-        switch(special)
-        {
-            case Special_Name.STRENGTH:
-                thisValue = this.Strength;
-                otherValue = otherStats.Strength;
-                break;
-            case Special_Name.PERCEPTION:
-                thisValue = this.Perception;
-                otherValue = otherStats.Perception;
-                break;
-            case Special_Name.ENDURANCE:
-                thisValue = this.Endurance;
-                otherValue = otherStats.Endurance;
-                break;
-            case Special_Name.CHARISMA:
-                thisValue = this.Charisma;
-                otherValue = otherStats.Charisma;
-                break;
-            case Special_Name.INTELLIGENCE:
-                thisValue = this.Intelligence;
-                otherValue = otherStats.Intelligence;
-                break;
-            case Special_Name.AGILITY:
-                thisValue = this.Agility;
-                otherValue = otherStats.Agility;
-                break;
-            case Special_Name.LUCK:
-                thisValue = this.Luck;
-                otherValue = otherStats.Luck;
-                break;
-            default:
-                thisValue = this.Strength;
-                otherValue = otherStats.Strength;
-                break;
-        }
-        if (thisValue > otherValue)
-        {
-            return 1;
-        }
-        else if(thisValue < otherValue)
-        {
-            return -1;
-        }
-        else
-        {
-            return 0;
-        }
-            
-    }*/
-
     private void UpdateAllSecondaryStats()
     {
         MaxHp = 10 + Endurance;
