@@ -3,6 +3,9 @@ using UnityEngine;
 
 public class BattleManager : MonoBehaviour
 {
+
+    private int subStateIndex;
+
     /// <summary>
     /// The list of Actors that are currently in battle.
     /// </summary>
@@ -23,13 +26,18 @@ public class BattleManager : MonoBehaviour
     /// </remarks>
     private List<CombatState> combatEventQueue;
 
-
+    /// <summary>
+    /// Any substates (CombatStates) that are associated with the current CombatEvent being run
+    /// </summary>
     private List<CombatState> substateQueue;
+    private CombatState currentSubstate;
 
     private BattleGrid battleGrid;
 
     private void Awake()
     {
+        subStateIndex = 0;
+        currentSubstate = null;
         battleGrid = new BattleGrid(new Vector2(-192, -60f), 12, 8, 32, 16);
         if (entityList.Count == 0)
         {
@@ -55,7 +63,33 @@ public class BattleManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if(currentSubstate != null)
+        {
+            currentSubstate.UpdateState();
+        }
+        else if(currentEvent != null)
+        {
+            currentEvent.UpdateState();
+        }
+        else if(IsEmpty())
+        {
+            return;
+        }
+        else
+        {
+            //Need to get a new CombatEvent
+            CombatState front = combatEventQueue[0];
+            combatEventQueue.RemoveAt(0);
 
+            //Start this new CombatEvent
+            front.StartState(this);
+
+            //Update all CountDowns for CombatEvents in CombatEventQueue
+            foreach(CombatState combatEvent in combatEventQueue)
+            {
+                combatEvent.CountDown = Mathf.Max(0, combatEvent.CountDown - 1);
+            }
+        }
     }
 
     /// <summary>
@@ -182,7 +216,7 @@ public class BattleManager : MonoBehaviour
     /// <summary>
     /// Clears the entirety of the CombatEventQueue, including currentEvent.
     /// </summary>
-    public void ClearEverything()
+    public void ClearCombatEventEverything()
     {
         combatEventQueue.Clear();
         currentEvent = null;
@@ -222,6 +256,45 @@ public class BattleManager : MonoBehaviour
                 CombatState current = combatEventQueue[i];
                 Debug.Log("[" + i + "] CombatEventQueue: [" + current.CountDown + "][" + current + "]");
             }
+        }
+    }
+
+    public void PreviouSubstate()
+    {
+        if(substateQueue.Count > 1)
+        {
+            //Clean up current substate, and then transition to previous substate
+            currentSubstate.EndState();
+
+            //Remove current state (so it clears logic flow for any new states the previous state
+            //might introduce)
+            substateQueue.RemoveAt(subStateIndex);
+
+            //Then get previous substate and start its logic again
+            subStateIndex--;
+            currentSubstate = substateQueue[subStateIndex];
+            currentSubstate.StartState(this);
+        }
+    }
+
+    public void NextSubstate()
+    {
+        if(subStateIndex < substateQueue.Count - 1)
+        {
+            //Clean up current substate, and then transition to next substate
+            currentSubstate.EndState();
+            subStateIndex++;
+            currentSubstate = substateQueue[subStateIndex];
+            currentSubstate.StartState(this);
+        }
+        else
+        {
+            //Clean up last substate, remove all current substates and transition to next CombatEvent
+            currentSubstate.EndState();
+            subStateIndex = 0;
+            currentSubstate = null;
+            substateQueue.Clear();
+            //Transition to next CombatEvent is currently being handled by Update- might change later
         }
     }
 
