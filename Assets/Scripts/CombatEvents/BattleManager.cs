@@ -157,12 +157,22 @@ public class BattleManager : MonoBehaviour
     /// <param name="eventCountDown">The CountDown that is associated with the CombatEvent.</param>
     public void AddCombatEvent(CombatState newEvent, int eventCountDown)
     {
-        for (int i = 0; i < combatEventQueue.Count; i++)
+        if(IsEmpty())
         {
-            CombatState current = combatEventQueue[i];
-            if (current.CountDown > eventCountDown)
+            newEvent.CountDown = eventCountDown;
+            combatEventQueue.Add(newEvent);
+        }
+        else
+        {
+            for (int i = 0; i < combatEventQueue.Count; i++)
             {
-                combatEventQueue.Insert(i, newEvent);
+                newEvent.CountDown = eventCountDown;
+
+                CombatState current = combatEventQueue[i];
+                if (current.CountDown > eventCountDown)
+                {
+                    combatEventQueue.Insert(i, newEvent);
+                }
             }
         }
     }
