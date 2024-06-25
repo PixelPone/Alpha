@@ -10,7 +10,10 @@ public class ActorStats : MonoBehaviour
     [field: SerializeField]
     public BaseActorStats BaseActorSpecial { get; private set; }
     [SerializeField]
-    private ActorPast testing;
+    private ActorPast actorPast;
+
+    [field: SerializeField]
+    public CombatState InitialCombatEvent { get; private set; }
 
     private int level = 1;
     private int experience = 0;
@@ -129,7 +132,7 @@ public class ActorStats : MonoBehaviour
         Luck = BaseActorSpecial.Luck;
 
         UpdateAllSecondaryStats();
-        //testing.OnEffect(this.gameObject);
+        //actorPast.OnEffect(this.gameObject);
     }
 
     // Start is called before the first frame update

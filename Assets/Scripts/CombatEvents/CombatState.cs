@@ -23,7 +23,7 @@ public abstract class CombatState : MonoBehaviour
     /// <remarks>
     /// <para>
     ///  The CombatState with the lowest CountDown value is the one that is set to execute next- it is removed from 
-    ///  the CombatQueue and all the other CountDown values are decreased by one.
+    ///  the CombatEventQueue and all the other CountDown values are decreased by one.
     /// </para>
     ///  <para>
     ///  Note!- CountDown is only used to determine the order of a CombatState, not how much time it will take for 
@@ -33,8 +33,18 @@ public abstract class CombatState : MonoBehaviour
     public int CountDown { get; set; }
 
     /// <summary>
+    /// The time in which this CombatState started.
+    /// </summary>
+    protected float startTime;
+
+    /// <summary>
+    /// The duration of how long this CombatState has been running for.
+    /// </summary>
+    public float CurrentDuration => Time.time - startTime;
+
+    /// <summary>
     /// Indicates “who” owns the CombatState. Useful when removing all CombatStates associated with a certain owner from
-    /// CombatQueue.
+    /// CombatEventQueue.
     /// </summary>
     public GameObject Owner { get; private set; }
 
@@ -43,9 +53,13 @@ public abstract class CombatState : MonoBehaviour
     /// </summary>
     /// <remarks>
     /// This is equivalent to the Start method for Monobehaviour but is being explicitly called 
-    /// instead of being run on its own. It also can be run multiple times
+    /// instead of being run on its own. It also can be run multiple times.
     /// </remarks>
-    public abstract void StartState();
+    /// <param name="battleManager">The BattleManager that is associated with this CombatState.</param>
+    public virtual void StartState(BattleManager battleManager)
+    {
+        startTime = Time.time;
+    }
 
     /// <summary>
     /// Updates components associated with the CombatState every frame.
