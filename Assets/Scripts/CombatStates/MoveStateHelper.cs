@@ -44,6 +44,7 @@ public class MoveStateHelper
 
         this.actorStats = actorStats;
         this.battleGrid = battleGrid;
+
         startOfCurrentPath = actorStats.BattleGridPosition;
         centerPosition = startOfCurrentPath;
         hoverPosition = startOfCurrentPath;

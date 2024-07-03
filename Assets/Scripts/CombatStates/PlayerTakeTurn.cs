@@ -15,6 +15,32 @@ public class PlayerTakeTurn : CombatState
         menuIndex = 0;
     }
 
+    public override void StartState(BattleManager battleManager)
+    {
+        base.StartState(battleManager);
+        Debug.Log("TakeTurn's StartState method Ran!");
+        PlayerInput.Instance.OnMoveAction += PlayerInput_OnMoveAction;
+        PlayerInput.Instance.OnSelectAction += PlayerInput_OnSelectAction;
+    }
+
+    public override void UpdateState()
+    {
+        //throw new System.NotImplementedException();
+    }
+
+    public override void EndState()
+    {
+        Debug.Log("MainPlayerState's EndState Ran!");
+        menuIndex = 0;
+        PlayerInput.Instance.OnMoveAction -= PlayerInput_OnMoveAction;
+        PlayerInput.Instance.OnSelectAction -= PlayerInput_OnSelectAction;
+    }
+
+    public override bool IsFinished()
+    {
+        throw new System.NotImplementedException();
+    }
+
     private void PlayerInput_OnMoveAction(object sender, PlayerInput.InputActionArgs args)
     {
         Vector2 currentInput = args.callbackContext.ReadValue<Vector2>();
@@ -104,31 +130,5 @@ public class PlayerTakeTurn : CombatState
             this.battleManager.AddSubstate(this.Owner, moveSelection);
             this.battleManager.NextSubstate();
         }
-    }
-
-    public override void StartState(BattleManager battleManager)
-    {
-        base.StartState(battleManager);
-        Debug.Log("TakeTurn's StartState method Ran!");
-        PlayerInput.Instance.OnMoveAction += PlayerInput_OnMoveAction;
-        PlayerInput.Instance.OnSelectAction += PlayerInput_OnSelectAction;
-    }
-
-    public override void UpdateState()
-    {
-        //throw new System.NotImplementedException();
-    }
-
-    public override void EndState()
-    {
-        Debug.Log("MainPlayerState's EndState Ran!");
-        menuIndex = 0;
-        PlayerInput.Instance.OnMoveAction -= PlayerInput_OnMoveAction;
-        PlayerInput.Instance.OnSelectAction -= PlayerInput_OnSelectAction;
-    }
-
-    public override bool IsFinished()
-    {
-        throw new System.NotImplementedException();
     }
 }

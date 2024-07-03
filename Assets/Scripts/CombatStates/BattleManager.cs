@@ -121,7 +121,7 @@ public class BattleManager : MonoBehaviour
         });
     }
 
-    public void GetNextCombatEvent()
+    private void GetNextCombatEvent()
     {
         //Remove latest CombatEvent from Queue and add it to Substate Queue
         CombatState front = combatEventQueue[0];
