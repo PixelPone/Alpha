@@ -64,6 +64,12 @@ public class PlayerMoveSelection : CombatState
     public override void EndState()
     {
         Debug.Log("MoveSelection's EndState Ran!");
+        costOfCurrentPath = 0;
+        startOfCurrentPath = Vector2Int.zero;
+        centerPosition = startOfCurrentPath;
+        hoverPosition = startOfCurrentPath;
+        SelectMovements = new List<Vector2Int>();
+
         PlayerInput.Instance.OnMoveAction -= PlayerInput_OnMoveAction;
         PlayerInput.Instance.OnSelectAction -= PlayerInput_OnSelectAction;
     }
