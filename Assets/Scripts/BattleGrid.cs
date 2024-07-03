@@ -75,4 +75,23 @@ public class BattleGrid
         return new Vector2((x * CellSizeX) + OriginPoint.x, (y * CellSizeY) + OriginPoint.y);
     }
 
+    /// <summary>
+    /// Returns if the grid position (grid index) is within the bounds of the grid.
+    /// </summary>
+    /// <remarks>
+    /// This is referring to an index in the grid, NOT world position.
+    /// </remarks>
+    /// <param name="gridPosition">The grid position that is being checked.</param>
+    /// <returns>
+    /// True- the grid position is within the bounds of the grid.
+    /// False- the grid position is not within the bounds of the grid.
+    /// </returns>
+    public bool IsGrindPositionInBounds(Vector2 gridPosition)
+    {
+        int xPosition = (int) gridPosition.x;
+        int yPosition = (int) gridPosition.y;
+        //Remember that indexes are from [0, width-1] and [0, height-1]
+        return xPosition >= 0 && xPosition < Width && yPosition >= 0 && yPosition < Height;
+    }
+
 }
