@@ -29,22 +29,16 @@ public class PlayerMoveSelection : CombatState
     /// A List is instead of a Stack in order to iterate through the path that
     /// is created.
     /// </remarks>
-    public List<Vector2Int> SelectMovements;
+    public List<Vector2Int> selectMovements;
 
     private BattleGrid battleGrid;
-
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
 
     public override void StartState(BattleManager battleManager)
     {
         base.StartState(battleManager);
 
         costOfCurrentPath = 0;
-        SelectMovements = new List<Vector2Int>();
+        selectMovements = new List<Vector2Int>();
 
         this.battleGrid = battleManager.BattleGridProperty;
         startOfCurrentPath = this.Owner.BattleGridPosition;
@@ -54,6 +48,7 @@ public class PlayerMoveSelection : CombatState
         Debug.Log("MoveSelection's StartState method Ran!");
         PlayerInput.Instance.OnMoveAction += PlayerInput_OnMoveAction;
         PlayerInput.Instance.OnSelectAction += PlayerInput_OnSelectAction;
+        PlayerInput.Instance.OnAltSelectAction += PlayerInput_OnAltSelectAction;
     }
 
     public override void UpdateState()
@@ -68,10 +63,11 @@ public class PlayerMoveSelection : CombatState
         startOfCurrentPath = Vector2Int.zero;
         centerPosition = startOfCurrentPath;
         hoverPosition = startOfCurrentPath;
-        SelectMovements = new List<Vector2Int>();
+        selectMovements = new List<Vector2Int>();
 
         PlayerInput.Instance.OnMoveAction -= PlayerInput_OnMoveAction;
         PlayerInput.Instance.OnSelectAction -= PlayerInput_OnSelectAction;
+        PlayerInput.Instance.OnAltSelectAction -= PlayerInput_OnAltSelectAction;
     }
 
     public override bool IsFinished()
@@ -117,7 +113,7 @@ public class PlayerMoveSelection : CombatState
             <= this.Owner.CurrentAp)
         {
             Debug.Log($"Position Difference: {movement}");
-            SelectMovements.Add(movement);
+            selectMovements.Add(movement);
             //Add cost of movement that was just added to path
             costOfCurrentPath += costOfMovement;
             Debug.Log("Position Movement Added!");
@@ -126,14 +122,14 @@ public class PlayerMoveSelection : CombatState
 
             //Update green squares showing path so far to account for this new movement
             Vector2Int currentPath = startOfCurrentPath;
-            foreach (Vector2Int position in SelectMovements)
+            foreach (Vector2Int position in selectMovements)
             {
                 currentPath += position;
                 //battleGrid.DrawSquare(Color.green, currentPath.x, currentPath.y);
             }
         }
         //Player selects the center position, ending the path building process
-        else if (centerPosition.Equals(hoverPosition) && SelectMovements.Count != 0)
+        else if (centerPosition.Equals(hoverPosition) && selectMovements.Count != 0)
         {
             this.Owner.CurrentAp -= costOfCurrentPath;
             battleManager.NextSubstate();
@@ -148,11 +144,11 @@ public class PlayerMoveSelection : CombatState
             {
                 feedback = "You do not have enough Action Points to create a path!";
             }
-            else if (this.Owner.CurrentAp > 0 && SelectMovements.Count == 0)
+            else if (this.Owner.CurrentAp > 0 && selectMovements.Count == 0)
             {
                 feedback = "You haven't created a Path to move yet!";
             }
-            else if (this.Owner.CurrentAp > 0 && SelectMovements.Count > 0)
+            else if (this.Owner.CurrentAp > 0 && selectMovements.Count > 0)
             {
                 feedback = "You do not have enough Action Points to move this far!";
             }
@@ -160,5 +156,35 @@ public class PlayerMoveSelection : CombatState
             Debug.Log(feedback);
             //StartCoroutine(DialogPathErrorCoroutine(feedback));
         }
+    }
+
+    private void PlayerInput_OnAltSelectAction(object sender, PlayerInput.InputActionArgs args)
+    {
+        //Debug.Log("AltSelectionAction Ran in MoveSelection!");
+        if (selectMovements.Count > 0)
+        {
+            Vector2Int top = selectMovements[selectMovements.Count - 1];
+            selectMovements.RemoveAt(selectMovements.Count - 1);
+            Vector2Int reverse = new Vector2Int(-top.x, -top.y);
+            int costOfReverse = GetCostOfPathMovement(reverse);
+            costOfCurrentPath -= costOfReverse;
+            centerPosition += reverse;
+            //UpdateBounds(centerPosition);
+
+            //Given the grid was just refreshed, redraw current path up to the this new final step
+            Vector2Int currentPath = startOfCurrentPath;
+            foreach (Vector2Int position in selectMovements)
+            {
+                currentPath += position;
+                //battleGrid.DrawSquare(Color.green, currentPath.x, currentPath.y);
+            }
+            hoverPosition = centerPosition;
+
+        }
+        else
+        {
+            battleManager.PreviouSubstate();
+        }
+
     }
 }

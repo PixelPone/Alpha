@@ -165,17 +165,20 @@ public class BattleManager : MonoBehaviour
         }
         else
         {
+            int properIndex = 0;
             for (int i = 0; i < combatEventQueue.Count; i++)
             {
                 newEvent.CountDown = eventCountDown;
                 newEvent.Owner = actorOwner;
 
                 CombatState current = combatEventQueue[i];
-                if (current.CountDown > eventCountDown)
+                if (current.CountDown < eventCountDown)
                 {
-                    combatEventQueue.Insert(i, newEvent);
+                    properIndex++;
                 }
             }
+
+            combatEventQueue.Insert(properIndex, newEvent);
         }
     }
 
