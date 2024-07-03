@@ -2,10 +2,13 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class TakeTurn : CombatState
+public class PlayerTakeTurn : CombatState
 {
 
     private int menuIndex;
+
+    [SerializeField]
+    private CombatState moveSelection;
 
     private void Awake()
     {
@@ -96,6 +99,11 @@ public class TakeTurn : CombatState
                 break;
         }
         Debug.Log(test);
+        if (test == "Move")
+        {
+            this.battleManager.AddSubstate(this.Owner, moveSelection);
+            this.battleManager.NextSubstate();
+        }
     }
 
     public override void StartState(BattleManager battleManager)
@@ -108,7 +116,7 @@ public class TakeTurn : CombatState
 
     public override void UpdateState()
     {
-        throw new System.NotImplementedException();
+        //throw new System.NotImplementedException();
     }
 
     public override void EndState()

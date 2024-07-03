@@ -46,7 +46,13 @@ public abstract class CombatState : MonoBehaviour
     /// Indicates “who” owns the CombatState. Useful when removing all CombatStates associated with a certain owner from
     /// CombatEventQueue.
     /// </summary>
-    public GameObject Owner { get; private set; }
+    [field: SerializeField]
+    public ActorStats Owner { get; set; }
+
+    /// <summary>
+    /// The instance of BattleManager that is associated with this CombatState.
+    /// </summary>
+    protected BattleManager battleManager;
 
     /// <summary>
     /// Runs when the CombatState is first run (can be used setup values need for CombatState)
@@ -59,6 +65,11 @@ public abstract class CombatState : MonoBehaviour
     public virtual void StartState(BattleManager battleManager)
     {
         startTime = Time.time;
+        this.battleManager = battleManager;
+        if (Owner == null)
+        {
+            Debug.LogWarning("This CombatState does not have any Owner associated with it!");
+        }
     }
 
     /// <summary>

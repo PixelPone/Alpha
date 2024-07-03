@@ -15,6 +15,9 @@ public class ActorStats : MonoBehaviour
     [field: SerializeField]
     public CombatState InitialCombatEvent { get; private set; }
 
+    [field: SerializeField]
+    public Vector2Int BattleGridPosition { get; set; }
+
     private int level = 1;
     private int experience = 0;
     private int karma;

@@ -166,6 +166,51 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &275087610
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 275087612}
+  - component: {fileID: 275087611}
+  m_Layer: 0
+  m_Name: PlayerMovement
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &275087611
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 275087610}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 61fbbba397b28d54fba38b0f4b8125a6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  <Owner>k__BackingField: {fileID: 742464568}
+--- !u!4 &275087612
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 275087610}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 742464567}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &519420028
 GameObject:
   m_ObjectHideFlags: 0
@@ -335,6 +380,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1216908709}
+  - {fileID: 275087612}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &742464568
@@ -352,6 +398,7 @@ MonoBehaviour:
   <BaseActorSpecial>k__BackingField: {fileID: 11400000, guid: f5c78acca3e4770449668fd897b1a289, type: 2}
   actorPast: {fileID: 0}
   <InitialCombatEvent>k__BackingField: {fileID: 1216908708}
+  <BattleGridPosition>k__BackingField: {x: 0, y: 0}
   <Strength>k__BackingField: 0
   <Perception>k__BackingField: 0
   <Endurance>k__BackingField: 0
@@ -420,6 +467,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ab9840b78cb92e94fb8414e304aaf735, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  <Owner>k__BackingField: {fileID: 742464568}
+  moveSelection: {fileID: 275087611}
 --- !u!4 &1216908709
 Transform:
   m_ObjectHideFlags: 0

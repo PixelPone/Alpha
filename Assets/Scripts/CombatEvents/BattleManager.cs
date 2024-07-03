@@ -12,12 +12,6 @@ public class BattleManager : MonoBehaviour
     [SerializeField] private List<ActorStats> entityList;
 
     /// <summary>
-    /// Current CombatEvent that is running from the queue-
-    /// this CombatState was the one previously at the front of the CombatEventQueue.
-    /// </summary>
-    private CombatState currentEvent;
-
-    /// <summary>
     /// Maintains the CombatEvents that currently running in battle.
     /// </summary>
     /// <remarks>
@@ -32,13 +26,13 @@ public class BattleManager : MonoBehaviour
     private List<CombatState> substateQueue;
     private CombatState currentSubstate;
 
-    private BattleGrid battleGrid;
+    public BattleGrid BattleGridProperty { get; private set; }
 
     private void Awake()
     {
         subStateIndex = 0;
         currentSubstate = null;
-        battleGrid = new BattleGrid(new Vector2(-192, -60f), 12, 8, 32, 16);
+        BattleGridProperty = new BattleGrid(new Vector2(-192, -60f), 12, 8, 32, 16);
         if (entityList.Count == 0)
         {
             Debug.LogWarning("Battle Manager does not have any Actors assigned to it!", transform.gameObject);
@@ -56,7 +50,9 @@ public class BattleManager : MonoBehaviour
         for (int i = 0; i < entityList.Count; i++)
         {
             CombatState entityState = entityList[i].InitialCombatEvent;
-            AddCombatEvent(entityState, i);
+            ActorStats owner = entityState.Owner;
+
+            AddCombatEvent(owner, entityState, i);
         }
     }
 
@@ -67,28 +63,13 @@ public class BattleManager : MonoBehaviour
         {
             currentSubstate.UpdateState();
         }
-        else if(currentEvent != null)
-        {
-            currentEvent.UpdateState();
-        }
         else if(IsEmpty())
         {
             return;
         }
         else
         {
-            //Need to get a new CombatEvent
-            CombatState front = combatEventQueue[0];
-            combatEventQueue.RemoveAt(0);
-
-            //Start this new CombatEvent
-            front.StartState(this);
-
-            //Update all CountDowns for CombatEvents in CombatEventQueue
-            foreach(CombatState combatEvent in combatEventQueue)
-            {
-                combatEvent.CountDown = Mathf.Max(0, combatEvent.CountDown - 1);
-            }
+            GetNextCombatEvent();
         }
     }
 
@@ -140,6 +121,24 @@ public class BattleManager : MonoBehaviour
         });
     }
 
+    public void GetNextCombatEvent()
+    {
+        //Remove latest CombatEvent from Queue and add it to Substate Queue
+        CombatState front = combatEventQueue[0];
+        combatEventQueue.RemoveAt(0);
+        AddSubstate(front.Owner, front);
+
+        //Start this new Substate
+        currentSubstate = substateQueue[subStateIndex];
+        currentSubstate.StartState(this);
+
+        //Update all CountDowns for CombatEvents in CombatEventQueue
+        foreach (CombatState combatEvent in combatEventQueue)
+        {
+            combatEvent.CountDown = Mathf.Max(0, combatEvent.CountDown - 1);
+        }
+    }
+
     /// <summary>
     /// Adds a CombatEvent to its proper place in the CombatEventQueue.
     /// </summary>
@@ -153,13 +152,15 @@ public class BattleManager : MonoBehaviour
     /// and then insert CombatState right before it.
     /// </para>
     /// </remarks>
+    /// <param name="actorOwner">The owner that is associated with the new CombatEvent being added.</param>
     /// <param name="newEvent">The new CombatEvent that is being added to the CombatEventQueue.</param>
     /// <param name="eventCountDown">The CountDown that is associated with the CombatEvent.</param>
-    public void AddCombatEvent(CombatState newEvent, int eventCountDown)
+    public void AddCombatEvent(ActorStats actorOwner, CombatState newEvent, int eventCountDown)
     {
         if(IsEmpty())
         {
             newEvent.CountDown = eventCountDown;
+            newEvent.Owner = actorOwner;
             combatEventQueue.Add(newEvent);
         }
         else
@@ -167,6 +168,7 @@ public class BattleManager : MonoBehaviour
             for (int i = 0; i < combatEventQueue.Count; i++)
             {
                 newEvent.CountDown = eventCountDown;
+                newEvent.Owner = actorOwner;
 
                 CombatState current = combatEventQueue[i];
                 if (current.CountDown > eventCountDown)
@@ -181,8 +183,8 @@ public class BattleManager : MonoBehaviour
     /// Checks if an Actor has at least one CombatEvent associated with it currently in the CombatEventQueue.
     /// </summary>
     /// <remarks>
-    /// Note!- When I refer to CombatEventQueue here, I am referring to both to currentEvent and the CombatEventQueue itself
-    /// as currentEvent is just the previous head of the CombatEventQueue.
+    /// Note!- This does not include any substates that are currently being processed in the subState queue.
+    /// Might change this for later.
     /// </remarks>
     /// <param name="actor">The Actor that is being looked for.</param>
     /// <returns>
@@ -191,11 +193,6 @@ public class BattleManager : MonoBehaviour
     /// </returns>
     public bool DoesActorHaveCombatEvent(GameObject actor)
     {
-
-        if (currentEvent.Owner == actor)
-        {
-            return true;
-        }
 
         foreach (CombatState queueEvent in combatEventQueue)
         {
@@ -229,7 +226,6 @@ public class BattleManager : MonoBehaviour
     public void ClearCombatEventEverything()
     {
         combatEventQueue.Clear();
-        currentEvent = null;
     }
 
     /// <summary>
@@ -259,7 +255,6 @@ public class BattleManager : MonoBehaviour
         }
         else
         {
-            Debug.Log("Current CombatEvent: " + currentEvent);
             Debug.Log("CombatEvent Queue:");
             for (int i = 0; i < combatEventQueue.Count; i++)
             {
@@ -267,6 +262,12 @@ public class BattleManager : MonoBehaviour
                 Debug.Log("[" + i + "] CombatEventQueue: [" + current.CountDown + "][" + current + "]");
             }
         }
+    }
+
+    public void AddSubstate(ActorStats actorOwner, CombatState newSubstate)
+    {
+        newSubstate.Owner = actorOwner;
+        substateQueue.Add(newSubstate);
     }
 
     public void PreviouSubstate()
@@ -304,7 +305,7 @@ public class BattleManager : MonoBehaviour
             subStateIndex = 0;
             currentSubstate = null;
             substateQueue.Clear();
-            //Transition to next CombatEvent is currently being handled by Update- might change later
+            //Transition to next CombatEvent is currently being handled by Update- might change later to be here
         }
     }
 

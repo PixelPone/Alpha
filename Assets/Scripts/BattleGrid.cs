@@ -86,7 +86,7 @@ public class BattleGrid
     /// True- the grid position is within the bounds of the grid.
     /// False- the grid position is not within the bounds of the grid.
     /// </returns>
-    public bool IsGrindPositionInBounds(Vector2 gridPosition)
+    public bool IsGridPositionInBounds(Vector2 gridPosition)
     {
         int xPosition = (int) gridPosition.x;
         int yPosition = (int) gridPosition.y;
