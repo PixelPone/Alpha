@@ -5,6 +5,7 @@ using UnityEngine;
 /// <summary>
 /// Internal logic for PlayerMoveSelection CombatState
 /// </summary>
+[System.Serializable]
 public class MoveStateHelper
 {
     /// <summary>
@@ -31,7 +32,7 @@ public class MoveStateHelper
     /// A List is instead of a Stack in order to iterate through the path that
     /// is created.
     /// </remarks>
-    private List<Vector2Int> selectMovements;
+    public List<Vector2Int> SelectMovements;
 
     private ActorStats actorStats;
     private BattleGrid battleGrid;
@@ -39,13 +40,18 @@ public class MoveStateHelper
     public MoveStateHelper(ActorStats actorStats, BattleGrid battleGrid)
     {
         costOfCurrentPath = 0;
-        selectMovements = new List<Vector2Int>();
+        SelectMovements = new List<Vector2Int>();
 
         this.actorStats = actorStats;
         this.battleGrid = battleGrid;
         startOfCurrentPath = actorStats.BattleGridPosition;
         centerPosition = startOfCurrentPath;
         hoverPosition = startOfCurrentPath;
+    }
+
+    private int GetCostOfPathMovement(Vector2Int movement)
+    {
+        return movement.x != 0 && movement.y != 0 ? 2 : 1;
     }
 
     public void UpdateHoverPosition(Vector2 actorInput)
@@ -60,5 +66,23 @@ public class MoveStateHelper
         {
             hoverPosition = potentialNewPosition;
         }
+
+        Debug.Log($"Updated Hover Position: {hoverPosition}");
+    }
+
+    public (bool, string) AddMovementToStack()
+    {
+        Vector2Int movement = hoverPosition - centerPosition;
+        int costOfMovement = GetCostOfPathMovement(movement);
+
+        Debug.Log($"Position Difference: {movement}");
+        SelectMovements.Add(movement);
+        //Add cost of movement that was just added to path
+        costOfCurrentPath += costOfMovement;
+        Debug.Log("Position Movement Added!");
+        centerPosition = hoverPosition;
+        //UpdateBounds(centerPosition);
+
+        return (true, "NO ERROR!");
     }
 }

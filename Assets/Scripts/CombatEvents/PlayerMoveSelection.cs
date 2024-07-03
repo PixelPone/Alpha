@@ -24,7 +24,7 @@ public class PlayerMoveSelection : CombatState
 
     private void PlayerInput_OnSelectAction(object sender, PlayerInput.InputActionArgs args)
     {
-
+        moveStateHelper.AddMovementToStack();
     }
 
     public override void StartState(BattleManager battleManager)

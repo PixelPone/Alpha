@@ -36,7 +36,7 @@ public class MoveSelectionState : State
     /// I used a List instead of a Stack in order to iterate through the path the
     /// player creates.
     /// </remarks>
-    private List<Vector2Int> selectMovements;
+    private List<Vector2Int> SelectMovements;
 
     [SerializeField] private BattleEntityStats battleEntityStats;
     private BattleGrid battleGrid;
@@ -45,7 +45,7 @@ public class MoveSelectionState : State
     {
         costOfCurrentPath = 0;
         hoverPosition = Vector2Int.zero;
-        selectMovements = new List<Vector2Int>();
+        SelectMovements = new List<Vector2Int>();
     }
 
     private void Start()
@@ -133,7 +133,7 @@ public class MoveSelectionState : State
             <= battleEntityStats.GetModifiedStat(Keys_Stats.KEY_CURRENT_AP))
         {
             //Debug.Log($"Position Difference: {movement}");
-            selectMovements.Add(movement);
+            SelectMovements.Add(movement);
             //Add cost of movement that was just added to path
             costOfCurrentPath += costOfMovement;
             //Debug.Log("Position Movement Added!");
@@ -142,14 +142,14 @@ public class MoveSelectionState : State
 
             //Update green squares showing path so far to account for this new movement
             Vector2Int currentPath = startOfCurrentPath;
-            foreach (Vector2Int position in selectMovements)
+            foreach (Vector2Int position in SelectMovements)
             {
                 currentPath += position;
                 //battleGrid.DrawSquare(Color.green, currentPath.x, currentPath.y);
             }
         }
         //Player selects the center position, ending the path building process
-        else if (centerPosition.Equals(hoverPosition) && selectMovements.Count != 0)
+        else if (centerPosition.Equals(hoverPosition) && SelectMovements.Count != 0)
         {
             battleEntityStats.CurrentStats[Keys_Stats.KEY_CURRENT_AP] -= costOfCurrentPath;
             BattleManager.Instance.NextState();
@@ -164,11 +164,11 @@ public class MoveSelectionState : State
             {
                 feedback = "You do not have enough Action Points to create a path!";
             }
-            else if(battleEntityStats.GetModifiedStat(Keys_Stats.KEY_CURRENT_AP) > 0 && selectMovements.Count == 0)
+            else if(battleEntityStats.GetModifiedStat(Keys_Stats.KEY_CURRENT_AP) > 0 && SelectMovements.Count == 0)
             {
                 feedback = "You haven't created a Path to move yet!";
             }
-            else if(battleEntityStats.GetModifiedStat(Keys_Stats.KEY_CURRENT_AP) > 0 && selectMovements.Count > 0)
+            else if(battleEntityStats.GetModifiedStat(Keys_Stats.KEY_CURRENT_AP) > 0 && SelectMovements.Count > 0)
             {
                 feedback = "You do not have enough Action Points to move this far!";
             }
@@ -181,10 +181,10 @@ public class MoveSelectionState : State
     private void PlayerInput_OnAltSelectAction(object sender, PlayerInput.InputActionArgs args)
     {
         //Debug.Log("AltSelectionAction Ran in PlayerMoveSelection!");
-        if (selectMovements.Count > 0)
+        if (SelectMovements.Count > 0)
         {
-            Vector2Int top = selectMovements[selectMovements.Count - 1];
-            selectMovements.RemoveAt(selectMovements.Count - 1);
+            Vector2Int top = SelectMovements[SelectMovements.Count - 1];
+            SelectMovements.RemoveAt(SelectMovements.Count - 1);
             Vector2Int reverse = new Vector2Int(-top.x, -top.y);
             int costOfReverse = GetCostOfPathMovement(reverse);
             costOfCurrentPath -= costOfReverse;
@@ -193,7 +193,7 @@ public class MoveSelectionState : State
 
             //Given the grid was just refreshed, redraw current path up to the this new final step
             Vector2Int currentPath = startOfCurrentPath;
-            foreach (Vector2Int position in selectMovements)
+            foreach (Vector2Int position in SelectMovements)
             {
                 currentPath += position;
                 //battleGrid.DrawSquare(Color.green, currentPath.x, currentPath.y);
