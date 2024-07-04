@@ -1,19 +1,20 @@
 using UnityEngine;
 using static Constants;
 
-[CreateAssetMenu(fileName = "DummyItemStats", menuName = "Alpha/ItemStats")]
+[CreateAssetMenu(fileName = "Dummy_Item", menuName = "Alpha/Item")]
 public class ItemStats : ScriptableObject
 {
     [field: SerializeField]
-    public string ItemName { get; private set; } = "DummyItem";
+    public string ItemName { get; private set; } = "Dummy Item";
+    [field: SerializeField, TextArea(minLines: 5, maxLines: 5)]
+
+    public string SpecialNotes { get; private set; } = "Test Description!";
     [field: SerializeField]
-    public double ItemWeight { get; private set; }
+    public Item_Rarity ItemRarity { get; private set; }
     [field: SerializeField]
-    public Item_Rarity Item_Rarity { get; private set; }
+    public int Weight { get; private set; }
     [field: SerializeField]
-    public int ItemCost { get; private set; }
+    public int Value { get; private set; }
     [field: SerializeField]
-    public string ItemDescription { get; private set; } = "DummyDescription";
-    [field: SerializeField]
-    public string ItemNotes { get; private set; } = "DummyNotes";
+    public bool IsStackable { get; private set; }
 }
