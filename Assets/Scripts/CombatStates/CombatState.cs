@@ -23,7 +23,7 @@ public abstract class CombatState : MonoBehaviour
     /// <remarks>
     /// <para>
     ///  The CombatState with the lowest CountDown value is the one that is set to execute next- it is removed from 
-    ///  the CombatEventQueue and all the other CountDown values are decreased by one.
+    ///  the CombatStateQueue and all the other CountDown values are decreased by one.
     /// </para>
     ///  <para>
     ///  Note!- CountDown is only used to determine the order of a CombatState, not how much time it will take for 
@@ -44,7 +44,7 @@ public abstract class CombatState : MonoBehaviour
 
     /// <summary>
     /// Indicates “who” owns the CombatState. Useful when removing all CombatStates associated with a certain owner from
-    /// CombatEventQueue.
+    /// CombatStateQueue.
     /// </summary>
     [field: SerializeField]
     public ActorStats Owner { get; set; }
