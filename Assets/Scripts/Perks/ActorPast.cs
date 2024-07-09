@@ -1,4 +1,4 @@
-using System.Collections;
+using Assets.Scripts.Actors;
 using System.Collections.Generic;
 using UnityEngine;
 using static Constants;

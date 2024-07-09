@@ -3,6 +3,9 @@ using UnityEngine;
 
 namespace Assets.Scripts.Actors
 {
+    /// <summary>
+    /// The inventory of an Actor.
+    /// </summary>
     [RequireComponent(typeof(ActorStats))]
     public class ActorInventory : MonoBehaviour
     {
@@ -57,8 +60,9 @@ namespace Assets.Scripts.Actors
         /// <remarks>
         /// There are two general types of items that are accounted for in the inventory- stackable
         /// items and non-stackable items. When storing stackable items, the ItemName associated with
-        /// the item is used as the Dictionary key. For non-stackable items, the ItemName and
-        /// the unqiue GUID that is generated for the item instance is used as the Dictionary key.
+        /// the item is used as the Dictionary key. For non-stackable items, a combination of 
+        /// the ItemName and the unqiue GUID that is generated for the item instance are
+        /// used as the Dictionary key.
         /// </remarks>
         public Dictionary<string, (ItemStats, int)> Inventory { get; private set; }
 
