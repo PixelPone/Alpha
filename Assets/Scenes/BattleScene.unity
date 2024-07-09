@@ -196,7 +196,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   <Owner>k__BackingField: {fileID: 742464568}
-  SelectMovements: []
+  selectMovements: []
 --- !u!4 &275087612
 Transform:
   m_ObjectHideFlags: 0
@@ -211,6 +211,51 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 742464567}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &300529047
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 300529049}
+  - component: {fileID: 300529048}
+  m_Layer: 0
+  m_Name: Testing (1)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &300529048
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 300529047}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c473a981a15b3864ba23ba6cd1270007, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  <BaseItemInfo>k__BackingField: {fileID: 11400000, guid: fbcb3db1b5514e14f854c737eeb8cd4e, type: 2}
+--- !u!4 &300529049
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 300529047}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &519420028
 GameObject:
@@ -335,7 +380,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   entityList:
   - {fileID: 742464568}
-  - {fileID: 1327588881}
 --- !u!4 &540512346
 Transform:
   m_ObjectHideFlags: 0
@@ -351,52 +395,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1 &598884219
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 598884221}
-  - component: {fileID: 598884220}
-  m_Layer: 0
-  m_Name: PlayerMovement
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!114 &598884220
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 598884219}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 61fbbba397b28d54fba38b0f4b8125a6, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  <Owner>k__BackingField: {fileID: 1327588881}
-  SelectMovements: []
---- !u!4 &598884221
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 598884219}
-  serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -0.2936729, y: 0.24810115, z: -0.03137134}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 1327588882}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &742464565
 GameObject:
   m_ObjectHideFlags: 0
@@ -407,6 +405,7 @@ GameObject:
   m_Component:
   - component: {fileID: 742464567}
   - component: {fileID: 742464568}
+  - component: {fileID: 742464569}
   m_Layer: 0
   m_Name: Player Actor
   m_TagString: Untagged
@@ -486,6 +485,21 @@ MonoBehaviour:
   <SkillSurvival>k__BackingField: 0
   <SkillThaumaturgy>k__BackingField: 0
   <SkillUnarmed>k__BackingField: 0
+--- !u!114 &742464569
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 742464565}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ede52d646787d454fbaef01186f15c96, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  numberOfCaps: 0
+  testing: {fileID: 2073190034}
+  testing2: {fileID: 300529048}
 --- !u!1 &1216908707
 GameObject:
   m_ObjectHideFlags: 0
@@ -532,7 +546,7 @@ Transform:
   m_Children: []
   m_Father: {fileID: 742464567}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1 &1327588880
+--- !u!1 &2073190032
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -540,86 +554,43 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 1327588882}
-  - component: {fileID: 1327588881}
+  - component: {fileID: 2073190033}
+  - component: {fileID: 2073190034}
   m_Layer: 0
-  m_Name: TestActor
+  m_Name: Testing
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &1327588881
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1327588880}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f96a8453cad8c3a438da14f5527a9bd1, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  <BaseActorSpecial>k__BackingField: {fileID: 11400000, guid: 701abaa764f5886418cc27a3603a835f, type: 2}
-  actorPast: {fileID: 0}
-  <InitialCombatEvent>k__BackingField: {fileID: 598884220}
-  <BattleGridPosition>k__BackingField: {x: 0, y: 0}
-  <Strength>k__BackingField: 0
-  <Perception>k__BackingField: 0
-  <Endurance>k__BackingField: 0
-  <Charisma>k__BackingField: 0
-  <Intelligence>k__BackingField: 0
-  <Agility>k__BackingField: 0
-  <Luck>k__BackingField: 0
-  currentHp: 0
-  currentAp: 0
-  currentStrain: 0
-  currentInsanity: 0
-  <MaxHp>k__BackingField: 0
-  <MaxAp>k__BackingField: 0
-  <MaxStrain>k__BackingField: 0
-  <MaxInsanity>k__BackingField: 0
-  <HealingRate>k__BackingField: 0
-  <SkillPoints>k__BackingField: 0
-  <CarryWeight>k__BackingField: 0
-  <ResistancePoision>k__BackingField: 0
-  <ResistanceRadiation>k__BackingField: 0
-  <ResistanceCold>k__BackingField: 0
-  <ResistanceHeat>k__BackingField: 0
-  <ResistanceElectricity>k__BackingField: 0
-  <SkillBarter>k__BackingField: 0
-  <SkillDiplomacy>k__BackingField: 0
-  <SkillExplosives>k__BackingField: 0
-  <SkillFirearms>k__BackingField: 0
-  <SkillIntimidation>k__BackingField: 0
-  <SkillLockpick>k__BackingField: 0
-  <SkillMagicEnergyWeapons>k__BackingField: 0
-  <SkillMechanics>k__BackingField: 0
-  <SkillMedicine>k__BackingField: 0
-  <SkillMelee>k__BackingField: 0
-  <SkillScience>k__BackingField: 0
-  <SkillSleight>k__BackingField: 0
-  <SkillSneak>k__BackingField: 0
-  <SkillSurvival>k__BackingField: 0
-  <SkillThaumaturgy>k__BackingField: 0
-  <SkillUnarmed>k__BackingField: 0
---- !u!4 &1327588882
+--- !u!4 &2073190033
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1327588880}
+  m_GameObject: {fileID: 2073190032}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.09948189, y: 0.008337462, z: 0.07899771}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
-  m_Children:
-  - {fileID: 598884221}
+  m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &2073190034
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2073190032}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c473a981a15b3864ba23ba6cd1270007, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  <BaseItemInfo>k__BackingField: {fileID: 11400000, guid: fbcb3db1b5514e14f854c737eeb8cd4e, type: 2}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0
@@ -627,5 +598,6 @@ SceneRoots:
   - {fileID: 519420032}
   - {fileID: 130350314}
   - {fileID: 742464567}
-  - {fileID: 1327588882}
   - {fileID: 540512346}
+  - {fileID: 2073190033}
+  - {fileID: 300529049}
