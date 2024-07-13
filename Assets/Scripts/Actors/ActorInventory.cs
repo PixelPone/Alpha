@@ -1,7 +1,8 @@
 using System.Collections.Generic;
+using Scripts.Items;
 using UnityEngine;
 
-namespace Assets.Scripts.Actors
+namespace Scripts.Actors
 {
     /// <summary>
     /// The inventory of an Actor.

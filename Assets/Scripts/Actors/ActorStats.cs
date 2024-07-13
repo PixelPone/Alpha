@@ -1,6 +1,8 @@
 using UnityEngine;
+using Scripts.Perks;
+using Scripts.CombatStates;
 
-namespace Assets.Scripts.Actors
+namespace Scripts.Actors
 {
     /// <summary>
     /// Stores an in-game instances of a specific Actor's stats.

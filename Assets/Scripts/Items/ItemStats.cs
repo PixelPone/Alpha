@@ -1,16 +1,19 @@
 ﻿using System;
 using UnityEngine;
 
-public class ItemStats : MonoBehaviour
+namespace Scripts.Items
 {
-
-    [field: SerializeField]
-    public BaseItemStats BaseItemInfo {  get; private set; }
-
-    public string UniqueId { get; private set; }
-
-    private void Awake()
+    public class ItemStats : MonoBehaviour
     {
-        UniqueId = Guid.NewGuid().ToString();
+
+        [field: SerializeField]
+        public BaseItemStats BaseItemInfo { get; private set; }
+
+        public string UniqueId { get; private set; }
+
+        private void Awake()
+        {
+            UniqueId = Guid.NewGuid().ToString();
+        }
     }
 }

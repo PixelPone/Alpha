@@ -1,7 +1,7 @@
 using UnityEngine;
-using static Constants;
+using static Scripts.Constants;
 
-namespace Assets.Scripts.Actors
+namespace Scripts.Actors
 {
     /// <summary>
     /// Stores an Actor's general information and Base SPECIAL values.
