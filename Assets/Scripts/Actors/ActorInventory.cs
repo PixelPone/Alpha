@@ -50,10 +50,10 @@ namespace Scripts.Actors
         /// The Weapon Slots that this Actor is using.
         /// </summary>
         /// <remarks>
-        /// This List stores key references to items in the Actor's Inventory. The number
-        /// of references in this List should not go over <see cref="MaxWeaponSlots"/>
+        /// This array stores key references to items in the Actor's Inventory. The number
+        /// of references in this array should not go over <see cref="MaxWeaponSlots"/>
         /// </remarks>
-        public List<string> WeaponSlots { get; set; }
+        public string[] WeaponSlots { get; set; }
 
         /// <summary>
         /// The item inventory that is associated with this Actor.
@@ -78,7 +78,7 @@ namespace Scripts.Actors
         private void Awake()
         {
             MaxWeaponSlots = 2;
-            WeaponSlots = new List<string>(MaxWeaponSlots);
+            WeaponSlots = new string[MaxWeaponSlots];
             Inventory = new Dictionary<string, (ItemStats, int)>();
         }
 
@@ -123,10 +123,11 @@ namespace Scripts.Actors
         /// <param name="itemStats">The general item information of the item being added.</param>
         public void AddToWeaponSlot(int index, ItemStats itemStats)
         {
-            if(index < 0 || index >= WeaponSlots.Count)
+            if(index < 0 || index >= MaxWeaponSlots)
             {
                 Debug.LogError("An item is trying to be added to an index outside of the Weapon Slots!");
             }
+
 
             WeaponSlots[index] = GetProperItemKey(itemStats);
         }
@@ -138,11 +139,18 @@ namespace Scripts.Actors
         /// <returns>A (ItemStats, int) tuple of the weapon stored in the Actor's inventory.</returns>
         public (ItemStats, int) GetWeaponFromSlot(int index)
         {
-            if (index < 0 || index >= WeaponSlots.Count)
+            if (index < 0 || index >= WeaponSlots.Length)
             {
                 Debug.LogError("An item is trying to be retrieved from an index outside of the Weapon Slots!");
             }
             string itemKey = WeaponSlots[index];
+            
+            //Can't pass null as key to TryGetValue
+            if(itemKey == null)
+            {
+                return (null, 0);
+            }
+
             //Using TryGetValue automatically handles keys that are not found
             Inventory.TryGetValue(itemKey, out (ItemStats, int) value);
 
@@ -180,10 +188,11 @@ namespace Scripts.Actors
         public string GetWeaponSlotStrings()
         {
             string weaponSlotString = string.Empty;
-            for(int i = 0; i < WeaponSlots.Count; i++)
+            for(int i = 0; i < WeaponSlots.Length; i++)
             {
                 (ItemStats, int) weaponTuple = GetWeaponFromSlot(i);
-                string weaponName = weaponTuple.Item1.BaseItemInfo.ItemName;
+
+                string weaponName = weaponTuple.Item1 != null ? weaponTuple.Item1.BaseItemInfo.ItemName : "null";
                 string weaponCount = weaponTuple.Item2.ToString();
                 weaponSlotString += $"WeaponSlot[{i}] = ({weaponName}, {weaponCount})\n";
             }

@@ -15,6 +15,8 @@ namespace Scripts.Actors
         [SerializeField]
         private ActorPast actorPast;
 
+        //Any Battle Specific variables of an Actor- if there are too many, this will
+        //be refractored into a separate component
         [field: SerializeField]
         public CombatState InitialCombatEvent { get; private set; }
 
