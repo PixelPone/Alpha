@@ -11,14 +11,23 @@ namespace Scripts.CombatStates
         /// The AP cost of the current potential path being built.
         /// </summary>
         private int costOfCurrentPath;
+
+        /// <summary>
+        /// How much AP one movement (1 title) costs.
+        /// </summary>
+        [SerializeField]
+        private int costOfMovement;
+
         /// <summary>
         /// The start of the current potential path being built.
         /// </summary>
         private Vector2Int startOfCurrentPath;
+
         /// <summary>
         /// Grid index of center of area that player can select from.
         /// </summary>
         private Vector2Int centerPosition;
+
         /// <summary>
         /// Current grid index of grid that player is currently hovering over.
         /// </summary>
@@ -91,7 +100,7 @@ namespace Scripts.CombatStates
 
         private int GetCostOfPathMovement(Vector2Int movement)
         {
-            return movement.x != 0 && movement.y != 0 ? 2 : 1;
+            return movement.x != 0 && movement.y != 0 ? costOfMovement * 2 : costOfMovement;
         }
 
         private void PlayerInput_OnMoveAction(object sender, PlayerInput.InputActionArgs args)
@@ -136,7 +145,6 @@ namespace Scripts.CombatStates
                 Debug.Log("Position Movement Added!");
                 centerPosition = hoverPosition;
                 selectionBounds.UpdateSelectionArea(centerPosition);
-                //UpdateBounds(centerPosition);
 
                 //Update green squares showing path so far to account for this new movement
                 Vector2Int currentPath = startOfCurrentPath;
@@ -188,7 +196,6 @@ namespace Scripts.CombatStates
                 costOfCurrentPath -= costOfReverse;
                 centerPosition += reverse;
                 selectionBounds.UpdateSelectionArea(centerPosition);
-                //UpdateBounds(centerPosition);
 
                 //Given the grid was just refreshed, redraw current path up to the this new final step
                 Vector2Int currentPath = startOfCurrentPath;
