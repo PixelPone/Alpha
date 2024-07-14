@@ -1,8 +1,10 @@
+using Scripts.CombatStates.SelectionAreas;
 using System.Collections.Generic;
 using UnityEngine;
 
 namespace Scripts.CombatStates
 {
+    [RequireComponent(typeof(SelectionAreaBase))]
     public class PlayerMoveSelection : CombatState
     {
         /// <summary>
@@ -23,15 +25,26 @@ namespace Scripts.CombatStates
         private Vector2Int hoverPosition;
 
         /// <summary>
+        /// Bounds in which the player can select each tile of the path they
+        /// want to move.
+        /// </summary>
+        private SelectionAreaBase selectionBounds;
+
+        /// <summary>
         /// List that stores the path that the player makes- used for undo as well.
         /// </summary>
         /// <remarks>
         /// A List is instead of a Stack in order to iterate through the path that
         /// is created.
         /// </remarks>
-        public List<Vector2Int> selectMovements;
+        private List<Vector2Int> selectMovements;
 
         private BattleGrid battleGrid;
+
+        public void Awake()
+        {
+            selectionBounds = GetComponent<SelectionAreaBase>();
+        }
 
         public override void StartState(BattleManager battleManager)
         {
@@ -44,6 +57,7 @@ namespace Scripts.CombatStates
             startOfCurrentPath = this.Owner.BattleGridPosition;
             centerPosition = startOfCurrentPath;
             hoverPosition = startOfCurrentPath;
+            selectionBounds.UpdateSelectionArea(centerPosition);
 
             Debug.Log("MoveSelection's StartState method Ran!");
             PlayerInput.Instance.OnMoveAction += PlayerInput_OnMoveAction;
@@ -88,11 +102,14 @@ namespace Scripts.CombatStates
             {
                 Vector2Int potentialNewPosition = hoverPosition + Vector2Int.RoundToInt(playerInput);
 
-                Debug.Log($"{this.Owner.name} Input: {playerInput}");
-                Debug.Log($"{this.Owner.name} Input: {Vector2Int.RoundToInt(playerInput)}");
-                Debug.Log($"Potential New Hover Position: {potentialNewPosition}");
+                //Debug.Log($"{this.Owner.name} Input: {playerInput}");
+                //Debug.Log($"{this.Owner.name} Input: {Vector2Int.RoundToInt(playerInput)}");
+                //Debug.Log($"Potential New Hover Position: {potentialNewPosition}");
 
-                if (battleGrid.IsGridPositionInBounds(potentialNewPosition))
+                //Is potential position both within bounds and within the grid?
+                //(Could possibly refractor this into a separate independent Helper function)
+                if (battleGrid.IsGridPositionInBounds(potentialNewPosition)
+                    && selectionBounds.ContainsPosition(potentialNewPosition))
                 {
                     hoverPosition = potentialNewPosition;
                 }
@@ -118,6 +135,7 @@ namespace Scripts.CombatStates
                 costOfCurrentPath += costOfMovement;
                 Debug.Log("Position Movement Added!");
                 centerPosition = hoverPosition;
+                selectionBounds.UpdateSelectionArea(centerPosition);
                 //UpdateBounds(centerPosition);
 
                 //Update green squares showing path so far to account for this new movement
@@ -169,6 +187,7 @@ namespace Scripts.CombatStates
                 int costOfReverse = GetCostOfPathMovement(reverse);
                 costOfCurrentPath -= costOfReverse;
                 centerPosition += reverse;
+                selectionBounds.UpdateSelectionArea(centerPosition);
                 //UpdateBounds(centerPosition);
 
                 //Given the grid was just refreshed, redraw current path up to the this new final step

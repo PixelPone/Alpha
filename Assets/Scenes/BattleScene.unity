@@ -175,6 +175,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 275087612}
+  - component: {fileID: 275087613}
   - component: {fileID: 275087611}
   m_Layer: 0
   m_Name: PlayerMovement
@@ -196,7 +197,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   <Owner>k__BackingField: {fileID: 742464568}
-  selectMovements: []
 --- !u!4 &275087612
 Transform:
   m_ObjectHideFlags: 0
@@ -212,6 +212,19 @@ Transform:
   m_Children: []
   m_Father: {fileID: 742464567}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &275087613
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 275087610}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fd1c5dc1bb2dd9d4fad44acccae68a05, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  halfWidth: 1
 --- !u!1 &300529047
 GameObject:
   m_ObjectHideFlags: 0
@@ -445,7 +458,7 @@ MonoBehaviour:
   <BaseActorSpecial>k__BackingField: {fileID: 11400000, guid: f5c78acca3e4770449668fd897b1a289, type: 2}
   actorPast: {fileID: 0}
   <InitialCombatEvent>k__BackingField: {fileID: 1216908708}
-  <BattleGridPosition>k__BackingField: {x: 0, y: 0}
+  <BattleGridPosition>k__BackingField: {x: 3, y: 3}
   <Strength>k__BackingField: 0
   <Perception>k__BackingField: 0
   <Endurance>k__BackingField: 0
