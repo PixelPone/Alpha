@@ -95,7 +95,7 @@ namespace Scripts.CombatStates
 
         public override bool IsFinished()
         {
-            throw new System.NotImplementedException();
+            return false;
         }
 
         private int GetCostOfPathMovement(Vector2Int movement)

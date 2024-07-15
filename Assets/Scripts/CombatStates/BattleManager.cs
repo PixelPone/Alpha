@@ -62,9 +62,17 @@ namespace Scripts.CombatStates
         // Update is called once per frame
         void Update()
         {
+            //The main queue that we are worried about is the Substate Queue
+            //The CombatState Queue is used for queuing States
             if (currentSubstate != null)
             {
                 currentSubstate.UpdateState();
+
+                if(currentSubstate.IsFinished())
+                {
+                    NextSubstate();
+                }
+
             }
             else if (IsEmpty())
             {
@@ -197,7 +205,7 @@ namespace Scripts.CombatStates
         /// True- if at least one CombatState is found in the current CombatStateQueue.
         /// False- if no CombatStates are found in the current CombatStateQueue.
         /// </returns>
-        public bool DoesActorHaveCombatEvent(GameObject actor)
+        public bool DoesActorHaveCombatEvent(ActorStats actor)
         {
 
             foreach (CombatState queueEvent in combatStateQueue)
@@ -214,7 +222,7 @@ namespace Scripts.CombatStates
         /// Removes all CombatStates associated with an Actor in the CombatStateQueue.
         /// </summary>
         /// <param name="actor">The Actor whose events are getting removed.</param>
-        public void RemoveEventsOwnedBy(GameObject actor)
+        public void RemoveEventsOwnedBy(ActorStats actor)
         {
 
             for (int i = 0; i < combatStateQueue.Count; i++)
@@ -229,7 +237,7 @@ namespace Scripts.CombatStates
         /// <summary>
         /// Clears the entirety of the CombatStateQueue.
         /// </summary>
-        public void ClearCombatEventEverything()
+        public void ClearCombatStateQueue()
         {
             combatStateQueue.Clear();
         }
@@ -268,6 +276,17 @@ namespace Scripts.CombatStates
                     Debug.Log("[" + i + "] CombatStateQueue: [" + current.CountDown + "][" + current + "]");
                 }
             }
+        }
+
+        public int GetNextCountDown()
+        {
+            if(IsEmpty())
+            {
+                return 0;
+            }
+
+            CombatState latest = combatStateQueue[combatStateQueue.Count - 1];
+            return latest.CountDown + 1;
         }
 
         public void AddSubstate(ActorStats actorOwner, CombatState newSubstate)

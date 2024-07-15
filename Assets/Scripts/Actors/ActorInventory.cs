@@ -86,11 +86,6 @@ namespace Scripts.Actors
         void Start()
         {
             actorStats = GetComponent<ActorStats>();
-            AddItemToInventory(testing);
-            AddItemToInventory(testing2);
-            AddToWeaponSlot(0, testing);
-            Debug.Log(GetInventoryString());
-            Debug.Log(GetWeaponSlotStrings());
         }
 
         // Update is called once per frame

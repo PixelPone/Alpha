@@ -18,6 +18,13 @@ namespace Scripts.CombatStates
         public override void StartState(BattleManager battleManager)
         {
             base.StartState(battleManager);
+
+            //Only add CombatEvent to the end of the CombatStateQueue once
+            if(!battleManager.DoesActorHaveCombatEvent(this.Owner))
+            {
+                battleManager.AddCombatEvent(this.Owner, this, battleManager.GetNextCountDown());
+            }
+
             Debug.Log("TakeTurn's StartState method Ran!");
             PlayerInput.Instance.OnMoveAction += PlayerInput_OnMoveAction;
             PlayerInput.Instance.OnSelectAction += PlayerInput_OnSelectAction;
@@ -38,7 +45,7 @@ namespace Scripts.CombatStates
 
         public override bool IsFinished()
         {
-            throw new System.NotImplementedException();
+            return false;
         }
 
         private void PlayerInput_OnMoveAction(object sender, PlayerInput.InputActionArgs args)
@@ -127,8 +134,8 @@ namespace Scripts.CombatStates
             Debug.Log(test);
             if (test == "Move")
             {
-                this.battleManager.AddSubstate(this.Owner, moveSelection);
-                this.battleManager.NextSubstate();
+                battleManager.AddSubstate(this.Owner, moveSelection);
+                battleManager.NextSubstate();
             }
         }
     }
