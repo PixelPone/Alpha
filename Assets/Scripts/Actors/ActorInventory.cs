@@ -13,10 +13,6 @@ namespace Scripts.Actors
 
         [SerializeField]
         private int numberOfCaps;
-        [SerializeField]
-        private ItemStats testing;
-        [SerializeField]
-        private ItemStats testing2;
 
         /// <summary>
         /// The current amount of weight that this Actor is carrying.

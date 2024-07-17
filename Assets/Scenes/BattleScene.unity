@@ -226,51 +226,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   halfWidth: 1
---- !u!1 &300529047
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 300529049}
-  - component: {fileID: 300529048}
-  m_Layer: 0
-  m_Name: Testing (1)
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!114 &300529048
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 300529047}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c473a981a15b3864ba23ba6cd1270007, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  <BaseItemInfo>k__BackingField: {fileID: 11400000, guid: fbcb3db1b5514e14f854c737eeb8cd4e, type: 2}
---- !u!4 &300529049
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 300529047}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &519420028
 GameObject:
   m_ObjectHideFlags: 0
@@ -460,7 +415,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f96a8453cad8c3a438da14f5527a9bd1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  <BaseActorSpecial>k__BackingField: {fileID: 11400000, guid: f5c78acca3e4770449668fd897b1a289, type: 2}
+  <BaseActorSpecial>k__BackingField: {fileID: 11400000, guid: 76a31cb4da6806d4a8a854d343fa8440, type: 2}
+  actorName: 
   actorPast: {fileID: 0}
   <InitialCombatEvent>k__BackingField: {fileID: 1216908708}
   <BattleGridPosition>k__BackingField: {x: 3, y: 3}
@@ -471,6 +427,13 @@ MonoBehaviour:
   <Intelligence>k__BackingField: 0
   <Agility>k__BackingField: 0
   <Luck>k__BackingField: 0
+  tempStrength: 0
+  tempPerception: 0
+  tempEndurance: 0
+  tempCharisma: 0
+  tempIntelligence: 0
+  tempAgility: 0
+  tempLuck: 0
   currentHp: 0
   currentAp: 0
   currentStrain: 0
@@ -516,8 +479,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   numberOfCaps: 0
-  testing: {fileID: 2073190034}
-  testing2: {fileID: 300529048}
 --- !u!1 &804365441
 GameObject:
   m_ObjectHideFlags: 0
@@ -804,51 +765,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   halfWidth: 1
---- !u!1 &2073190032
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 2073190033}
-  - component: {fileID: 2073190034}
-  m_Layer: 0
-  m_Name: Testing
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &2073190033
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2073190032}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &2073190034
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2073190032}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c473a981a15b3864ba23ba6cd1270007, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  <BaseItemInfo>k__BackingField: {fileID: 11400000, guid: fbcb3db1b5514e14f854c737eeb8cd4e, type: 2}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0
@@ -857,5 +773,3 @@ SceneRoots:
   - {fileID: 130350314}
   - {fileID: 742464567}
   - {fileID: 540512346}
-  - {fileID: 2073190033}
-  - {fileID: 300529049}

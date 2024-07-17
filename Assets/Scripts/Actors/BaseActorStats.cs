@@ -10,9 +10,14 @@ namespace Scripts.Actors
     public class BaseActorStats : ScriptableObject
     {
         [field: SerializeField, TextArea, Header("General Info")]
-        public string Description { get; private set; }
+        public string Description { get; private set; } = "This is a test description!";
         [field: SerializeField]
-        public string RaceName { get; private set; } = "Earth";
+        public Actor_Gender Gender { get; private set; } = Actor_Gender.MALE;
+        [field: SerializeField, Range(-4, 4)]
+        public int Size { get; private set; } = 0;
+
+        [field: SerializeField]
+        public Race_Name RaceName { get; private set; } = Race_Name.EARTH;
 
         //SPECIAL stats
         //Ranges [1 - 10] normally, can go up to 15 with temporary buffs
@@ -37,21 +42,15 @@ namespace Scripts.Actors
 
         public void Awake()
         {
-            /*Debug.Log("On BaseActorStat Awake!");
-            Debug.Log($"strength {Strength}");
-            Debug.Log($"perception {Perception}");
-            Debug.Log($"endurance {Endurance}");
-            Debug.Log($"charisma {Charisma}");
-            Debug.Log($"intelligence {Intelligence}");
-            Debug.Log($"agility {Agility}");
-            Debug.Log($"luck {Luck}");*/
+            //Debug.Log("On BaseActorStat Awake!");
 
             UpdateMagicSpecial();
         }
 
         public void OnValidate()
         {
-            PrintSpecialValues();
+            //Debug.Log("On BaseActorStat OnValidate!");
+            //PrintSpecialValues();
             UpdateMagicSpecial();
         }
 
@@ -65,20 +64,20 @@ namespace Scripts.Actors
             Agility = 5;
             Luck = 5;
 
-            PrintSpecialValues();
+            //Debug.Log("On BaseActorStat Reset!");
+            //PrintSpecialValues();
             UpdateMagicSpecial();
         }
 
         private void PrintSpecialValues()
         {
-            /*Debug.Log("On BaseActorStat OnValidate!");
-            Debug.Log($"strength {strength}");
-            Debug.Log($"perception {perception}");
-            Debug.Log($"endurance {endurance}");
-            Debug.Log($"charisma {charisma}");
-            Debug.Log($"intelligence {intelligence}");
-            Debug.Log($"agility {agility}");
-            Debug.Log($"luck {luck}");*/
+            Debug.Log($"Strength {Strength}");
+            Debug.Log($"Perception {Perception}");
+            Debug.Log($"Endurance {Endurance}");
+            Debug.Log($"Charisma {Charisma}");
+            Debug.Log($"Intelligence {Intelligence}");
+            Debug.Log($"Agility {Agility}");
+            Debug.Log($"Luck {Luck}");
         }
 
         private void UpdateMagicSpecial()

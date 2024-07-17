@@ -9,9 +9,14 @@ namespace Scripts.Actors
     /// </summary>
     public class ActorStats : MonoBehaviour
     {
-        
-        [field: SerializeField]
+        [field: Header("General Info"), SerializeField]
         public BaseActorStats BaseActorSpecial { get; private set; }
+        [SerializeField]
+        private string actorName;
+        private int level = 1;
+        private int experience = 0;
+        private int karma;
+
         [SerializeField]
         private ActorPast actorPast;
 
@@ -22,11 +27,6 @@ namespace Scripts.Actors
 
         [field: SerializeField]
         public Vector2Int BattleGridPosition { get; set; }
-
-        private int level = 1;
-        private int experience = 0;
-        private int karma;
-        private int size;
 
         //Actor's SPECIAL stats
         //Ranges [1 - 10] normally, can go up to 15 with temporary buffs
@@ -46,6 +46,31 @@ namespace Scripts.Actors
         public int Agility { get; set; }
         [field: SerializeField]
         public int Luck { get; set; }
+
+        //For Temporary SPECIAL buffs, the maximum value that these can be is 15
+        [Header("Temporary SPECIAL Values")]
+        [SerializeField]
+        private int tempStrength;
+        [SerializeField]
+        private int tempPerception;
+        [SerializeField]
+        private int tempEndurance;
+        [SerializeField]
+        private int tempCharisma;
+        [SerializeField]
+        private int tempIntelligence;
+        [SerializeField]
+        private int tempAgility;
+        [SerializeField]
+        private int tempLuck;
+
+        public int TempStrength { get { return tempStrength; } set { tempStrength = Mathf.Clamp(value, 1, 15); } }
+        public int TempPerception { get { return tempPerception; } set { tempPerception = Mathf.Clamp(value, 1, 15); } }
+        public int TempEndurance { get { return tempEndurance; } set { tempEndurance = Mathf.Clamp(value, 1, 15); } }
+        public int TempCharisma { get { return tempCharisma; } set { tempCharisma = Mathf.Clamp(value, 1, 15); } }
+        public int TempIntelligence { get { return tempIntelligence; } set { tempIntelligence = Mathf.Clamp(value, 1, 15); } }
+        public int TempAgility { get { return tempAgility; } set { tempAgility = Mathf.Clamp(value, 1, 15); } }
+        public int TempLuck { get { return tempLuck; } set { tempLuck = Mathf.Clamp(value, 1, 15); } }
 
         [Header("Current Values"), SerializeField]
         private int currentHp;
@@ -138,6 +163,14 @@ namespace Scripts.Actors
             Intelligence = BaseActorSpecial.Intelligence;
             Agility = BaseActorSpecial.Agility;
             Luck = BaseActorSpecial.Luck;
+
+            TempStrength = Strength;
+            TempPerception = Perception;
+            TempEndurance = Endurance;
+            TempCharisma = Charisma;
+            TempIntelligence = Intelligence;
+            TempAgility = Agility;
+            TempLuck = Luck;
 
             UpdateAllSecondaryStats();
             //actorPast.OnEffect(this.gameObject);
