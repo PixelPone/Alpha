@@ -12,7 +12,7 @@ namespace Scripts.Perks
         [field: SerializeField]
         public Sprite PerkSprite { get; private set; }
 
-        public abstract bool MeetsRequirements(ActorStats actorStats);
+        public abstract bool MeetsRequirements(ActorSpecial actorSpecial);
 
         public abstract void OnEffect(params GameObject[] gameObjects);
     }

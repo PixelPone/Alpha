@@ -28,14 +28,14 @@ namespace Scripts.Perks
 
         }
 
-        public override bool MeetsRequirements(ActorStats actorStats)
+        public override bool MeetsRequirements(ActorSpecial actorSpecial)
         {
             return true; //Traits are always valid, so return true
         }
 
         public override void OnEffect(params GameObject[] gameObjects)
         {
-            ActorStats actor = gameObjects[0].GetComponent<ActorStats>();
+            ActorSkills actor = gameObjects[0].GetComponent<ActorSkills>();
             foreach (Skill_Name taggedSkill in taggedSkills)
             {
                 switch (taggedSkill)
