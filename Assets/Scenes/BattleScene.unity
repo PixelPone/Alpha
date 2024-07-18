@@ -196,7 +196,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 61fbbba397b28d54fba38b0f4b8125a6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  <Owner>k__BackingField: {fileID: 742464568}
+  <Owner>k__BackingField: {fileID: 2060365890}
   costOfMovement: 1
 --- !u!4 &275087612
 Transform:
@@ -206,12 +206,12 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 275087610}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 1.4268185, y: -0.7724533, z: -0.0008074604}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 742464567}
+  m_Father: {fileID: 2060365891}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &275087613
 MonoBehaviour:
@@ -348,7 +348,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   entityList:
-  - {fileID: 742464568}
+  - {fileID: 2060365890}
 --- !u!4 &540512346
 Transform:
   m_ObjectHideFlags: 0
@@ -364,121 +364,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1 &742464565
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 742464567}
-  - component: {fileID: 742464568}
-  - component: {fileID: 742464569}
-  m_Layer: 0
-  m_Name: Player Actor
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &742464567
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 742464565}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.194191, y: 0.2564386, z: 0.04762637}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children:
-  - {fileID: 1216908709}
-  - {fileID: 275087612}
-  - {fileID: 942553017}
-  - {fileID: 1871028456}
-  - {fileID: 1557253911}
-  - {fileID: 804365442}
-  m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &742464568
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 742464565}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f96a8453cad8c3a438da14f5527a9bd1, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  <BaseActorSpecial>k__BackingField: {fileID: 11400000, guid: 76a31cb4da6806d4a8a854d343fa8440, type: 2}
-  actorName: 
-  actorPast: {fileID: 0}
-  <InitialCombatEvent>k__BackingField: {fileID: 1216908708}
-  <BattleGridPosition>k__BackingField: {x: 3, y: 3}
-  <Strength>k__BackingField: 0
-  <Perception>k__BackingField: 0
-  <Endurance>k__BackingField: 0
-  <Charisma>k__BackingField: 0
-  <Intelligence>k__BackingField: 0
-  <Agility>k__BackingField: 0
-  <Luck>k__BackingField: 0
-  tempStrength: 0
-  tempPerception: 0
-  tempEndurance: 0
-  tempCharisma: 0
-  tempIntelligence: 0
-  tempAgility: 0
-  tempLuck: 0
-  currentHp: 0
-  currentAp: 0
-  currentStrain: 0
-  currentInsanity: 0
-  <MaxHp>k__BackingField: 0
-  <MaxAp>k__BackingField: 0
-  <MaxStrain>k__BackingField: 0
-  <MaxInsanity>k__BackingField: 0
-  <HealingRate>k__BackingField: 0
-  <SkillPoints>k__BackingField: 0
-  <CarryWeight>k__BackingField: 0
-  <ResistancePoision>k__BackingField: 0
-  <ResistanceRadiation>k__BackingField: 0
-  <ResistanceCold>k__BackingField: 0
-  <ResistanceHeat>k__BackingField: 0
-  <ResistanceElectricity>k__BackingField: 0
-  <SkillBarter>k__BackingField: 0
-  <SkillDiplomacy>k__BackingField: 0
-  <SkillExplosives>k__BackingField: 0
-  <SkillFirearms>k__BackingField: 0
-  <SkillIntimidation>k__BackingField: 0
-  <SkillLockpick>k__BackingField: 0
-  <SkillMagicEnergyWeapons>k__BackingField: 0
-  <SkillMechanics>k__BackingField: 0
-  <SkillMedicine>k__BackingField: 0
-  <SkillMelee>k__BackingField: 0
-  <SkillScience>k__BackingField: 0
-  <SkillSleight>k__BackingField: 0
-  <SkillSneak>k__BackingField: 0
-  <SkillSurvival>k__BackingField: 0
-  <SkillThaumaturgy>k__BackingField: 0
-  <SkillUnarmed>k__BackingField: 0
---- !u!114 &742464569
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 742464565}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ede52d646787d454fbaef01186f15c96, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  numberOfCaps: 0
 --- !u!1 &804365441
 GameObject:
   m_ObjectHideFlags: 0
@@ -505,12 +390,12 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 804365441}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 1.4268185, y: -0.7724533, z: -0.0008074604}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 742464567}
+  m_Father: {fileID: 2060365891}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &804365443
 MonoBehaviour:
@@ -524,7 +409,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 61fbbba397b28d54fba38b0f4b8125a6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  <Owner>k__BackingField: {fileID: 742464568}
+  <Owner>k__BackingField: {fileID: 2060365890}
   costOfMovement: 3
 --- !u!114 &804365444
 MonoBehaviour:
@@ -565,12 +450,12 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 942553016}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 1.4268185, y: -0.7724533, z: -0.0008074604}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 742464567}
+  m_Father: {fileID: 2060365891}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &942553018
 MonoBehaviour:
@@ -584,7 +469,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 61fbbba397b28d54fba38b0f4b8125a6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  <Owner>k__BackingField: {fileID: 742464568}
+  <Owner>k__BackingField: {fileID: 2060365890}
   costOfMovement: 2
 --- !u!114 &942553019
 MonoBehaviour:
@@ -628,7 +513,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ab9840b78cb92e94fb8414e304aaf735, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  <Owner>k__BackingField: {fileID: 742464568}
+  <Owner>k__BackingField: {fileID: 2060365890}
   moveSelection: {fileID: 275087611}
 --- !u!4 &1216908709
 Transform:
@@ -639,11 +524,11 @@ Transform:
   m_GameObject: {fileID: 1216908707}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 1.4268185, y: -0.7724533, z: -0.0008074604}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 742464567}
+  m_Father: {fileID: 2060365891}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1557253910
 GameObject:
@@ -671,12 +556,12 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1557253910}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 1.4268185, y: -0.7724533, z: -0.0008074604}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 742464567}
+  m_Father: {fileID: 2060365891}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1557253912
 MonoBehaviour:
@@ -690,7 +575,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 61fbbba397b28d54fba38b0f4b8125a6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  <Owner>k__BackingField: {fileID: 742464568}
+  <Owner>k__BackingField: {fileID: 2060365890}
   costOfMovement: 2
 --- !u!114 &1557253913
 MonoBehaviour:
@@ -731,12 +616,12 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1871028455}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 1.4268185, y: -0.7724533, z: -0.0008074604}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 742464567}
+  m_Father: {fileID: 2060365891}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1871028457
 MonoBehaviour:
@@ -750,7 +635,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 61fbbba397b28d54fba38b0f4b8125a6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  <Owner>k__BackingField: {fileID: 742464568}
+  <Owner>k__BackingField: {fileID: 2060365890}
   costOfMovement: 3
 --- !u!114 &1871028458
 MonoBehaviour:
@@ -765,11 +650,106 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   halfWidth: 1
+--- !u!1 &2060365887
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2060365891}
+  - component: {fileID: 2060365890}
+  - component: {fileID: 2060365889}
+  - component: {fileID: 2060365888}
+  - component: {fileID: 2060365892}
+  m_Layer: 0
+  m_Name: PlayerActor
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &2060365888
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2060365887}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3f1ba4c28f4c0624baad55391c2efe61, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &2060365889
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2060365887}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a6c4342acf133cf4f942921e2cdfaa21, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &2060365890
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2060365887}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a1b7f01c0db66c348aee55cb31737348, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  <BaseActorSpecial>k__BackingField: {fileID: 11400000, guid: 76a31cb4da6806d4a8a854d343fa8440, type: 2}
+  actorName: Littlepip
+  actorPast: {fileID: 0}
+  <InitialCombatEvent>k__BackingField: {fileID: 1216908708}
+  <BattleGridPosition>k__BackingField: {x: 3, y: 3}
+--- !u!4 &2060365891
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2060365887}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: -1.6210095, y: 1.0288919, z: 0.04843383}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 1216908709}
+  - {fileID: 275087612}
+  - {fileID: 942553017}
+  - {fileID: 1871028456}
+  - {fileID: 1557253911}
+  - {fileID: 804365442}
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &2060365892
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2060365887}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ede52d646787d454fbaef01186f15c96, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  numberOfCaps: 0
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0
   m_Roots:
   - {fileID: 519420032}
   - {fileID: 130350314}
-  - {fileID: 742464567}
   - {fileID: 540512346}
+  - {fileID: 2060365891}

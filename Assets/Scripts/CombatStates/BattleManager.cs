@@ -12,7 +12,7 @@ namespace Scripts.CombatStates
         /// <summary>
         /// The list of Actors that are currently in battle.
         /// </summary>
-        [SerializeField] private List<ActorStats> entityList;
+        [SerializeField] private List<ActorSpecial> entityList;
 
         /// <summary>
         /// Maintains the CombatStates that are waiting to be executed in battle.
@@ -39,7 +39,7 @@ namespace Scripts.CombatStates
             if (entityList.Count == 0)
             {
                 Debug.LogWarning("Battle Manager does not have any Actors assigned to it!", transform.gameObject);
-                entityList = new List<ActorStats>();
+                entityList = new List<ActorSpecial>();
             }
             combatStateQueue = new List<CombatState>();
             substateQueue = new List<CombatState>();
@@ -53,7 +53,7 @@ namespace Scripts.CombatStates
             for (int i = 0; i < entityList.Count; i++)
             {
                 CombatState entityState = entityList[i].InitialCombatEvent;
-                ActorStats owner = entityState.Owner;
+                ActorSpecial owner = entityState.Owner;
 
                 AddCombatEvent(owner, entityState, i);
             }
@@ -92,7 +92,7 @@ namespace Scripts.CombatStates
             Dice initiativeModifier = new Dice("1d10");
             Dice coin = new Dice("1d2");
 
-            entityList.Sort(delegate (ActorStats one, ActorStats two)
+            entityList.Sort(delegate (ActorSpecial one, ActorSpecial two)
             {
                 //Negative value of CompareTo is returned in order to make Actors with higher stats toward front of order
                 //Have to use BASE Perception when calculating Initiative rolls
@@ -166,7 +166,7 @@ namespace Scripts.CombatStates
         /// <param name="actorOwner">The owner that is associated with the new CombatState being added.</param>
         /// <param name="newMainState">The new CombatState that is being added to the CombatStateQueue.</param>
         /// <param name="eventCountDown">The CountDown that is associated with the CombatState.</param>
-        public void AddCombatEvent(ActorStats actorOwner, CombatState newMainState, int eventCountDown)
+        public void AddCombatEvent(ActorSpecial actorOwner, CombatState newMainState, int eventCountDown)
         {
             if (IsEmpty())
             {
@@ -205,7 +205,7 @@ namespace Scripts.CombatStates
         /// True- if at least one CombatState is found in the current CombatStateQueue.
         /// False- if no CombatStates are found in the current CombatStateQueue.
         /// </returns>
-        public bool DoesActorHaveCombatEvent(ActorStats actor)
+        public bool DoesActorHaveCombatEvent(ActorSpecial actor)
         {
 
             foreach (CombatState queueEvent in combatStateQueue)
@@ -222,7 +222,7 @@ namespace Scripts.CombatStates
         /// Removes all CombatStates associated with an Actor in the CombatStateQueue.
         /// </summary>
         /// <param name="actor">The Actor whose events are getting removed.</param>
-        public void RemoveEventsOwnedBy(ActorStats actor)
+        public void RemoveEventsOwnedBy(ActorSpecial actor)
         {
 
             for (int i = 0; i < combatStateQueue.Count; i++)
@@ -289,7 +289,7 @@ namespace Scripts.CombatStates
             return latest.CountDown + 1;
         }
 
-        public void AddSubstate(ActorStats actorOwner, CombatState newSubstate)
+        public void AddSubstate(ActorSpecial actorOwner, CombatState newSubstate)
         {
             newSubstate.Owner = actorOwner;
             substateQueue.Add(newSubstate);

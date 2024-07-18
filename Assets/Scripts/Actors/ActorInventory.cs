@@ -7,12 +7,22 @@ namespace Scripts.Actors
     /// <summary>
     /// The inventory of an Actor.
     /// </summary>
-    [RequireComponent(typeof(ActorStats))]
+    [RequireComponent(typeof(ActorSpecial))]
     public class ActorInventory : MonoBehaviour
     {
+        //Used for getting SPECIAL values needed for stat calculations
+        private ActorSpecial actorSpecial;
+
+        //Properties for cleaner access of ActorSpecial Specials
+        private int Strength { get { return actorSpecial.Strength; } }
 
         [SerializeField]
         private int numberOfCaps;
+
+        /// <summary>
+        /// The maximum amount of weight that this Actor can carry at once.
+        /// </summary>
+        public int MaxCarryWeight { get; set; }
 
         /// <summary>
         /// The current amount of weight that this Actor is carrying.
@@ -63,8 +73,6 @@ namespace Scripts.Actors
         /// </remarks>
         public Dictionary<string, (ItemStats, int)> Inventory { get; private set; }
 
-        private ActorStats actorStats;
-
         // Slots should store references to items in Inventory
         // Inventory- need to figure out a way to store items and keep track of quantity of said items
         // Use ItemStats for now, if need to be more general, use GameObject
@@ -81,7 +89,8 @@ namespace Scripts.Actors
         // Start is called before the first frame update
         void Start()
         {
-            actorStats = GetComponent<ActorStats>();
+            actorSpecial = GetComponent<ActorSpecial>();
+            MaxCarryWeight = 10 + (Strength / 2);
         }
 
         // Update is called once per frame

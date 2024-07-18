@@ -3,9 +3,12 @@ using UnityEngine;
 
 namespace Scripts.Actors
 {
-    [RequireComponent(typeof(ActorStats))]
+    [RequireComponent(typeof(ActorSpecial))]
     public class ActorSkills : MonoBehaviour
     {
+        //Used for getting SPECIAL values needed for stat calculations
+        private ActorSpecial actorSpecial;
+
         //Properties for cleaner access of ActorSpecial Specials
         private int Strength { get { return actorSpecial.Strength; } }
         private int Perception { get { return actorSpecial.Perception; } }
@@ -36,13 +39,11 @@ namespace Scripts.Actors
         public int SkillThaumaturgy { get; set; }
         public int SkillUnarmed { get; set; }
 
-        //Used for getting SPECIAL values needed for stat calculations
-        private ActorSpecial actorSpecial;
-
         // Use this for initialization
         void Start()
         {
             actorSpecial = GetComponent<ActorSpecial>();
+            SetStats();
         }
 
         // Update is called once per frame
@@ -61,6 +62,7 @@ namespace Scripts.Actors
             SkillLockpick = (2 * Perception) + (Luck / 2);
             SkillMagicEnergyWeapons = (2 * Perception) + (Luck / 2);
             SkillMechanics = (2 * Intelligence) + (Luck / 2);
+            SkillMedicine = (2 * Intelligence) + (Luck / 2);
             SkillMelee = (2 * Strength) + (Luck / 2);
             SkillScience = (2 * Intelligence) + (Luck / 2);
             SkillSleight = (2 * Agility) + (Luck / 2);

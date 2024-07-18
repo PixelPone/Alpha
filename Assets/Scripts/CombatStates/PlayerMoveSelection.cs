@@ -1,3 +1,4 @@
+using Scripts.Actors;
 using Scripts.CombatStates.SelectionAreas;
 using System.Collections.Generic;
 using UnityEngine;
@@ -50,6 +51,8 @@ namespace Scripts.CombatStates
 
         private BattleGrid battleGrid;
 
+        private ActorStatus actorStatus;
+
         public void Awake()
         {
             selectionBounds = GetComponent<SelectionAreaBase>();
@@ -67,6 +70,7 @@ namespace Scripts.CombatStates
             centerPosition = startOfCurrentPath;
             hoverPosition = startOfCurrentPath;
             selectionBounds.UpdateSelectionArea(centerPosition);
+            actorStatus = this.Owner.gameObject.GetComponent<ActorStatus>();
 
             Debug.Log("MoveSelection's StartState method Ran!");
             PlayerInput.Instance.OnMoveAction += PlayerInput_OnMoveAction;
@@ -136,7 +140,7 @@ namespace Scripts.CombatStates
 
             //Player is trying to add another battle tile to the path they are building and is able to
             if (!centerPosition.Equals(hoverPosition) && (costOfCurrentPath + costOfMovement)
-                <= this.Owner.CurrentAp)
+                <= actorStatus.CurrentAp)
             {
                 Debug.Log($"Position Difference: {movement}");
                 selectMovements.Add(movement);
@@ -157,7 +161,7 @@ namespace Scripts.CombatStates
             //Player selects the center position, ending the path building process
             else if (centerPosition.Equals(hoverPosition) && selectMovements.Count != 0)
             {
-                this.Owner.CurrentAp -= costOfCurrentPath;
+                actorStatus.CurrentAp -= costOfCurrentPath;
                 battleManager.NextSubstate();
                 //StartCoroutine(MoveAlongPathCoroutine());
             }
@@ -166,15 +170,15 @@ namespace Scripts.CombatStates
             else
             {
                 string feedback = string.Empty;
-                if (this.Owner.CurrentAp == 0)
+                if (actorStatus.CurrentAp == 0)
                 {
                     feedback = "You do not have enough Action Points to create a path!";
                 }
-                else if (this.Owner.CurrentAp > 0 && selectMovements.Count == 0)
+                else if (actorStatus.CurrentAp > 0 && selectMovements.Count == 0)
                 {
                     feedback = "You haven't created a Path to move yet!";
                 }
-                else if (this.Owner.CurrentAp > 0 && selectMovements.Count > 0)
+                else if (actorStatus.CurrentAp > 0 && selectMovements.Count > 0)
                 {
                     feedback = "You do not have enough Action Points to move this far!";
                 }

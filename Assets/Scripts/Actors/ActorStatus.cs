@@ -6,6 +6,9 @@ namespace Scripts.Actors
     [RequireComponent(typeof(ActorSpecial))]
     public class ActorStatus : MonoBehaviour
     {
+        //Used for getting SPECIAL values needed for stat calculations
+        private ActorSpecial actorSpecial;
+
         //Properties for cleaner access of ActorSpecial Specials
         private int Strength { get { return actorSpecial.Strength; } }
         private int Perception { get { return actorSpecial.Perception; } }
@@ -48,13 +51,11 @@ namespace Scripts.Actors
         //Used for SPECIAL Check
         public int ResistanceElectricity { get; private set; }
 
-        //Used for getting SPECIAL values needed for stat calculations
-        private ActorSpecial actorSpecial;
-
         // Use this for initialization
         void Start()
         {
             actorSpecial = GetComponent<ActorSpecial>();
+            SetStats();
         }
 
         // Update is called once per frame

@@ -50,7 +50,7 @@ namespace Scripts.CombatStates
         /// CombatStateQueue.
         /// </summary>
         [field: SerializeField]
-        public ActorStats Owner { get; set; }
+        public ActorSpecial Owner { get; set; }
 
         /// <summary>
         /// The instance of BattleManager that is associated with this CombatState.
