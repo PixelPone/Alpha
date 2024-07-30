@@ -682,6 +682,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3f1ba4c28f4c0624baad55391c2efe61, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  actorLimbs: []
 --- !u!114 &2060365889
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -707,7 +708,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   <BaseActorSpecial>k__BackingField: {fileID: 11400000, guid: 76a31cb4da6806d4a8a854d343fa8440, type: 2}
-  actorName: Littlepip
+  actorName: Sprite Star
   actorPast: {fileID: 0}
   <InitialCombatEvent>k__BackingField: {fileID: 1216908708}
   <BattleGridPosition>k__BackingField: {x: 3, y: 3}

@@ -10,6 +10,25 @@ namespace Scripts
             UNICORN
         }
 
+        public enum Cripple_Status
+        {
+            OK,
+            MINOR,
+            MAJOR
+        }
+
+        public enum Limb_Type
+        {
+            HEAD,
+            TORSO,
+            LEFT_FORELEG,
+            RIGHT_FORELEG,
+            LEFT_HINDLEG,
+            RIGHT_HINDLEG,
+            LEFT_WING,
+            RIGHT_WING
+        }
+
         public enum Actor_Gender
         {
             MALE,

@@ -1,4 +1,5 @@
 ﻿using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 
 namespace Scripts.Actors
@@ -50,6 +51,14 @@ namespace Scripts.Actors
         public int ResistanceHeat { get; private set; }
         //Used for SPECIAL Check
         public int ResistanceElectricity { get; private set; }
+
+        [SerializeField]
+        private List<ActorLimb> actorLimbs;
+
+        private void Awake()
+        {
+            actorLimbs = new List<ActorLimb>();
+        }
 
         // Use this for initialization
         void Start()

@@ -24,3 +24,4 @@ MonoBehaviour:
   <Agility>k__BackingField: 5
   <Luck>k__BackingField: 5
   <MagicSpecial>k__BackingField: 0
+  <actorLimbs>k__BackingField: []

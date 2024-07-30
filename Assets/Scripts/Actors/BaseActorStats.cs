@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using UnityEngine;
 using static Scripts.Constants;
 
@@ -40,6 +41,9 @@ namespace Scripts.Actors
         public Special_Name MagicSpecial { get; private set; } = Special_Name.STRENGTH;
         public int MagicSpecialValue { get; private set; }
 
+        [field: SerializeField]
+        public List<ActorLimb> actorLimbs { get; private set; }
+
         public void Awake()
         {
             //Debug.Log("On BaseActorStat Awake!");
@@ -66,6 +70,7 @@ namespace Scripts.Actors
 
             //Debug.Log("On BaseActorStat Reset!");
             //PrintSpecialValues();
+            CheckActorLimbs();
             UpdateMagicSpecial();
         }
 
@@ -78,6 +83,14 @@ namespace Scripts.Actors
             Debug.Log($"Intelligence {Intelligence}");
             Debug.Log($"Agility {Agility}");
             Debug.Log($"Luck {Luck}");
+        }
+
+        private void CheckActorLimbs()
+        {
+            if(actorLimbs.Count == 0)
+            {
+                Debug.LogError("This Actor does not have limbs!");
+            }
         }
 
         private void UpdateMagicSpecial()
