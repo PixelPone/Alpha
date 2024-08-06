@@ -58,7 +58,20 @@ namespace Scripts.CombatStates
         protected BattleManager battleManager;
 
         /// <summary>
-        /// Runs when the CombatState is first run (can be used setup values need for CombatState)
+        /// Determines if this CombatState can be performed or not- Are the proper
+        /// conditions in place for this CombatState to start and run?
+        /// </summary>
+        /// <returns>
+        /// True- if this CombatState can be performed.
+        /// False- if this CombatState can not be performed.
+        /// </returns>
+        public virtual bool CanPerform()
+        {
+            return true;
+        }
+
+        /// <summary>
+        /// Runs when this CombatState is first run (can be used setup values need for CombatState)
         /// </summary>
         /// <remarks>
         /// This is equivalent to the Start method for Monobehaviour but is being explicitly called 
@@ -76,25 +89,25 @@ namespace Scripts.CombatStates
         }
 
         /// <summary>
-        /// Updates components associated with the CombatState every frame.
+        /// Updates components associated with this CombatState every frame.
         /// </summary>
         /// <remarks>
-        /// This is equivalent to the Update method for Monobehaviour, but is being explicitly called 
+        /// This is equivalent to the Update method for MonoBehaviour, but is being explicitly called 
         /// instead of being run on its own. 
         /// </remarks>
         public abstract void UpdateState();
 
         /// <summary>
-        /// Cleans up the logic for the CombatState.
+        /// Cleans up the logic for this CombatState.
         /// </summary>
         public abstract void EndState();
 
         /// <summary>
-        /// Indicates if the CombatState is finished.
+        /// Indicates if this CombatState is finished.
         /// </summary>
         /// <returns>
-        /// True- if the CombatState is finished.
-        /// False- if the CombatState is not finished.
+        /// True- if this CombatState is finished.
+        /// False- if this CombatState is not finished.
         /// </returns>
         public abstract bool IsFinished();
 
