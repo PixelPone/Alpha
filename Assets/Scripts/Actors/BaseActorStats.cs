@@ -5,15 +5,13 @@ using static Scripts.Constants;
 namespace Scripts.Actors
 {
     /// <summary>
-    /// Stores an Actor's general information and Base SPECIAL values.
+    /// Stores an Actor's shared general information and Base SPECIAL values.
     /// </summary>
     [CreateAssetMenu(fileName = "BaseActorStats", menuName = "Alpha/BaseActorStats")]
     public class BaseActorStats : ScriptableObject
     {
         [field: SerializeField, TextArea, Header("General Info")]
         public string Description { get; private set; } = "This is a test description!";
-        [field: SerializeField]
-        public Actor_Gender Gender { get; private set; } = Actor_Gender.MALE;
         [field: SerializeField, Range(-4, 4)]
         public int Size { get; private set; } = 0;
 
@@ -41,14 +39,25 @@ namespace Scripts.Actors
         public Special_Name MagicSpecial { get; private set; } = Special_Name.STRENGTH;
         public int MagicSpecialValue { get; private set; }
 
+        [field: Header("Base Resistances")]
+        public int ResistancePoision { get; private set; }
+        public int ResistanceRadiation { get; private set; }
+        //Used for SPECIAL Check
+        public int ResistanceCold { get; private set; }
+        //Used for Endurance SPECIAL Check
+        public int ResistanceHeat { get; private set; }
+        //Used for SPECIAL Check
+        public int ResistanceElectricity { get; private set; }
+
         [field: SerializeField]
         public List<ActorLimb> actorLimbs { get; private set; }
 
         public void Awake()
         {
             //Debug.Log("On BaseActorStat Awake!");
-
             UpdateMagicSpecial();
+            CalculateBaseResistances();
+            CheckActorLimbs();
         }
 
         public void OnValidate()
@@ -56,6 +65,8 @@ namespace Scripts.Actors
             //Debug.Log("On BaseActorStat OnValidate!");
             //PrintSpecialValues();
             UpdateMagicSpecial();
+            CalculateBaseResistances();
+            CheckActorLimbs();
         }
 
         public void Reset()
@@ -70,8 +81,9 @@ namespace Scripts.Actors
 
             //Debug.Log("On BaseActorStat Reset!");
             //PrintSpecialValues();
-            CheckActorLimbs();
             UpdateMagicSpecial();
+            CalculateBaseResistances();
+            CheckActorLimbs();
         }
 
         private void PrintSpecialValues()
@@ -83,6 +95,15 @@ namespace Scripts.Actors
             Debug.Log($"Intelligence {Intelligence}");
             Debug.Log($"Agility {Agility}");
             Debug.Log($"Luck {Luck}");
+        }
+
+        private void CalculateBaseResistances()
+        {
+            ResistancePoision = 10;
+            ResistanceRadiation = 5;
+            ResistanceCold = Endurance / Agility;
+            ResistanceHeat = Endurance;
+            ResistanceElectricity = Endurance / Strength;
         }
 
         private void CheckActorLimbs()

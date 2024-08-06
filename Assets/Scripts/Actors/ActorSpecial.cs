@@ -1,23 +1,12 @@
 ﻿using Scripts.CombatStates;
-using Scripts.Perks;
-using System.Collections;
 using UnityEngine;
 
 namespace Scripts.Actors
 {
     public class ActorSpecial : MonoBehaviour
     {
-        //Will get refractored into its own component
-        [field: Header("General Info"), SerializeField]
+        [field: SerializeField]
         public BaseActorStats BaseActorSpecial { get; private set; }
-        [SerializeField]
-        private string actorName;
-        public int Level { get; set; } = 1;
-        private int experience = 0;
-        private int karma;
-
-        [SerializeField]
-        private ActorPast actorPast;
 
         //Any Battle Specific variables of an Actor- if there are too many, this will
         //be refractored into a separate component
@@ -29,9 +18,22 @@ namespace Scripts.Actors
 
         //Actor's SPECIAL stats
         //Ranges [1 - 10] normally, can go up to 15 with temporary buffs
+        //Base SPECIAL is currently retrived from BaseActorStats SO
+        //Permanent SPECIAL is stored and retrived from ActorSpecial
         //This is so that each indiviual Actor can have their own SPECIAL if needed
-        //(useful for permenant modifiers)
-        [field: Header("SPECIAL Values")]
+
+        //Base SPECIAL
+        public int BaseStrength { get { return BaseActorSpecial.Strength; } }
+        public int BasePerception { get { return BaseActorSpecial.Perception; } }
+        public int BaseEndurance { get { return BaseActorSpecial.Endurance; } }
+        public int BaseCharisma { get { return BaseActorSpecial.Charisma; } }
+        public int BaseIntelligence { get { return BaseActorSpecial.Intelligence; } }
+        public int BaseAgility { get { return BaseActorSpecial.Agility; } }
+        public int BaseLuck { get { return BaseActorSpecial.Luck; } }
+
+        //Permanent SPECIAL for this Actor
+        //This is Base SPECIAL modified with any Perks, Traits, etc
+        //(Any permanent modifiers)
         public int Strength { get; set; }
         public int Perception { get; set; }
         public int Endurance { get; set; }
@@ -41,7 +43,6 @@ namespace Scripts.Actors
         public int Luck { get; set; }
 
         //For Temporary SPECIAL buffs, the maximum value that these can be is 15
-        [Header("Temporary SPECIAL Values")]
         private int tempStrength;
         private int tempPerception;
         private int tempEndurance;
@@ -60,13 +61,13 @@ namespace Scripts.Actors
 
         public void Awake()
         {
-            Strength = BaseActorSpecial.Strength;
-            Perception = BaseActorSpecial.Perception;
-            Endurance = BaseActorSpecial.Endurance;
-            Charisma = BaseActorSpecial.Charisma;
-            Intelligence = BaseActorSpecial.Intelligence;
-            Agility = BaseActorSpecial.Agility;
-            Luck = BaseActorSpecial.Luck;
+            Strength = BaseStrength;
+            Perception = BasePerception;
+            Endurance = BaseEndurance;
+            Charisma = BaseCharisma;
+            Intelligence = BaseIntelligence;
+            Agility = BaseAgility;
+            Luck = BaseLuck;
 
             TempStrength = Strength;
             TempPerception = Perception;
