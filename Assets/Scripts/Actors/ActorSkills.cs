@@ -68,7 +68,7 @@ namespace Scripts.Actors
             SkillSleight = (2 * Agility) + (Luck / 2);
             SkillSneak = (2 * Agility) + (Luck / 2);
             SkillSurvival = (2 * Endurance) + (Luck / 2);
-            SkillThaumaturgy = (2 * actorSpecial.BaseActorSpecial.MagicSpecialValue) + (Luck / 2);
+            SkillThaumaturgy = (2 * actorSpecial.BaseStats.MagicSpecialValue) + (Luck / 2);
             SkillUnarmed = (2 * Endurance) + (Luck / 2);
         }
     }

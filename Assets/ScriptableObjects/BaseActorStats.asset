@@ -13,9 +13,8 @@ MonoBehaviour:
   m_Name: BaseActorStats
   m_EditorClassIdentifier: 
   <Description>k__BackingField: This is a test description!
-  <Gender>k__BackingField: 0
   <Size>k__BackingField: 0
-  <RaceName>k__BackingField: 0
+  <RaceName>k__BackingField: 2
   <Strength>k__BackingField: 5
   <Perception>k__BackingField: 7
   <Endurance>k__BackingField: 5
@@ -24,4 +23,40 @@ MonoBehaviour:
   <Agility>k__BackingField: 5
   <Luck>k__BackingField: 5
   <MagicSpecial>k__BackingField: 0
-  <actorLimbs>k__BackingField: []
+  <ActorLimbs>k__BackingField:
+  - <LimbName>k__BackingField: Head
+    <LimbType>k__BackingField: 0
+    <MaxLimbHealth>k__BackingField: 5
+    <CanCripple>k__BackingField: 1
+    <AllowsFlight>k__BackingField: 0
+    <CrippleStatus>k__BackingField: 0
+  - <LimbName>k__BackingField: Torso
+    <LimbType>k__BackingField: 1
+    <MaxLimbHealth>k__BackingField: 5
+    <CanCripple>k__BackingField: 1
+    <AllowsFlight>k__BackingField: 0
+    <CrippleStatus>k__BackingField: 0
+  - <LimbName>k__BackingField: Left Foreleg
+    <LimbType>k__BackingField: 2
+    <MaxLimbHealth>k__BackingField: 5
+    <CanCripple>k__BackingField: 1
+    <AllowsFlight>k__BackingField: 0
+    <CrippleStatus>k__BackingField: 0
+  - <LimbName>k__BackingField: Right Foreleg
+    <LimbType>k__BackingField: 3
+    <MaxLimbHealth>k__BackingField: 5
+    <CanCripple>k__BackingField: 1
+    <AllowsFlight>k__BackingField: 0
+    <CrippleStatus>k__BackingField: 0
+  - <LimbName>k__BackingField: Left Hindleg
+    <LimbType>k__BackingField: 4
+    <MaxLimbHealth>k__BackingField: 5
+    <CanCripple>k__BackingField: 1
+    <AllowsFlight>k__BackingField: 0
+    <CrippleStatus>k__BackingField: 0
+  - <LimbName>k__BackingField: Right Hindleg
+    <LimbType>k__BackingField: 5
+    <MaxLimbHealth>k__BackingField: 5
+    <CanCripple>k__BackingField: 1
+    <AllowsFlight>k__BackingField: 0
+    <CrippleStatus>k__BackingField: 0

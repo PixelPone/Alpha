@@ -5,13 +5,10 @@ using UnityEngine;
 namespace Scripts.Actors
 {
     [RequireComponent(typeof(ActorSpecial))]
-    [RequireComponent(typeof(ActorInfo))]
     public class ActorStatus : MonoBehaviour
     {
-        //Used to get Level
-        private ActorInfo actorInfo;
 
-        //Used to get SPECIAL values needed for stat calculations
+        //Used to get Level and SPECIAL values needed for stat calculations
         private ActorSpecial actorSpecial;
 
         //Used to get base Resistances
@@ -77,9 +74,9 @@ namespace Scripts.Actors
         // Use this for initialization
         void Start()
         {
-            actorInfo = GetComponent<ActorInfo>();
             actorSpecial = GetComponent<ActorSpecial>();
-            baseActorStats = actorSpecial.BaseActorSpecial;
+            baseActorStats = actorSpecial.BaseStats;
+            actorLimbs = baseActorStats.ActorLimbs;
             SetStats();
         }
 
@@ -93,7 +90,7 @@ namespace Scripts.Actors
         {
             MaxHp = 10 + Endurance;
             MaxAp = 10 + (Agility / 2);
-            int strainBonus = (actorInfo.Level / 5);
+            int strainBonus = (actorSpecial.Level / 5);
             MaxStrain = 20 + (strainBonus * 5);
             MaxInsanity = 5 + (Intelligence / 2);
 

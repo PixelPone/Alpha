@@ -96,8 +96,8 @@ namespace Scripts.CombatStates
             {
                 //Negative value of CompareTo is returned in order to make Actors with higher stats toward front of order
                 //Have to use BASE Perception when calculating Initiative rolls
-                int initiativeTotalOne = one.BaseActorSpecial.Perception + initiativeModifier.RollDice();
-                int initiativeTotalTwo = two.BaseActorSpecial.Perception + initiativeModifier.RollDice();
+                int initiativeTotalOne = one.BaseStats.Perception + initiativeModifier.RollDice();
+                int initiativeTotalTwo = two.BaseStats.Perception + initiativeModifier.RollDice();
 
                 int compare = initiativeTotalOne.CompareTo(initiativeTotalTwo);
                 if (compare != 0)

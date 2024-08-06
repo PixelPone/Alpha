@@ -46,8 +46,8 @@ namespace Scripts.CombatStates
         public float CurrentDuration => Time.time - startTime;
 
         /// <summary>
-        /// Indicates “who” owns the CombatState. Useful when removing all CombatStates associated with a certain owner from
-        /// CombatStateQueue.
+        /// Indicates "who" owns the CombatState. Useful when removing all CombatStates 
+        /// associated with a certain owner from CombatStateQueue.
         /// </summary>
         [field: SerializeField]
         public ActorSpecial Owner { get; set; }
@@ -109,7 +109,10 @@ namespace Scripts.CombatStates
         /// True- if this CombatState is finished.
         /// False- if this CombatState is not finished.
         /// </returns>
-        public abstract bool IsFinished();
+        public virtual bool IsFinished()
+        {
+            return true;
+        }
 
     }
 }

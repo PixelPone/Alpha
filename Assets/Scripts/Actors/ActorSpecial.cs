@@ -1,12 +1,24 @@
 ﻿using Scripts.CombatStates;
+using Scripts.Perks;
 using UnityEngine;
+using static Scripts.Constants;
 
 namespace Scripts.Actors
 {
     public class ActorSpecial : MonoBehaviour
     {
+        [field: Header("General Info"), SerializeField]
+        public string ActorName { get; private set; }
+        public int Level { get; set; } = 1;
+        public int Experience { get; set; } = 0;
+        public int Karma { get; set; } = 0;
+
+        [SerializeField]
+        private ActorPast actorPast;
         [field: SerializeField]
-        public BaseActorStats BaseActorSpecial { get; private set; }
+        public Actor_Gender Gender { get; private set; } = Actor_Gender.MALE;
+
+        public BaseActorStats BaseStats { get; private set; }
 
         //Any Battle Specific variables of an Actor- if there are too many, this will
         //be refractored into a separate component
@@ -23,13 +35,13 @@ namespace Scripts.Actors
         //This is so that each indiviual Actor can have their own SPECIAL if needed
 
         //Base SPECIAL
-        public int BaseStrength { get { return BaseActorSpecial.Strength; } }
-        public int BasePerception { get { return BaseActorSpecial.Perception; } }
-        public int BaseEndurance { get { return BaseActorSpecial.Endurance; } }
-        public int BaseCharisma { get { return BaseActorSpecial.Charisma; } }
-        public int BaseIntelligence { get { return BaseActorSpecial.Intelligence; } }
-        public int BaseAgility { get { return BaseActorSpecial.Agility; } }
-        public int BaseLuck { get { return BaseActorSpecial.Luck; } }
+        public int BaseStrength { get { return BaseStats.Strength; } }
+        public int BasePerception { get { return BaseStats.Perception; } }
+        public int BaseEndurance { get { return BaseStats.Endurance; } }
+        public int BaseCharisma { get { return BaseStats.Charisma; } }
+        public int BaseIntelligence { get { return BaseStats.Intelligence; } }
+        public int BaseAgility { get { return BaseStats.Agility; } }
+        public int BaseLuck { get { return BaseStats.Luck; } }
 
         //Permanent SPECIAL for this Actor
         //This is Base SPECIAL modified with any Perks, Traits, etc

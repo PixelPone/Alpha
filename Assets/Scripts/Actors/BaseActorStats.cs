@@ -50,7 +50,7 @@ namespace Scripts.Actors
         public int ResistanceElectricity { get; private set; }
 
         [field: SerializeField]
-        public List<ActorLimb> actorLimbs { get; private set; }
+        public List<ActorLimb> ActorLimbs { get; private set; }
 
         public void Awake()
         {
@@ -108,7 +108,7 @@ namespace Scripts.Actors
 
         private void CheckActorLimbs()
         {
-            if(actorLimbs.Count == 0)
+            if(ActorLimbs.Count == 0)
             {
                 Debug.LogError("This Actor does not have limbs!");
             }
